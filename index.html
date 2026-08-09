@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="FREIRAUM – Magazin für Bildung, Schule und Gesellschaft. Unabhängig und schulkritisch.">
+  <title>FREIRAUM – Magazin für Bildung, Schule und Gesellschaft</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-name" href="index.html">FREIRAUM</a>
+        <p class="brand-tagline">Magazin für Bildung, Schule und Gesellschaft</p>
+      </div>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
+        <ul class="nav-list">
+          <li><a href="#artikel">Artikel</a></li>
+          <li><a href="#themen">Themen</a></li>
+          <li><a href="#erfahrungen">Erfahrungen</a></li>
+          <li><a href="#ueber-uns">Über uns</a></li>
+          <li>
+            <a class="nav-search" href="#suche" aria-label="Suche">
+              <span aria-hidden="true">Suche</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- 1. Großer Aufmacher -->
+    <section class="lead" aria-labelledby="lead-headline">
+      <div class="lead-copy">
+        <p class="label">Analyse</p>
+        <h1 id="lead-headline">
+          <a href="#artikel">Lernen Kinder Sozialverhalten wirklich in der Schule?</a>
+        </h1>
+        <p class="lead-teaser">
+          Die Vorstellung, Schule sei für die soziale Entwicklung von Kindern unverzichtbar, wird häufig wiederholt. Doch was lernen Kinder tatsächlich in überwiegend altershomogenen Gruppen – und welche Rolle spielt eine Kindheit, in der das frühere „Dorf“ zunehmend fehlt?
+        </p>
+        <p class="byline">
+          <span class="byline-author">Von Clara Mehling</span>
+          <span class="meta-sep" aria-hidden="true">·</span>
+          <time datetime="2026-08-04">4. August 2026</time>
+          <span class="meta-sep" aria-hidden="true">·</span>
+          <span>18 Min. Lesezeit</span>
+        </p>
+      </div>
+      <figure class="lead-media">
+        <div class="media-plane media-plane--lead" role="img" aria-label="Platzhalterbild: Schulhof am Nachmittag, leere Bank im Vordergrund"></div>
+        <figcaption>Platzhalter – Bild folgt</figcaption>
+      </figure>
+    </section>
+
+    <!-- 2. Zwei hervorgehobene Beiträge -->
+    <section class="featured" aria-label="Hervorgehobene Beiträge">
+      <article class="featured-item">
+        <p class="label">Analyse</p>
+        <h2 class="featured-title">
+          <a href="#artikel">Wenn Eltern in der Schule lieber schweigen</a>
+        </h2>
+        <p class="featured-teaser">
+          Über Autorität, Abhängigkeit und die Frage, warum offene Kommunikation zwischen Eltern und Lehrkräften schwierig werden kann.
+        </p>
+        <p class="meta">
+          <span>Von Jonas Bertram</span>
+          <span class="meta-sep" aria-hidden="true">·</span>
+          <time datetime="2026-07-28">28. Juli 2026</time>
+        </p>
+      </article>
+
+      <article class="featured-item">
+        <p class="label label--debatte">Debatte</p>
+        <h2 class="featured-title">
+          <a href="#artikel">Hausaufgaben: Was bleibt vom Argument der Notwendigkeit?</a>
+        </h2>
+        <p class="featured-teaser">
+          Über Nutzen, Belastung und soziale Ungleichheit.
+        </p>
+        <p class="meta">
+          <span>Von Mira Soltani</span>
+          <span class="meta-sep" aria-hidden="true">·</span>
+          <time datetime="2026-07-22">22. Juli 2026</time>
+        </p>
+      </article>
+    </section>
+
+    <!-- 3. Neu bei FREIRAUM -->
+    <section class="section latest" id="artikel" aria-labelledby="latest-heading">
+      <div class="section-head">
+        <h2 id="latest-heading" class="section-title">Neu bei FREIRAUM</h2>
+        <a class="section-link" href="#themen">Alle Themen</a>
+      </div>
+
+      <div class="latest-grid">
+        <article class="story">
+          <div class="media-plane media-plane--story" role="img" aria-label="Platzhalterbild"></div>
+          <p class="label">Analyse</p>
+          <h3 class="story-title"><a href="#artikel">Schulpflicht ohne Alternativen: Wer entscheidet über Kindheit?</a></h3>
+          <p class="story-teaser">Ein Blick auf die rechtliche Konstruktion der Schulpflicht – und auf das, was sie für Familien bedeutet, die andere Wege suchen.</p>
+          <p class="meta"><time datetime="2026-08-01">1. August 2026</time></p>
+        </article>
+
+        <article class="story">
+          <div class="media-plane media-plane--story media-plane--alt" role="img" aria-label="Platzhalterbild"></div>
+          <p class="label">Reportage</p>
+          <h3 class="story-title"><a href="#artikel">Freilernen im Alltag: Was bleibt, wenn der Stundenplan wegfällt?</a></h3>
+          <p class="story-teaser">Familien beschreiben, wie Lernen ohne Schule aussieht – zwischen Freiheit, Struktur und gesellschaftlichen Zweifeln.</p>
+          <p class="meta"><time datetime="2026-07-30">30. Juli 2026</time></p>
+        </article>
+
+        <article class="story">
+          <div class="media-plane media-plane--story media-plane--sage" role="img" aria-label="Platzhalterbild"></div>
+          <p class="label">Analyse</p>
+          <h3 class="story-title"><a href="#artikel">Homeschooling in Deutschland: Zwischen Tabu und Sehnsucht</a></h3>
+          <p class="story-teaser">Warum eine Praxis, die anderswo legal ist, hierzulande so stark polarisiert – und welche Fragen oft ungeklärt bleiben.</p>
+          <p class="meta"><time datetime="2026-07-26">26. Juli 2026</time></p>
+        </article>
+
+        <article class="story">
+          <div class="media-plane media-plane--story media-plane--sand" role="img" aria-label="Platzhalterbild"></div>
+          <p class="label">Debatte</p>
+          <h3 class="story-title"><a href="#artikel">Noten als Wahrheit: Wie Bewertung Beziehungen formt</a></h3>
+          <p class="story-teaser">Über Leistungsvergleiche, Selbstbilder und die stille Macht einer Zahl auf dem Zeugnis.</p>
+          <p class="meta"><time datetime="2026-07-19">19. Juli 2026</time></p>
+        </article>
+
+        <article class="story">
+          <div class="media-plane media-plane--story" role="img" aria-label="Platzhalterbild"></div>
+          <p class="label">Analyse</p>
+          <h3 class="story-title"><a href="#artikel">LRS und ADHS im Schulsystem: Diagnose als Entlastung – oder Etikett?</a></h3>
+          <p class="story-teaser">Wenn das System nicht passt, wird oft das Kind erklärt. Was das für Familien und pädagogische Praxis bedeutet.</p>
+          <p class="meta"><time datetime="2026-07-14">14. Juli 2026</time></p>
+        </article>
+
+        <article class="story">
+          <div class="media-plane media-plane--story media-plane--alt" role="img" aria-label="Platzhalterbild"></div>
+          <p class="label">Kommentar</p>
+          <h3 class="story-title"><a href="#artikel">Bildungsgerechtigkeit beginnt nicht beim Nachhilfeinstitut</a></h3>
+          <p class="story-teaser">Warum Chancengleichheit nicht nur eine Frage von Förderprogrammen ist, sondern von Struktur und Zeit.</p>
+          <p class="meta"><time datetime="2026-07-11">11. Juli 2026</time></p>
+        </article>
+
+        <article class="story">
+          <div class="media-plane media-plane--story media-plane--sage" role="img" aria-label="Platzhalterbild"></div>
+          <p class="label">Analyse</p>
+          <h3 class="story-title"><a href="#artikel">Soziale Vergleichsprozesse: Was Kinder in Jahrgangsklassen lernen</a></h3>
+          <p class="story-teaser">Neben dem Lehrplan wirkt der Vergleich – leise, dauerhaft und oft folgenreicher als jede einzelne Stunde.</p>
+          <p class="meta"><time datetime="2026-07-07">7. Juli 2026</time></p>
+        </article>
+
+        <article class="story">
+          <div class="media-plane media-plane--story media-plane--sand" role="img" aria-label="Platzhalterbild"></div>
+          <p class="label">Debatte</p>
+          <h3 class="story-title"><a href="#artikel">Altersmischung statt Jahrgangsklassen: Chance oder Romantisierung?</a></h3>
+          <p class="story-teaser">Ein Plädoyer mit Vorbehalten – und die Frage, was Kinder voneinander lernen können, wenn Alter nicht trennt.</p>
+          <p class="meta"><time datetime="2026-07-02">2. Juli 2026</time></p>
+        </article>
+
+        <article class="story">
+          <div class="media-plane media-plane--story" role="img" aria-label="Platzhalterbild"></div>
+          <p class="label">Analyse</p>
+          <h3 class="story-title"><a href="#artikel">Digitalisierung in der Schule: Werkzeug, Ideologie – oder Ablenkung?</a></h3>
+          <p class="story-teaser">Tablets allein ändern wenig. Entscheidend bleibt, wofür Lernen im System eigentlich da sein soll.</p>
+          <p class="meta"><time datetime="2026-06-28">28. Juni 2026</time></p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Themenleiste -->
+    <section class="topics" id="themen" aria-labelledby="topics-heading">
+      <h2 id="topics-heading" class="section-title">Themen</h2>
+      <ul class="topics-list">
+        <li><a href="#artikel">Schulpflicht</a></li>
+        <li><a href="#artikel">Freilernen</a></li>
+        <li><a href="#artikel">Homeschooling</a></li>
+        <li><a href="#artikel">Noten</a></li>
+        <li><a href="#artikel">Kindheit</a></li>
+        <li><a href="#artikel">Bildungspolitik</a></li>
+        <li><a href="#artikel">Lehrkräfte</a></li>
+        <li><a href="#artikel">Sozialpsychologie</a></li>
+      </ul>
+    </section>
+
+    <!-- 4. Erfahrungen -->
+    <section class="section experiences" id="erfahrungen" aria-labelledby="experiences-heading">
+      <div class="section-head">
+        <h2 id="experiences-heading" class="section-title">Erfahrungen</h2>
+        <p class="section-intro">Persönliche Berichte von Familien, Jugendlichen, Lehrkräften und anderen Beteiligten.</p>
+      </div>
+
+      <div class="experiences-layout">
+        <article class="experience-lead">
+          <p class="label">Erfahrung</p>
+          <h3 class="experience-lead-title">
+            <a href="#erfahrungen">Wir wollten keine Schulverweigerung – wir wollten verstehen, warum unser Kind nicht mehr konnte.</a>
+          </h3>
+          <p class="experience-lead-teaser">
+            Eine Mutter erzählt vom schleichenden Rückzug ihres Sohnes, von Elterngesprächen ohne Antworten und von dem Moment, in dem sie aufhörte, nur Funktionieren zu fordern.
+          </p>
+          <p class="meta">
+            <span>Anonym / Nordrhein-Westfalen</span>
+            <span class="meta-sep" aria-hidden="true">·</span>
+            <time datetime="2026-07-31">31. Juli 2026</time>
+          </p>
+        </article>
+
+        <ul class="experience-list">
+          <li>
+            <p class="label">Jugendlicher</p>
+            <h3 class="experience-list-title"><a href="#erfahrungen">Ich war nicht faul – ich war überfordert.</a></h3>
+          </li>
+          <li>
+            <p class="label">Familie</p>
+            <h3 class="experience-list-title"><a href="#erfahrungen">Warum wir unser Kind aus der Schule genommen haben.</a></h3>
+          </li>
+          <li>
+            <p class="label">Lehrkraft</p>
+            <h3 class="experience-list-title"><a href="#erfahrungen">Ich möchte wieder Lehrerin sein dürfen.</a></h3>
+          </li>
+          <li>
+            <p class="label">Eltern</p>
+            <h3 class="experience-list-title"><a href="#erfahrungen">Unser Sohn blühte erst außerhalb der Schule auf.</a></h3>
+          </li>
+        </ul>
+      </div>
+
+      <p class="experiences-cta">
+        <a class="text-button" href="#erfahrungen">Eigene Erfahrung einreichen</a>
+      </p>
+    </section>
+
+    <!-- 5. Analysen & Debatten -->
+    <section class="section debates" aria-labelledby="debates-heading">
+      <div class="section-head">
+        <h2 id="debates-heading" class="section-title">Analysen &amp; Debatten</h2>
+      </div>
+
+      <div class="debates-grid">
+        <article class="debate-item">
+          <p class="label">Analyse</p>
+          <h3 class="debate-title"><a href="#artikel">Was bleibt vom Bildungsversprechen, wenn Zeit zum Erwachsenwerden fehlt?</a></h3>
+          <p class="debate-teaser">Schule organisiert Kindheit in Takten. Eine längere Betrachtung über Tempo, Reife und den Preis von Beschleunigung.</p>
+          <p class="meta"><span>Von Lea Hoffmann</span><span class="meta-sep" aria-hidden="true">·</span><span>24 Min.</span></p>
+        </article>
+
+        <article class="debate-item">
+          <p class="label label--kommentar">Kommentar</p>
+          <h3 class="debate-title"><a href="#artikel">Die Illusion der Neutralität in der Schuldebatte</a></h3>
+          <p class="debate-teaser">Wer „nur das Beste fürs Kind“ sagt, spricht selten wertfrei. Ein Kommentar über Sprache, Macht und blinde Flecken.</p>
+          <p class="meta"><span>Von Samir El-Kader</span><span class="meta-sep" aria-hidden="true">·</span><span>9 Min.</span></p>
+        </article>
+
+        <article class="debate-item">
+          <p class="label label--debatte">Debatte</p>
+          <h3 class="debate-title"><a href="#artikel">Muss Schule Kinder auf den Arbeitsmarkt vorbereiten?</a></h3>
+          <p class="debate-teaser">Zwei Positionen, ein Kernkonflikt: Bildung als Zurichtung – oder als Raum für Entwicklung jenseits von Verwertbarkeit.</p>
+          <p class="meta"><span>Redaktion FREIRAUM</span><span class="meta-sep" aria-hidden="true">·</span><span>14 Min.</span></p>
+        </article>
+      </div>
+    </section>
+
+    <div class="split-band">
+      <!-- 6. Meistgelesen -->
+      <section class="section most-read" aria-labelledby="most-read-heading">
+        <h2 id="most-read-heading" class="section-title">Meistgelesen</h2>
+        <ol class="most-read-list">
+          <li>
+            <a href="#artikel">
+              <span class="most-read-num" aria-hidden="true">01</span>
+              <span class="most-read-text">Lernen Kinder Sozialverhalten wirklich in der Schule?</span>
+            </a>
+          </li>
+          <li>
+            <a href="#artikel">
+              <span class="most-read-num" aria-hidden="true">02</span>
+              <span class="most-read-text">Wir wollten keine Schulverweigerung – wir wollten verstehen, warum unser Kind nicht mehr konnte.</span>
+            </a>
+          </li>
+          <li>
+            <a href="#artikel">
+              <span class="most-read-num" aria-hidden="true">03</span>
+              <span class="most-read-text">Wenn Eltern in der Schule lieber schweigen</span>
+            </a>
+          </li>
+          <li>
+            <a href="#artikel">
+              <span class="most-read-num" aria-hidden="true">04</span>
+              <span class="most-read-text">Homeschooling in Deutschland: Zwischen Tabu und Sehnsucht</span>
+            </a>
+          </li>
+          <li>
+            <a href="#artikel">
+              <span class="most-read-num" aria-hidden="true">05</span>
+              <span class="most-read-text">Hausaufgaben: Was bleibt vom Argument der Notwendigkeit?</span>
+            </a>
+          </li>
+        </ol>
+      </section>
+
+      <!-- 7. Newsletter -->
+      <section class="section newsletter" id="newsletter" aria-labelledby="newsletter-heading">
+        <h2 id="newsletter-heading" class="section-title">Newsletter</h2>
+        <p class="newsletter-text">
+          Einmal im Monat die wichtigsten Analysen, Debatten und Erfahrungsberichte von FREIRAUM – klar, unabhängig und ohne Lärm.
+        </p>
+        <form class="newsletter-form" action="#" method="post">
+          <label class="visually-hidden" for="newsletter-email">E-Mail-Adresse</label>
+          <input id="newsletter-email" name="email" type="email" autocomplete="email" required placeholder="Ihre E-Mail-Adresse">
+          <button type="submit">Anmelden</button>
+        </form>
+        <p class="newsletter-note" role="status" aria-live="polite"></p>
+        <p class="newsletter-disclaimer">Kostenlos. Jederzeit abbestellbar. Kein Werbelärm.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer" id="ueber-uns">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-name">FREIRAUM</p>
+        <p class="footer-tagline">Magazin für Bildung, Schule und Gesellschaft</p>
+        <p class="footer-about">
+          Unabhängiges, ausdrücklich schulkritisches Online-Magazin. Wir schreiben über Schule, Bildungssystem, Freilernen, Kindheit und die Fragen, die im Alltag oft zu kurz kommen.
+        </p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Fußzeile">
+        <ul>
+          <li><a href="#ueber-uns">Über uns</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+          <li><a href="#artikel">Autorinnen &amp; Autoren</a></li>
+          <li><a href="#ueber-uns">Kontakt</a></li>
+          <li><a href="#ueber-uns">Impressum</a></li>
+          <li><a href="#ueber-uns">Datenschutz</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-copy">
+      <span id="suche">© <span data-year></span> FREIRAUM</span>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
