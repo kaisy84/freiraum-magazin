@@ -325,6 +325,13 @@ main {
   font-size: 1.02rem;
 }
 
+.section-intro--quiet {
+  max-width: 34rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
 /* Reveal motion */
 
 .reveal {

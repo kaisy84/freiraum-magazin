@@ -1,6 +1,8 @@
 (() => {
   const FEATURED_COUNT = 2;
   const LATEST_COUNT = 9;
+  const OPINION_COUNT = 3;
+  const OPINION_FORMATS = new Set(["kommentar", "essay", "gastbeitrag", "position"]);
 
   const escapeHtml = (value) =>
     String(value)
@@ -22,8 +24,8 @@
 
   const labelClassName = (label) => {
     const key = String(label || "").toLowerCase();
-    if (key === "debatte") return "label label--debatte";
-    if (key === "kommentar") return "label label--kommentar";
+    if (key === "debatte" || key === "position") return "label label--debatte";
+    if (key === "kommentar" || key === "gastbeitrag") return "label label--kommentar";
     return "label";
   };
 
@@ -154,6 +156,51 @@
     renderLatest(latest);
   };
 
+  const getPublishedOpinions = () => {
+    const source = Array.isArray(window.FREIRAUM_OPINIONS) ? window.FREIRAUM_OPINIONS : [];
+    return source
+      .filter((opinion) => {
+        if (!opinion || opinion.published === false || !opinion.date || !opinion.title) return false;
+        return OPINION_FORMATS.has(String(opinion.format || "").toLowerCase());
+      })
+      .slice()
+      .sort((a, b) => {
+        if (a.date === b.date) return String(b.id || "").localeCompare(String(a.id || ""));
+        return a.date < b.date ? 1 : -1;
+      });
+  };
+
+  const renderStandpunkte = () => {
+    const root = document.querySelector("#standpunkte-grid");
+    if (!root) return;
+
+    const opinions = getPublishedOpinions().slice(0, OPINION_COUNT);
+    if (!opinions.length) {
+      root.innerHTML = "";
+      return;
+    }
+
+    root.innerHTML = opinions
+      .map(
+        (opinion) => `
+      <article class="debate-item">
+        <p class="${labelClassName(opinion.format)}">${escapeHtml(opinion.format)}</p>
+        <h3 class="debate-title"><a href="${escapeHtml(opinion.href || "#standpunkte")}">${escapeHtml(opinion.title)}</a></h3>
+        <p class="debate-teaser">${escapeHtml(opinion.teaser || "")}</p>
+        <p class="meta">
+          <span>Von ${escapeHtml(opinion.author || "Redaktion FREIRAUM")}</span>
+          ${
+            opinion.readingMinutes
+              ? `<span class="meta-sep" aria-hidden="true">·</span><span>${escapeHtml(opinion.readingMinutes)} Min.</span>`
+              : ""
+          }
+        </p>
+      </article>
+    `
+      )
+      .join("");
+  };
+
   const initChrome = () => {
     const navToggle = document.querySelector(".nav-toggle");
     const siteNav = document.querySelector("#site-nav");
@@ -233,6 +280,7 @@
   };
 
   renderHomepageArticles();
+  renderStandpunkte();
   initChrome();
   initReveal();
 })();
