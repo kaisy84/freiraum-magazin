@@ -65,7 +65,7 @@ window.FREIRAUM_ARTICLES = [
     teaser:
       "Kaum eine Diskussion über Homeschooling oder Freilernen kommt ohne diesen Satz aus: „Aber Kinder müssen doch in die Schule, um Sozialverhalten zu lernen.“",
     label: "Analyse",
-    author: "Clara Mehling",
+    author: "Redaktion FREIRAUM",
     date: "2026-08-04",
     readingMinutes: 18,
     href: "artikel/sozialverhalten-schule.html",
