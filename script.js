@@ -3,6 +3,7 @@
   const LATEST_COUNT = 9;
   const OPINION_COUNT = 3;
   const OPINION_FORMATS = new Set(["kommentar", "essay", "gastbeitrag", "position"]);
+  const siteRoot = document.body.dataset.siteRoot || "";
 
   const escapeHtml = (value) =>
     String(value)
@@ -11,6 +12,12 @@
       .replace(/>/g, "&gt;")
       .replace(/"/g, "&quot;")
       .replace(/'/g, "&#39;");
+
+  const resolveUrl = (url) => {
+    if (!url) return "#";
+    if (/^(https?:|mailto:|tel:|#|\/\/)/i.test(url)) return url;
+    return `${siteRoot}${url}`;
+  };
 
   const formatDate = (isoDate) => {
     const date = new Date(`${isoDate}T00:00:00`);
@@ -63,6 +70,31 @@
     latest: articles.slice(1 + FEATURED_COUNT, 1 + FEATURED_COUNT + LATEST_COUNT)
   });
 
+  const renderLeadMedia = (article, href) => {
+    const alt = article.imageAlt || "Beitragsbild";
+    if (article.image) {
+      return `
+        <a class="lead-media-link" href="${escapeHtml(href)}">
+          <img
+            class="lead-image"
+            src="${escapeHtml(resolveUrl(article.image))}"
+            alt="${escapeHtml(alt)}"
+            width="1600"
+            height="900"
+            loading="eager"
+            decoding="async"
+          >
+        </a>
+      `;
+    }
+
+    return `
+      <a class="lead-media-link" href="${escapeHtml(href)}">
+        <div class="${mediaToneClass(article.imageTone, { lead: true })}" role="img" aria-label="${escapeHtml(alt)}"></div>
+      </a>
+    `;
+  };
+
   const renderLead = (article) => {
     const root = document.querySelector("#lead");
     if (!root) return;
@@ -73,28 +105,21 @@
       return;
     }
 
+    const href = resolveUrl(article.href || "#artikel");
+
     root.hidden = false;
     root.innerHTML = `
       <div class="lead-copy">
         <p class="${labelClassName(article.label)}">${escapeHtml(article.label)}</p>
         <h1 id="lead-headline">
-          <a href="${escapeHtml(article.href || "#artikel")}">${escapeHtml(article.title)}</a>
+          <a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a>
         </h1>
-        <p class="lead-teaser">${escapeHtml(article.teaser || "")}</p>
-        <p class="byline">
-          <span class="byline-author">Von ${escapeHtml(article.author || "Redaktion FREIRAUM")}</span>
-          <span class="meta-sep" aria-hidden="true">·</span>
-          <time datetime="${escapeHtml(article.date)}">${escapeHtml(formatDate(article.date))}</time>
-          ${
-            article.readingMinutes
-              ? `<span class="meta-sep" aria-hidden="true">·</span><span>${escapeHtml(article.readingMinutes)} Min. Lesezeit</span>`
-              : ""
-          }
+        <p class="lead-teaser">
+          <a class="lead-teaser-link" href="${escapeHtml(href)}">${escapeHtml(article.teaser || "")}</a>
         </p>
       </div>
       <figure class="lead-media">
-        <div class="${mediaToneClass(article.imageTone, { lead: true })}" role="img" aria-label="${escapeHtml(article.imageAlt || "Platzhalterbild")}"></div>
-        <figcaption>${escapeHtml(article.imageCaption || "Platzhalter – Bild folgt")}</figcaption>
+        ${renderLeadMedia(article, href)}
       </figure>
     `;
   };
@@ -111,12 +136,13 @@
 
     root.hidden = false;
     root.innerHTML = articles
-      .map(
-        (article) => `
+      .map((article) => {
+        const href = resolveUrl(article.href || "#artikel");
+        return `
       <article class="featured-item">
         <p class="${labelClassName(article.label)}">${escapeHtml(article.label)}</p>
         <h2 class="featured-title">
-          <a href="${escapeHtml(article.href || "#artikel")}">${escapeHtml(article.title)}</a>
+          <a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a>
         </h2>
         <p class="featured-teaser">${escapeHtml(article.teaser || "")}</p>
         <p class="meta">
@@ -125,8 +151,8 @@
           <time datetime="${escapeHtml(article.date)}">${escapeHtml(formatDate(article.date))}</time>
         </p>
       </article>
-    `
-      )
+    `;
+      })
       .join("");
   };
 
@@ -135,17 +161,18 @@
     if (!root) return;
 
     root.innerHTML = articles
-      .map(
-        (article) => `
+      .map((article) => {
+        const href = resolveUrl(article.href || "#artikel");
+        return `
       <article class="story">
         <div class="${mediaToneClass(article.imageTone)}" role="img" aria-label="${escapeHtml(article.imageAlt || "Platzhalterbild")}"></div>
         <p class="${labelClassName(article.label)}">${escapeHtml(article.label)}</p>
-        <h3 class="story-title"><a href="${escapeHtml(article.href || "#artikel")}">${escapeHtml(article.title)}</a></h3>
+        <h3 class="story-title"><a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a></h3>
         <p class="story-teaser">${escapeHtml(article.teaser || "")}</p>
         <p class="meta"><time datetime="${escapeHtml(article.date)}">${escapeHtml(formatDate(article.date))}</time></p>
       </article>
-    `
-      )
+    `;
+      })
       .join("");
   };
 
@@ -160,7 +187,7 @@
     Array.isArray(window.FREIRAUM_TOPICS) ? window.FREIRAUM_TOPICS.filter((topic) => topic && topic.name) : [];
 
   const topicLinkHtml = (topic) =>
-    `<a href="${escapeHtml(topic.href || "#")}" data-topic-link="${escapeHtml(topic.id || "")}">${escapeHtml(topic.name)}</a>`;
+    `<a href="${escapeHtml(resolveUrl(topic.href || "#"))}" data-topic-link="${escapeHtml(topic.id || "")}">${escapeHtml(topic.name)}</a>`;
 
   const renderTopicsNavigation = () => {
     const topics = getMainTopics();
@@ -294,7 +321,7 @@
       type: article.label || "Artikel",
       title: article.title,
       teaser: article.teaser || "",
-      href: article.href || "#artikel",
+      href: resolveUrl(article.href || "#artikel"),
       haystack: normalizeSearchText(
         [
           article.title,
@@ -311,7 +338,7 @@
       type: opinion.format || "Standpunkt",
       title: opinion.title,
       teaser: opinion.teaser || "",
-      href: opinion.href || "#standpunkte",
+      href: resolveUrl(opinion.href || "#standpunkte"),
       haystack: normalizeSearchText(
         [opinion.title, opinion.teaser, opinion.format, opinion.author].join(" ")
       )
