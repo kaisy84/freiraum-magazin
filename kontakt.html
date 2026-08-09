@@ -74,7 +74,7 @@
   </header>
 
   <main id="main">
-    <article class="legal-page">
+    <article class="legal-page contact-page">
       <header class="legal-header">
         <p class="label">Redaktion</p>
         <h1 class="article-title">Kontakt</h1>
@@ -83,11 +83,11 @@
         </p>
       </header>
 
-      <div class="article-body legal-body">
-        <div class="contact-success" id="contact-success" hidden role="status">
-          <p>Danke – deine Nachricht ist unterwegs. Wir melden uns, sobald wir können.</p>
-        </div>
+      <div class="contact-success" id="contact-success" hidden role="status">
+        <p>Danke – deine Nachricht ist unterwegs. Wir melden uns, sobald wir können.</p>
+      </div>
 
+      <div class="contact-layout">
         <form
           class="contact-form"
           id="contact-form"
@@ -98,33 +98,36 @@
           <input type="hidden" name="_template" value="table">
           <input type="hidden" name="_captcha" value="false">
           <input type="hidden" name="_next" id="contact-next" value="">
-          <input type="text" name="_honey" class="contact-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="text" name="_honey" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-          <div class="contact-field">
-            <label for="contact-name">Name</label>
-            <input id="contact-name" name="name" type="text" autocomplete="name" required>
-          </div>
-
-          <div class="contact-field">
-            <label for="contact-email">E-Mail</label>
-            <input id="contact-email" name="email" type="email" autocomplete="email" required>
+          <div class="contact-row">
+            <div class="contact-field">
+              <label for="contact-name">Name</label>
+              <input id="contact-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="contact-field">
+              <label for="contact-email">E-Mail</label>
+              <input id="contact-email" name="email" type="email" autocomplete="email" required>
+            </div>
           </div>
 
           <div class="contact-field">
             <label for="contact-topic">Anliegen</label>
-            <select id="contact-topic" name="anliegen" required>
-              <option value="">Bitte wählen …</option>
-              <option value="Allgemeine Anfrage">Allgemeine Anfrage</option>
-              <option value="Erfahrung">Erfahrung einreichen</option>
-              <option value="Gastbeitrag">Gastbeitrag / Standpunkt</option>
-              <option value="Korrektur">Hinweis / Korrektur</option>
-              <option value="Sonstiges">Sonstiges</option>
-            </select>
+            <div class="contact-select">
+              <select id="contact-topic" name="anliegen" required>
+                <option value="">Bitte wählen …</option>
+                <option value="Allgemeine Anfrage">Allgemeine Anfrage</option>
+                <option value="Erfahrung">Erfahrung einreichen</option>
+                <option value="Gastbeitrag">Gastbeitrag / Standpunkt</option>
+                <option value="Korrektur">Hinweis / Korrektur</option>
+                <option value="Sonstiges">Sonstiges</option>
+              </select>
+            </div>
           </div>
 
           <div class="contact-field">
             <label for="contact-message">Nachricht</label>
-            <textarea id="contact-message" name="message" rows="8" required></textarea>
+            <textarea id="contact-message" name="message" rows="9" required></textarea>
           </div>
 
           <div class="contact-check">
@@ -134,14 +137,27 @@
             </label>
           </div>
 
-          <button type="submit">Nachricht senden</button>
-          <p class="contact-note">
-            Die Nachricht geht an
-            <a href="mailto:redaktion@magazin-freiraum.de">redaktion@magazin-freiraum.de</a>.
-            Alternativ kannst du uns auch direkt per E-Mail schreiben.
-          </p>
+          <div class="contact-actions">
+            <button type="submit">Nachricht senden</button>
+            <p class="contact-note">
+              Oder direkt an
+              <a href="mailto:redaktion@magazin-freiraum.de">redaktion@magazin-freiraum.de</a>
+            </p>
+          </div>
         </form>
 
+        <aside class="contact-aside" aria-label="Weitere Hinweise">
+          <p class="contact-aside-label">Direkt</p>
+          <p class="contact-aside-mail">
+            <a href="mailto:redaktion@magazin-freiraum.de">redaktion@magazin-freiraum.de</a>
+          </p>
+          <p>
+            Erfahrungen, Gastbeiträge und Korrekturhinweise am besten mit dem passenden Anliegen im Formular schicken – so landet die Nachricht schneller richtig.
+          </p>
+        </aside>
+      </div>
+
+      <div class="article-body legal-body">
         <h2 id="erfahrungen">Erfahrungen einreichen</h2>
         <p>
           Für persönliche Berichte wähle im Formular das Anliegen „Erfahrung einreichen“ – oder schreib direkt an die Redaktionsmail.
