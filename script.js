@@ -82,7 +82,7 @@
       .filter((article) => article && article.published !== false && article.date && article.title)
       .slice()
       .sort((a, b) => {
-        if (a.date === b.date) return String(b.id || "").localeCompare(String(a.id || ""));
+        if (a.date === b.date) return 0;
         return a.date < b.date ? 1 : -1;
       });
   };

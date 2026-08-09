@@ -43,6 +43,23 @@ window.FREIRAUM_TOPICS = [
 
 window.FREIRAUM_ARTICLES = [
   {
+    id: "freilernen-alltag",
+    title: "Freilernen im Alltag: Was bleibt, wenn der Stundenplan wegfällt?",
+    teaser:
+      "Ein Kind forscht am Küchentisch über Vulkane – ohne Stundenplan und ohne Klingeln. Was bleibt vom Lernen, wenn die äußere Ordnung wegfällt?",
+    label: "Reportage",
+    author: "Redaktion FREIRAUM",
+    date: "2026-08-09",
+    readingMinutes: 17,
+    href: "artikel/freilernen-alltag.html",
+    image: "assets/images/freilernen-alltag.jpg",
+    imageAlt: "Kind sitzt auf der Couch und schaut eine Naturdokumentation im Fernsehen",
+    imageCaption: "",
+    imageTone: "alt",
+    topics: ["Freilernen & Bildungswege", "Kindheit & Familie", "Lernen & Entwicklung"],
+    published: true
+  },
+  {
     id: "schulpflicht-alternativen",
     title: "Schulpflicht ohne Alternativen: Wer entscheidet über Kindheit?",
     teaser:
@@ -74,22 +91,6 @@ window.FREIRAUM_ARTICLES = [
     imageCaption: "",
     imageTone: "default",
     topics: ["Schule & Bildung", "Lernen & Entwicklung", "Gesellschaft & Sozialpsychologie"],
-    published: true
-  },
-  {
-    id: "freilernen-alltag",
-    title: "Freilernen im Alltag: Was bleibt, wenn der Stundenplan wegfällt?",
-    teaser:
-      "Familien beschreiben, wie Lernen ohne Schule aussieht – zwischen Freiheit, Struktur und gesellschaftlichen Zweifeln.",
-    label: "Reportage",
-    author: "Redaktion FREIRAUM",
-    date: "2026-07-30",
-    readingMinutes: 15,
-    href: "#artikel",
-    imageAlt: "Platzhalterbild",
-    imageCaption: "Platzhalter – Bild folgt",
-    imageTone: "alt",
-    topics: ["Freilernen & Bildungswege", "Kindheit & Familie", "Lernen & Entwicklung"],
     published: true
   },
   {
