@@ -269,9 +269,7 @@
     });
 
     document.querySelectorAll("[data-topic-link]").forEach((link) => {
-      link.addEventListener("click", (event) => {
-        // Themenseiten folgen später – vorerst keine Navigation/Ankersprünge.
-        event.preventDefault();
+      link.addEventListener("click", () => {
         closeTopicsMenu();
       });
     });

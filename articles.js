@@ -7,37 +7,28 @@
  * Anzeige redaktioneller Beiträge: Redaktion FREIRAUM · [Veröffentlichungsdatum]
  *
  * Hauptthemen (ausschließlich diese Bezeichnungen in `topics` verwenden):
- * - Schule & Bildung
- * - Freilernen & Bildungswege
- * - Kindheit & Familie
+ * - Schule & Bildungspolitik
  * - Lernen & Entwicklung
- * - Gesellschaft & Sozialpsychologie
+ * - Freilernen & Homeschooling
  */
 window.FREIRAUM_TOPICS = [
   {
-    id: "schule-bildung",
-    name: "Schule & Bildung",
-    href: "themen/schule-bildung.html"
-  },
-  {
-    id: "freilernen-bildungswege",
-    name: "Freilernen & Bildungswege",
-    href: "themen/freilernen-bildungswege.html"
-  },
-  {
-    id: "kindheit-familie",
-    name: "Kindheit & Familie",
-    href: "themen/kindheit-familie.html"
+    id: "schule-bildungspolitik",
+    name: "Schule & Bildungspolitik",
+    href: "themen/schule-bildungspolitik.html",
+    description: "Beiträge zu Schule, Schulsystem und bildungspolitischen Fragen."
   },
   {
     id: "lernen-entwicklung",
     name: "Lernen & Entwicklung",
-    href: "themen/lernen-entwicklung.html"
+    href: "themen/lernen-entwicklung.html",
+    description: "Beiträge zu Lernen, Kindheit und individueller Entwicklung."
   },
   {
-    id: "gesellschaft-sozialpsychologie",
-    name: "Gesellschaft & Sozialpsychologie",
-    href: "themen/gesellschaft-sozialpsychologie.html"
+    id: "freilernen-homeschooling",
+    name: "Freilernen & Homeschooling",
+    href: "themen/freilernen-homeschooling.html",
+    description: "Beiträge zu Freilernen, Homeschooling und Bildungswegen außerhalb der Schule."
   }
 ];
 

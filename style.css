@@ -623,6 +623,33 @@ main {
   margin: 0;
 }
 
+/* ----- Topic pages ----- */
+
+.topic-page {
+  padding: clamp(2rem, 4vw, 3.25rem) 0 var(--section-space);
+}
+
+.topic-header {
+  max-width: 42rem;
+  margin-bottom: clamp(1.75rem, 3vw, 2.5rem);
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.topic-header .section-intro {
+  margin-top: 0.85rem;
+}
+
+.topic-articles {
+  max-width: 42rem;
+}
+
+.topic-empty {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
 .article-hero {
   margin: 0 0 clamp(2rem, 4vw, 2.75rem);
 }

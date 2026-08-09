@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Beiträge zu Freilernen, Homeschooling und Bildungswegen außerhalb der Schule.">
+  <title>Freilernen &amp; Homeschooling – FREIRAUM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body data-site-root="../" data-topic-id="freilernen-homeschooling">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-name" href="../index.html">FREIRAUM</a>
+        <p class="brand-tagline">Magazin für Bildung, Schule und Gesellschaft</p>
+      </div>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
+        <ul class="nav-list">
+          <li><a href="../index.html#artikel">Artikel</a></li>
+          <li class="nav-item--topics">
+            <button
+              type="button"
+              class="nav-topics-toggle"
+              id="topics-menu-toggle"
+              aria-expanded="false"
+              aria-controls="topics-dropdown"
+            >
+              Themen
+            </button>
+            <ul class="nav-topics-dropdown" id="topics-dropdown" hidden></ul>
+          </li>
+          <li><a href="../index.html#erfahrungen">Erfahrungen</a></li>
+          <li><a href="../index.html#ueber-uns">Über uns</a></li>
+          <li>
+            <button type="button" class="nav-search" id="search-toggle" aria-expanded="false" aria-controls="search-panel">
+              Suche
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="search-panel" id="search-panel" hidden>
+      <div class="search-panel-inner">
+        <form class="search-form" role="search" action="#" method="get">
+          <label class="visually-hidden" for="site-search">Suche</label>
+          <input
+            id="site-search"
+            class="search-input"
+            type="search"
+            name="q"
+            placeholder="Artikel, Themen oder Begriffe suchen …"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button type="button" class="search-close" id="search-close" aria-label="Suche schließen">
+            <span aria-hidden="true">×</span>
+          </button>
+        </form>
+        <div class="search-results" id="search-results" hidden></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="topic-page" aria-labelledby="topic-title">
+      <header class="topic-header">
+        <p class="label">Thema</p>
+        <h1 id="topic-title" class="article-title">Freilernen &amp; Homeschooling</h1>
+        <p class="section-intro section-intro--quiet">Beiträge zu Freilernen, Homeschooling und Bildungswegen außerhalb der Schule.</p>
+      </header>
+
+      <div class="topic-articles" id="topic-articles">
+        <p class="topic-empty">In diesem Thema erscheinen Beiträge, sobald sie zugeordnet sind.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" id="ueber-uns">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-name">FREIRAUM</p>
+        <p class="footer-tagline">Magazin für Bildung, Schule und Gesellschaft</p>
+        <p class="footer-about">
+          Unabhängiges, ausdrücklich schulkritisches Online-Magazin. Wir schreiben über Schule, Bildungssystem, Freilernen, Kindheit und die Fragen, die im Alltag oft zu kurz kommen.
+        </p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Fußzeile">
+        <ul>
+          <li><a href="../index.html#ueber-uns">Über uns</a></li>
+          <li><a href="../index.html#newsletter">Newsletter</a></li>
+          <li><a href="../index.html#artikel">Autorinnen &amp; Autoren</a></li>
+          <li><a href="../index.html#ueber-uns">Kontakt</a></li>
+          <li><a href="../index.html#ueber-uns">Impressum</a></li>
+          <li><a href="../index.html#ueber-uns">Datenschutz</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-copy">
+      <span>© <span data-year></span> FREIRAUM</span>
+    </p>
+  </footer>
+
+  <script src="../articles.js"></script>
+  <script src="../opinions.js"></script>
+  <script src="../script.js"></script>
+</body>
+</html>
