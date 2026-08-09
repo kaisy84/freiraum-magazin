@@ -625,6 +625,25 @@ main {
 
 /* ----- Topic pages ----- */
 
+.legal-page {
+  padding: clamp(2rem, 4vw, 3.25rem) 0 var(--section-space);
+}
+
+.legal-header {
+  max-width: 42rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.legal-body a {
+  color: var(--terracotta);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.legal-body a:hover {
+  color: var(--green);
+}
+
 .topic-page {
   padding: clamp(2rem, 4vw, 3.25rem) 0 var(--section-space);
 }
