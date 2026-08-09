@@ -644,6 +644,15 @@ main {
   color: var(--green);
 }
 
+.legal-body ul {
+  margin: 0 0 1.25rem;
+  padding-left: 1.25rem;
+}
+
+.legal-body li {
+  margin-bottom: 0.4rem;
+}
+
 .topic-page {
   padding: clamp(2rem, 4vw, 3.25rem) 0 var(--section-space);
 }
