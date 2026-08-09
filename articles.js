@@ -3,6 +3,9 @@
  * Neueste zuerst pflegen oder beliebig belassen – die Startseite sortiert nach `date`.
  * `published: false` blendet einen Beitrag aus.
  *
+ * Autor: Standard ist „Redaktion FREIRAUM“, sofern kein anderer Autor gesetzt ist.
+ * Anzeige redaktioneller Beiträge: Redaktion FREIRAUM · [Veröffentlichungsdatum]
+ *
  * Hauptthemen (ausschließlich diese Bezeichnungen in `topics` verwenden):
  * - Schule & Bildung
  * - Freilernen & Bildungswege

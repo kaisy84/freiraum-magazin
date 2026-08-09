@@ -19,6 +19,8 @@
     return `${siteRoot}${url}`;
   };
 
+  const DEFAULT_AUTHOR = "Redaktion FREIRAUM";
+
   const formatDate = (isoDate) => {
     const date = new Date(`${isoDate}T00:00:00`);
     if (Number.isNaN(date.getTime())) return isoDate;
@@ -27,6 +29,33 @@
       month: "long",
       year: "numeric"
     }).format(date);
+  };
+
+  const resolveAuthor = (author) => {
+    const name = String(author || "").trim();
+    return name || DEFAULT_AUTHOR;
+  };
+
+  const formatAuthorLabel = (author) => {
+    const name = resolveAuthor(author);
+    return name === DEFAULT_AUTHOR ? name : `Von ${name}`;
+  };
+
+  const renderCreditLine = (item, { className = "byline", includeReadingTime = false } = {}) => {
+    const reading =
+      includeReadingTime && item.readingMinutes
+        ? `
+          <span class="meta-sep" aria-hidden="true">·</span>
+          <span>${escapeHtml(item.readingMinutes)} Min. Lesezeit</span>`
+        : "";
+
+    return `
+      <p class="${className}">
+        <span class="byline-author">${escapeHtml(formatAuthorLabel(item.author))}</span>
+        <span class="meta-sep" aria-hidden="true">·</span>
+        <time datetime="${escapeHtml(item.date)}">${escapeHtml(formatDate(item.date))}</time>${reading}
+      </p>
+    `;
   };
 
   const labelClassName = (label) => {
@@ -114,6 +143,7 @@
         <h1 id="lead-headline">
           <a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a>
         </h1>
+        ${renderCreditLine(article, { className: "byline", includeReadingTime: true })}
         <p class="lead-teaser">
           <a class="lead-teaser-link" href="${escapeHtml(href)}">${escapeHtml(article.teaser || "")}</a>
         </p>
@@ -145,11 +175,7 @@
           <a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a>
         </h2>
         <p class="featured-teaser">${escapeHtml(article.teaser || "")}</p>
-        <p class="meta">
-          <span>Von ${escapeHtml(article.author || "Redaktion FREIRAUM")}</span>
-          <span class="meta-sep" aria-hidden="true">·</span>
-          <time datetime="${escapeHtml(article.date)}">${escapeHtml(formatDate(article.date))}</time>
-        </p>
+        ${renderCreditLine(article, { className: "meta" })}
       </article>
     `;
       })
@@ -285,7 +311,7 @@
         <h3 class="debate-title"><a href="${escapeHtml(opinion.href || "#standpunkte")}">${escapeHtml(opinion.title)}</a></h3>
         <p class="debate-teaser">${escapeHtml(opinion.teaser || "")}</p>
         <p class="meta">
-          <span>Von ${escapeHtml(opinion.author || "Redaktion FREIRAUM")}</span>
+          <span>${escapeHtml(formatAuthorLabel(opinion.author))}</span>
           ${
             opinion.readingMinutes
               ? `<span class="meta-sep" aria-hidden="true">·</span><span>${escapeHtml(opinion.readingMinutes)} Min.</span>`

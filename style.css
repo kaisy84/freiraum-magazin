@@ -549,7 +549,11 @@ main {
   font-size: clamp(2.15rem, 4.4vw, 3.35rem);
   font-weight: 600;
   letter-spacing: -0.025em;
-  margin-bottom: 1.15rem;
+  margin-bottom: 0.75rem;
+}
+
+.lead-copy .byline {
+  margin: 0 0 1rem;
 }
 
 .lead h1 a {
@@ -612,7 +616,11 @@ main {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 600;
   letter-spacing: -0.025em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.article-header .byline {
+  margin: 0;
 }
 
 .article-hero {
