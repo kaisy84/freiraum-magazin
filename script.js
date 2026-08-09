@@ -201,6 +201,172 @@
       .join("");
   };
 
+  const normalizeSearchText = (value) => {
+    const lower = String(value || "").toLowerCase();
+    const german = lower
+      .replace(/ä/g, "ae")
+      .replace(/ö/g, "oe")
+      .replace(/ü/g, "ue")
+      .replace(/ß/g, "ss");
+    const plain = lower.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    return `${german} ${plain}`;
+  };
+
+  const shortenTeaser = (text, max = 140) => {
+    const value = String(text || "").trim();
+    if (value.length <= max) return value;
+    return `${value.slice(0, max - 1).trimEnd()}…`;
+  };
+
+  const collectSearchItems = () => {
+    const articles = getPublishedArticles().map((article) => ({
+      id: `article-${article.id}`,
+      type: article.label || "Artikel",
+      title: article.title,
+      teaser: article.teaser || "",
+      href: article.href || "#artikel",
+      haystack: normalizeSearchText(
+        [
+          article.title,
+          article.teaser,
+          article.label,
+          article.author,
+          Array.isArray(article.topics) ? article.topics.join(" ") : ""
+        ].join(" ")
+      )
+    }));
+
+    const opinions = getPublishedOpinions().map((opinion) => ({
+      id: `opinion-${opinion.id}`,
+      type: opinion.format || "Standpunkt",
+      title: opinion.title,
+      teaser: opinion.teaser || "",
+      href: opinion.href || "#standpunkte",
+      haystack: normalizeSearchText(
+        [opinion.title, opinion.teaser, opinion.format, opinion.author].join(" ")
+      )
+    }));
+
+    return articles.concat(opinions);
+  };
+
+  const initSearch = () => {
+    const toggle = document.querySelector("#search-toggle");
+    const panel = document.querySelector("#search-panel");
+    const input = document.querySelector("#site-search");
+    const closeBtn = document.querySelector("#search-close");
+    const results = document.querySelector("#search-results");
+    const form = document.querySelector(".search-form");
+    const navToggle = document.querySelector(".nav-toggle");
+    const siteNav = document.querySelector("#site-nav");
+
+    if (!toggle || !panel || !input || !closeBtn || !results) return;
+
+    const items = collectSearchItems();
+
+    const closeMobileNav = () => {
+      if (!navToggle || !siteNav) return;
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Menü öffnen");
+      siteNav.classList.remove("is-open");
+    };
+
+    const clearResults = () => {
+      results.hidden = true;
+      results.innerHTML = "";
+    };
+
+    const renderResults = (matches) => {
+      results.hidden = false;
+
+      if (!matches.length) {
+        results.innerHTML = `<p class="search-empty">Keine passenden Beiträge gefunden.</p>`;
+        return;
+      }
+
+      results.innerHTML = matches
+        .map(
+          (item) => `
+        <a class="search-result" href="${escapeHtml(item.href)}">
+          <p class="${labelClassName(item.type)}">${escapeHtml(item.type)}</p>
+          <span class="search-result-title">${escapeHtml(item.title)}</span>
+          ${
+            item.teaser
+              ? `<p class="search-result-teaser">${escapeHtml(shortenTeaser(item.teaser))}</p>`
+              : ""
+          }
+        </a>
+      `
+        )
+        .join("");
+    };
+
+    const runSearch = () => {
+      const query = input.value.trim();
+      if (!query) {
+        clearResults();
+        return;
+      }
+
+      const words = query.toLowerCase().split(/\s+/).filter(Boolean);
+      const matches = items.filter((item) =>
+        words.every((word) => {
+          const variants = normalizeSearchText(word).split(/\s+/).filter(Boolean);
+          return variants.some((variant) => item.haystack.includes(variant));
+        })
+      );
+      renderResults(matches);
+    };
+
+    const openSearch = () => {
+      panel.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+      closeMobileNav();
+      window.requestAnimationFrame(() => input.focus());
+    };
+
+    const closeSearch = ({ restoreFocus = true } = {}) => {
+      panel.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+      input.value = "";
+      clearResults();
+      if (restoreFocus) toggle.focus();
+    };
+
+    const toggleSearch = () => {
+      if (panel.hidden) openSearch();
+      else closeSearch();
+    };
+
+    toggle.addEventListener("click", (event) => {
+      event.preventDefault();
+      toggleSearch();
+    });
+
+    closeBtn.addEventListener("click", () => closeSearch());
+
+    if (form) {
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        runSearch();
+      });
+    }
+
+    input.addEventListener("input", runSearch);
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !panel.hidden) {
+        event.preventDefault();
+        closeSearch();
+      }
+    });
+
+    results.addEventListener("click", (event) => {
+      const link = event.target.closest("a.search-result");
+      if (link) closeSearch({ restoreFocus: false });
+    });
+  };
+
   const initChrome = () => {
     const navToggle = document.querySelector(".nav-toggle");
     const siteNav = document.querySelector("#site-nav");
@@ -245,6 +411,8 @@
         newsletterForm.reset();
       });
     }
+
+    initSearch();
   };
 
   const initReveal = () => {

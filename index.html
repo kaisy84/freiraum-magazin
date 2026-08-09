@@ -32,12 +32,33 @@
           <li><a href="#erfahrungen">Erfahrungen</a></li>
           <li><a href="#ueber-uns">Über uns</a></li>
           <li>
-            <a class="nav-search" href="#suche" aria-label="Suche">
-              <span aria-hidden="true">Suche</span>
-            </a>
+            <button type="button" class="nav-search" id="search-toggle" aria-expanded="false" aria-controls="search-panel">
+              Suche
+            </button>
           </li>
         </ul>
       </nav>
+    </div>
+
+    <div class="search-panel" id="search-panel" hidden>
+      <div class="search-panel-inner">
+        <form class="search-form" role="search" action="#" method="get">
+          <label class="visually-hidden" for="site-search">Suche</label>
+          <input
+            id="site-search"
+            class="search-input"
+            type="search"
+            name="q"
+            placeholder="Artikel, Themen oder Begriffe suchen …"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button type="button" class="search-close" id="search-close" aria-label="Suche schließen">
+            <span aria-hidden="true">×</span>
+          </button>
+        </form>
+        <div class="search-results" id="search-results" hidden></div>
+      </div>
     </div>
   </header>
 
@@ -204,7 +225,7 @@
       </nav>
     </div>
     <p class="footer-copy">
-      <span id="suche">© <span data-year></span> FREIRAUM</span>
+      <span>© <span data-year></span> FREIRAUM</span>
     </p>
   </footer>
 
