@@ -156,6 +156,76 @@
     renderLatest(latest);
   };
 
+  const getMainTopics = () =>
+    Array.isArray(window.FREIRAUM_TOPICS) ? window.FREIRAUM_TOPICS.filter((topic) => topic && topic.name) : [];
+
+  const topicLinkHtml = (topic) =>
+    `<a href="${escapeHtml(topic.href || "#")}" data-topic-link="${escapeHtml(topic.id || "")}">${escapeHtml(topic.name)}</a>`;
+
+  const renderTopicsNavigation = () => {
+    const topics = getMainTopics();
+    const list = document.querySelector("#topics-list");
+    const dropdown = document.querySelector("#topics-dropdown");
+
+    if (list) {
+      list.innerHTML = topics.map((topic) => `<li>${topicLinkHtml(topic)}</li>`).join("");
+    }
+
+    if (dropdown) {
+      dropdown.innerHTML = topics.map((topic) => `<li>${topicLinkHtml(topic)}</li>`).join("");
+    }
+  };
+
+  const initTopicsMenu = () => {
+    const toggle = document.querySelector("#topics-menu-toggle");
+    const dropdown = document.querySelector("#topics-dropdown");
+    if (!toggle || !dropdown) return;
+
+    const closeTopicsMenu = () => {
+      dropdown.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+    };
+
+    const openTopicsMenu = () => {
+      dropdown.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+    };
+
+    const toggleTopicsMenu = () => {
+      if (dropdown.hidden) openTopicsMenu();
+      else closeTopicsMenu();
+    };
+
+    toggle.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      toggleTopicsMenu();
+    });
+
+    document.addEventListener("click", (event) => {
+      if (dropdown.hidden) return;
+      if (toggle.contains(event.target) || dropdown.contains(event.target)) return;
+      closeTopicsMenu();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !dropdown.hidden) {
+        closeTopicsMenu();
+        toggle.focus();
+      }
+    });
+
+    document.querySelectorAll("[data-topic-link]").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        // Themenseiten folgen später – vorerst keine Navigation/Ankersprünge.
+        event.preventDefault();
+        closeTopicsMenu();
+      });
+    });
+
+    window.FREIRAUM_closeTopicsMenu = closeTopicsMenu;
+  };
+
   const getPublishedOpinions = () => {
     const source = Array.isArray(window.FREIRAUM_OPINIONS) ? window.FREIRAUM_OPINIONS : [];
     return source
@@ -322,6 +392,9 @@
       panel.hidden = false;
       toggle.setAttribute("aria-expanded", "true");
       closeMobileNav();
+      if (typeof window.FREIRAUM_closeTopicsMenu === "function") {
+        window.FREIRAUM_closeTopicsMenu();
+      }
       window.requestAnimationFrame(() => input.focus());
     };
 
@@ -413,6 +486,7 @@
     }
 
     initSearch();
+    initTopicsMenu();
   };
 
   const initReveal = () => {
@@ -449,6 +523,7 @@
 
   renderHomepageArticles();
   renderStandpunkte();
+  renderTopicsNavigation();
   initChrome();
   initReveal();
 })();

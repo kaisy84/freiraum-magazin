@@ -28,7 +28,18 @@
       <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
         <ul class="nav-list">
           <li><a href="#artikel">Artikel</a></li>
-          <li><a href="#themen">Themen</a></li>
+          <li class="nav-item--topics">
+            <button
+              type="button"
+              class="nav-topics-toggle"
+              id="topics-menu-toggle"
+              aria-expanded="false"
+              aria-controls="topics-dropdown"
+            >
+              Themen
+            </button>
+            <ul class="nav-topics-dropdown" id="topics-dropdown" hidden></ul>
+          </li>
           <li><a href="#erfahrungen">Erfahrungen</a></li>
           <li><a href="#ueber-uns">Über uns</a></li>
           <li>
@@ -79,16 +90,7 @@
     <!-- Themenleiste -->
     <section class="topics" id="themen" aria-labelledby="topics-heading">
       <h2 id="topics-heading" class="section-title">Themen</h2>
-      <ul class="topics-list">
-        <li><a href="#artikel">Schulpflicht</a></li>
-        <li><a href="#artikel">Freilernen</a></li>
-        <li><a href="#artikel">Homeschooling</a></li>
-        <li><a href="#artikel">Noten</a></li>
-        <li><a href="#artikel">Kindheit</a></li>
-        <li><a href="#artikel">Bildungspolitik</a></li>
-        <li><a href="#artikel">Lehrkräfte</a></li>
-        <li><a href="#artikel">Sozialpsychologie</a></li>
-      </ul>
+      <ul class="topics-list" id="topics-list"></ul>
     </section>
 
     <!-- 4. Erfahrungen -->
