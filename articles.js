@@ -40,6 +40,23 @@ window.FREIRAUM_TOPICS = [
 
 window.FREIRAUM_ARTICLES = [
   {
+    id: "schulpflicht-alternativen",
+    title: "Schulpflicht ohne Alternativen: Wer entscheidet über Kindheit?",
+    teaser:
+      "Ein Blick auf die rechtliche Konstruktion der Schulpflicht – und auf das, was sie für Familien bedeutet, die andere Wege suchen.",
+    label: "Analyse",
+    author: "Redaktion FREIRAUM",
+    date: "2026-08-09",
+    readingMinutes: 16,
+    href: "artikel/schulpflicht-alternativen.html",
+    image: "assets/images/schulpflicht-alternativen.jpg",
+    imageAlt: "Kinderhand mit Bleistift über einem Matheblatt auf einem Holztisch",
+    imageCaption: "",
+    imageTone: "default",
+    topics: ["Schule & Bildung", "Freilernen & Bildungswege", "Kindheit & Familie"],
+    published: true
+  },
+  {
     id: "sozialverhalten-schule",
     title: "Lernen Kinder Sozialverhalten wirklich in der Schule?",
     teaser:
@@ -54,22 +71,6 @@ window.FREIRAUM_ARTICLES = [
     imageCaption: "",
     imageTone: "default",
     topics: ["Schule & Bildung", "Lernen & Entwicklung", "Gesellschaft & Sozialpsychologie"],
-    published: true
-  },
-  {
-    id: "schulpflicht-alternativen",
-    title: "Schulpflicht ohne Alternativen: Wer entscheidet über Kindheit?",
-    teaser:
-      "Ein Blick auf die rechtliche Konstruktion der Schulpflicht – und auf das, was sie für Familien bedeutet, die andere Wege suchen.",
-    label: "Analyse",
-    author: "Redaktion FREIRAUM",
-    date: "2026-08-01",
-    readingMinutes: 12,
-    href: "#artikel",
-    imageAlt: "Platzhalterbild",
-    imageCaption: "Platzhalter – Bild folgt",
-    imageTone: "default",
-    topics: ["Schule & Bildung", "Freilernen & Bildungswege", "Kindheit & Familie"],
     published: true
   },
   {
