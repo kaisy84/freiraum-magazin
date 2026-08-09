@@ -47,7 +47,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Kind sitzt auf der Couch und schaut eine Naturdokumentation im Fernsehen",
     imageCaption: "",
     imageTone: "alt",
-    topics: ["Freilernen & Bildungswege", "Kindheit & Familie", "Lernen & Entwicklung"],
+    topics: ["Freilernen & Homeschooling"],
     published: true
   },
   {
@@ -64,7 +64,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Kinderhand mit Bleistift über einem Matheblatt auf einem Holztisch",
     imageCaption: "",
     imageTone: "default",
-    topics: ["Schule & Bildung", "Freilernen & Bildungswege", "Kindheit & Familie"],
+    topics: ["Schule & Bildungspolitik"],
     published: true
   },
   {
@@ -81,7 +81,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Sechs Kinder sitzen nebeneinander auf einem umgestürzten Baumstamm im Grünen, den Rücken zur Kamera",
     imageCaption: "",
     imageTone: "default",
-    topics: ["Schule & Bildung", "Lernen & Entwicklung", "Gesellschaft & Sozialpsychologie"],
+    topics: ["Lernen & Entwicklung"],
     published: true
   },
   {
@@ -97,7 +97,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "sage",
-    topics: ["Schule & Bildung", "Kindheit & Familie"],
+    topics: [],
     published: true
   },
   {
@@ -113,7 +113,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "sand",
-    topics: ["Freilernen & Bildungswege", "Schule & Bildung", "Kindheit & Familie"],
+    topics: [],
     published: true
   },
   {
@@ -128,7 +128,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "default",
-    topics: ["Schule & Bildung", "Lernen & Entwicklung", "Kindheit & Familie"],
+    topics: [],
     published: true
   },
   {
@@ -144,7 +144,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "alt",
-    topics: ["Schule & Bildung", "Lernen & Entwicklung", "Gesellschaft & Sozialpsychologie"],
+    topics: [],
     published: true
   },
   {
@@ -160,7 +160,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "sage",
-    topics: ["Schule & Bildung", "Lernen & Entwicklung", "Kindheit & Familie"],
+    topics: [],
     published: true
   },
   {
@@ -176,7 +176,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "sand",
-    topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
+    topics: [],
     published: true
   },
   {
@@ -192,7 +192,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "default",
-    topics: ["Gesellschaft & Sozialpsychologie", "Schule & Bildung", "Lernen & Entwicklung"],
+    topics: [],
     published: true
   },
   {
@@ -208,7 +208,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "alt",
-    topics: ["Lernen & Entwicklung", "Schule & Bildung", "Kindheit & Familie"],
+    topics: [],
     published: true
   },
   {
@@ -224,7 +224,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "sage",
-    topics: ["Schule & Bildung", "Lernen & Entwicklung"],
+    topics: [],
     published: true
   }
 ];

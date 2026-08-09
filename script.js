@@ -229,6 +229,67 @@
     }
   };
 
+  const getArticlesForTopic = (topicName) =>
+    getPublishedArticles().filter(
+      (article) =>
+        Array.isArray(article.topics) &&
+        article.topics.includes(topicName) &&
+        String(article.href || "").startsWith("artikel/")
+    );
+
+  const renderTopicPage = () => {
+    const root = document.querySelector("#topic-articles");
+    if (!root) return;
+
+    const topicId = document.body.dataset.topicId;
+    if (!topicId) return;
+
+    const topic = getMainTopics().find((entry) => entry.id === topicId);
+    if (!topic) return;
+
+    const articles = getArticlesForTopic(topic.name);
+    if (!articles.length) {
+      root.innerHTML =
+        '<p class="topic-empty">In diesem Thema erscheinen Beiträge, sobald sie zugeordnet sind.</p>';
+      return;
+    }
+
+    root.innerHTML = `
+      <div class="topic-list">
+        ${articles
+          .map((article) => {
+            const href = resolveUrl(article.href);
+            const media = article.image
+              ? `<a class="topic-story-media" href="${escapeHtml(href)}">
+                  <img
+                    class="topic-story-image"
+                    src="${escapeHtml(resolveUrl(article.image))}"
+                    alt="${escapeHtml(article.imageAlt || "")}"
+                    width="640"
+                    height="400"
+                    loading="lazy"
+                    decoding="async"
+                  >
+                </a>`
+              : `<a class="topic-story-media" href="${escapeHtml(href)}">
+                  <div class="${mediaToneClass(article.imageTone)}" role="img" aria-label="${escapeHtml(article.imageAlt || "Beitragsbild")}"></div>
+                </a>`;
+
+            return `
+          <article class="story topic-story">
+            ${media}
+            <p class="${labelClassName(article.label)}">${escapeHtml(article.label)}</p>
+            <h2 class="story-title"><a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a></h2>
+            <p class="story-teaser">${escapeHtml(article.teaser || "")}</p>
+            ${renderCreditLine(article, { className: "meta" })}
+          </article>
+        `;
+          })
+          .join("")}
+      </div>
+    `;
+  };
+
   const initTopicsMenu = () => {
     const toggle = document.querySelector("#topics-menu-toggle");
     const dropdown = document.querySelector("#topics-dropdown");
@@ -575,6 +636,7 @@
   renderHomepageArticles();
   renderStandpunkte();
   renderTopicsNavigation();
+  renderTopicPage();
   initChrome();
   initReveal();
 })();
