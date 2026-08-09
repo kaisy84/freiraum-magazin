@@ -679,8 +679,9 @@ main {
 
 .contact-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.45fr) minmax(14rem, 0.7fr);
-  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: minmax(0, 34rem) minmax(12rem, 18rem);
+  justify-content: space-between;
+  gap: clamp(2.5rem, 6vw, 5rem);
   align-items: start;
   margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
   padding-bottom: clamp(2.25rem, 4vw, 3rem);
@@ -689,7 +690,9 @@ main {
 
 .contact-form {
   display: grid;
-  gap: 1.35rem;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 34rem;
   min-width: 0;
   font-family: var(--font-sans);
 }
@@ -697,7 +700,7 @@ main {
 .contact-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.25rem;
+  gap: 1.5rem;
 }
 
 .contact-field {
@@ -719,7 +722,7 @@ main {
 .contact-field textarea {
   width: 100%;
   margin: 0;
-  padding: 0.7rem 0 0.75rem;
+  padding: 0.65rem 0 0.7rem;
   border: 0;
   border-bottom: 1px solid var(--line-strong);
   border-radius: 0;
@@ -735,13 +738,9 @@ main {
 
 .contact-field textarea {
   resize: vertical;
-  min-height: 11rem;
-  padding-top: 0.85rem;
+  min-height: 12rem;
+  padding-top: 0.55rem;
   line-height: 1.6;
-  border: 1px solid var(--line-strong);
-  padding-left: 0.9rem;
-  padding-right: 0.9rem;
-  background: color-mix(in srgb, var(--bg-elevated) 70%, transparent);
 }
 
 .contact-select {
@@ -770,11 +769,7 @@ main {
 .contact-field select:focus,
 .contact-field textarea:focus {
   outline: none;
-  border-color: var(--green);
-}
-
-.contact-field textarea:focus {
-  background: var(--bg-elevated);
+  border-bottom-color: var(--green);
 }
 
 .contact-check {
@@ -807,22 +802,22 @@ main {
 }
 
 .contact-form button {
-  padding: 0;
-  border: 0;
-  border-bottom: 1px solid var(--green);
+  padding: 0.7rem 1.25rem;
+  border: 1px solid var(--green);
   background: transparent;
   color: var(--green);
   cursor: pointer;
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .contact-form button:hover {
-  color: var(--terracotta);
-  border-bottom-color: var(--terracotta);
+  color: var(--white);
+  border-color: var(--green);
+  background: var(--green);
 }
 
 .contact-note {
