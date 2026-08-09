@@ -590,8 +590,9 @@ main {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
+  object-position: center;
   border: 1px solid color-mix(in srgb, var(--line-strong) 70%, transparent);
   background: #a8b3a5;
 }
@@ -622,8 +623,9 @@ main {
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
   object-fit: cover;
+  object-position: center;
   border: 1px solid color-mix(in srgb, var(--line-strong) 70%, transparent);
   background: #a8b3a5;
 }
