@@ -653,6 +653,106 @@ main {
   margin-bottom: 0.4rem;
 }
 
+.contact-success {
+  margin-bottom: 1.75rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--green);
+}
+
+.contact-success p {
+  margin: 0;
+}
+
+.contact-form {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 36rem;
+  margin: 0 0 2.75rem;
+  padding-bottom: 2.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.contact-field label {
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+.contact-field input,
+.contact-field select,
+.contact-field textarea {
+  width: 100%;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line-strong);
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  border-radius: 0;
+}
+
+.contact-field textarea {
+  resize: vertical;
+  min-height: 10rem;
+  line-height: 1.55;
+}
+
+.contact-field input:focus,
+.contact-field select:focus,
+.contact-field textarea:focus {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+.contact-check {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
+  align-items: start;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+}
+
+.contact-check input {
+  margin-top: 0.3rem;
+}
+
+.contact-form button {
+  justify-self: start;
+  padding: 0.8rem 1.35rem;
+  border: 1px solid var(--green);
+  background: var(--green);
+  color: var(--white);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.contact-form button:hover {
+  background: var(--green-deep);
+}
+
+.contact-note {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+
+.contact-honey {
+  position: absolute;
+  left: -9999px;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+}
+
 .topic-page {
   padding: clamp(2rem, 4vw, 3.25rem) 0 var(--section-space);
 }

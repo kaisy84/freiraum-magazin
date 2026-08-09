@@ -597,6 +597,20 @@
       });
     }
 
+    const contactForm = document.querySelector("#contact-form");
+    const contactNext = document.querySelector("#contact-next");
+    const contactSuccess = document.querySelector("#contact-success");
+
+    if (contactForm && contactNext) {
+      const returnUrl = `${window.location.origin}${window.location.pathname}?gesendet=1`;
+      contactNext.value = returnUrl;
+    }
+
+    if (contactSuccess && /[?&]gesendet=1(?:&|$)/.test(window.location.search)) {
+      contactSuccess.hidden = false;
+      contactSuccess.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
     initSearch();
     initTopicsMenu();
   };
