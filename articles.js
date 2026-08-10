@@ -54,6 +54,22 @@ window.FREIRAUM_TOPICS = [
 
 window.FREIRAUM_ARTICLES = [
   {
+    id: "eltern-schweigen",
+    title: "Wenn Eltern in der Schule lieber schweigen",
+    teaser:
+      "Eltern sollen Partner der Schule sein. Doch was geschieht, wenn sie widersprechen? Über institutionelle Macht, vorsichtige Gespräche und die Frage, wie viel offene Kritik eine Erziehungspartnerschaft tatsächlich aushält.",
+    label: "Analyse",
+    author: "Redaktion FREIRAUM",
+    date: "2026-08-10",
+    href: "artikel/eltern-schweigen.html",
+    imageAlt: "Beitragsbild folgt",
+    imageCaption: "",
+    imageTone: "sage",
+    topics: ["Schule & Bildung"],
+    tags: ["Eltern", "Elterngespräch", "Erziehungspartnerschaft", "Schule", "Bildungspolitik"],
+    published: true
+  },
+  {
     id: "freilernen-alltag",
     title: "Freilernen im Alltag: Was bleibt, wenn der Stundenplan wegfällt?",
     teaser:
@@ -102,23 +118,6 @@ window.FREIRAUM_ARTICLES = [
     imageTone: "default",
     topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
     tags: ["Sozialverhalten", "Sozialisation", "Jahrgangsklassen", "Homeschooling"],
-    published: true
-  },
-  {
-    id: "eltern-schweigen",
-    title: "Wenn Eltern in der Schule lieber schweigen",
-    teaser:
-      "Über Autorität, Abhängigkeit und die Frage, warum offene Kommunikation zwischen Eltern und Lehrkräften schwierig werden kann.",
-    label: "Analyse",
-    author: "Jonas Bertram",
-    date: "2026-07-28",
-    readingMinutes: 11,
-    href: "#artikel",
-    imageAlt: "Platzhalterbild",
-    imageCaption: "Platzhalter – Bild folgt",
-    imageTone: "sage",
-    topics: ["Schule & Bildung", "Kindheit & Familie"],
-    tags: ["Eltern und Schule"],
     published: true
   },
   {
