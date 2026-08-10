@@ -389,6 +389,147 @@
     );
   };
 
+  /**
+   * Related reading recommendations.
+   * Scores by shared tags (+3) and topics (+2), plus a small label bonus (+0.5).
+   * Designed so opinions could be passed later, but article pages currently use articles only.
+   */
+  const getRelatedArticles = (currentArticle, allArticles, limit = 3) => {
+    if (!currentArticle || !Array.isArray(allArticles) || limit < 1) return [];
+
+    const currentId = currentArticle.id;
+    const currentTags = normalizeTagList(currentArticle.tags);
+    const currentTopics = normalizeTopicList(currentArticle.topics);
+    const currentLabel = String(currentArticle.label || "").trim().toLowerCase();
+
+    const candidates = allArticles.filter(
+      (item) =>
+        item &&
+        item.published !== false &&
+        item.id &&
+        item.id !== currentId &&
+        item.date &&
+        item.title
+    );
+
+    const scoreItem = (item) => {
+      const tags = normalizeTagList(item.tags);
+      const topics = normalizeTopicList(item.topics);
+      let score = 0;
+
+      currentTags.forEach((tag) => {
+        if (tags.includes(tag)) score += 3;
+      });
+      currentTopics.forEach((topic) => {
+        if (topics.includes(topic)) score += 2;
+      });
+
+      const label = String(item.label || item.format || "").trim().toLowerCase();
+      if (currentLabel && label && currentLabel === label) score += 0.5;
+
+      return score;
+    };
+
+    const byDateDesc = (a, b) => {
+      if (a.date === b.date) return String(b.id || "").localeCompare(String(a.id || ""));
+      return a.date < b.date ? 1 : -1;
+    };
+
+    const ranked = candidates
+      .map((item) => ({ item, score: scoreItem(item) }))
+      .sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return byDateDesc(a.item, b.item);
+      });
+
+    const selected = [];
+    const used = new Set([currentId]);
+
+    ranked.forEach((entry) => {
+      if (selected.length >= limit || entry.score <= 0) return;
+      selected.push(entry.item);
+      used.add(entry.item.id);
+    });
+
+    if (selected.length < limit) {
+      candidates
+        .filter((item) => !used.has(item.id))
+        .sort(byDateDesc)
+        .forEach((item) => {
+          if (selected.length >= limit) return;
+          selected.push(item);
+          used.add(item.id);
+        });
+    }
+
+    return selected.slice(0, limit);
+  };
+
+  window.FREIRAUM_getRelatedArticles = getRelatedArticles;
+
+  const renderRelatedArticles = (items) => {
+    if (!items.length) return "";
+
+    const cards = items
+      .map((article) => {
+        const href = resolveUrl(article.href || "#artikel");
+        const media = article.image
+          ? `<a class="related-media" href="${escapeHtml(href)}" tabindex="-1" aria-hidden="true">
+              <img
+                class="related-image"
+                src="${escapeHtml(resolveUrl(article.image))}"
+                alt=""
+                width="640"
+                height="400"
+                loading="lazy"
+                decoding="async"
+              >
+            </a>`
+          : "";
+
+        return `
+      <article class="related-item">
+        ${media}
+        <p class="${labelClassName(article.label)}">${escapeHtml(article.label || "Artikel")}</p>
+        <h3 class="related-title">
+          <a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a>
+        </h3>
+        <p class="related-teaser">${escapeHtml(article.teaser || "")}</p>
+        ${renderCreditLine(article, { className: "meta", showAuthor: false })}
+      </article>
+    `;
+      })
+      .join("");
+
+    return `
+      <aside class="related-articles" aria-labelledby="related-heading">
+        <h2 id="related-heading" class="related-heading">Weiterlesen</h2>
+        <div class="related-grid">
+          ${cards}
+        </div>
+      </aside>
+    `;
+  };
+
+  const initArticleRelated = () => {
+    const page = document.querySelector(".article-page");
+    if (!page) return;
+
+    const current = findArticleForCurrentPage();
+    if (!current) return;
+
+    const related = getRelatedArticles(current, getPublishedArticles(), 3);
+    if (related.length < 2) return;
+
+    const existing = document.querySelector(".related-articles");
+    if (existing) existing.remove();
+
+    const body = page.querySelector(".article-body");
+    const markup = renderRelatedArticles(related);
+    if (body) body.insertAdjacentHTML("afterend", markup);
+    else page.insertAdjacentHTML("beforeend", markup);
+  };
+
   const renderTopicsNavigation = () => {
     const topics = getMainTopics();
     const list = document.querySelector("#topics-list");
@@ -917,6 +1058,7 @@
     renderTopicPage();
     initArticleReadingTime();
     initArticleTaxonomy();
+    initArticleRelated();
     initChrome();
     initReveal();
   };
