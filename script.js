@@ -278,6 +278,31 @@
       .join("");
   };
 
+  const renderStoryMedia = (article, href) => {
+    const alt = article.imageAlt || "Beitragsbild";
+    if (article.image) {
+      return `
+        <a class="story-media" href="${escapeHtml(href)}">
+          <img
+            class="story-image"
+            src="${escapeHtml(resolveUrl(article.image))}"
+            alt="${escapeHtml(alt)}"
+            width="640"
+            height="400"
+            loading="lazy"
+            decoding="async"
+          >
+        </a>
+      `;
+    }
+
+    return `
+      <a class="story-media" href="${escapeHtml(href)}" tabindex="-1" aria-hidden="true">
+        <div class="${mediaToneClass(article.imageTone)}" role="img" aria-label="${escapeHtml(alt)}"></div>
+      </a>
+    `;
+  };
+
   const renderLatest = (articles) => {
     const root = document.querySelector("#latest-grid");
     if (!root) return;
@@ -287,7 +312,7 @@
         const href = resolveUrl(article.href || "#artikel");
         return `
       <article class="story">
-        <div class="${mediaToneClass(article.imageTone)}" role="img" aria-label="${escapeHtml(article.imageAlt || "Platzhalterbild")}"></div>
+        ${renderStoryMedia(article, href)}
         <p class="${labelClassName(article.label)}">${escapeHtml(article.label)}</p>
         <h3 class="story-title"><a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a></h3>
         <p class="story-teaser">${escapeHtml(article.teaser || "")}</p>
