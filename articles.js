@@ -12,6 +12,14 @@
  * - `topics`: ausschließlich die fünf Hauptthemen (große redaktionelle Bereiche)
  * - `tags`: konkrete Schlagwörter zum Gegenstand des Beitrags
  *
+ * Coverbild (einzige Bildquelle pro Artikel):
+ * - `image`: relativer Pfad zum Titelbild (z. B. "assets/images/….jpg")
+ * - Wird automatisch verwendet für Startseite, Themenseiten, Suche,
+ *   „Weiterlesen“ und die Hero-Abbildung der Artikelseite.
+ * - Ohne `image` erscheint der zentrale FREIRAUM-Platzhalter.
+ * - Optional: `imageAlt` (Alt-Text), `imageCaption`, `imageTone` (nur Platzhalterfarbe).
+ * - Keine weiteren Bildfelder und keine Bildpfade in HTML-Seiten pflegen.
+ *
  * Hauptthemen (ausschließlich diese Bezeichnungen in `topics` verwenden):
  * - Schule & Bildung
  * - Freilernen & Bildungswege

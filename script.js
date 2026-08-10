@@ -161,9 +161,11 @@
     return "label";
   };
 
-  const mediaToneClass = (tone, { lead = false } = {}) => {
+  const mediaToneClass = (tone, { size = "story" } = {}) => {
     const classes = ["media-plane"];
-    if (lead) classes.push("media-plane--lead");
+    if (size === "lead") classes.push("media-plane--lead");
+    else if (size === "hero") classes.push("media-plane--hero");
+    else if (size === "search") classes.push("media-plane--search");
     else classes.push("media-plane--story");
 
     if (tone === "alt") classes.push("media-plane--alt");
@@ -171,6 +173,124 @@
     if (tone === "sand") classes.push("media-plane--sand");
     return classes.join(" ");
   };
+
+  /**
+   * Canonical cover field: `image` in articles.js.
+   * All article visuals (home, topics, search, related, article hero) use this API.
+   */
+  const getArticleCover = (article) => {
+    if (!article || typeof article.image !== "string") return null;
+    const src = article.image.trim();
+    return src || null;
+  };
+
+  const getArticleCoverAlt = (article) => {
+    const alt = article && typeof article.imageAlt === "string" ? article.imageAlt.trim() : "";
+    return alt || "Beitragsbild";
+  };
+
+  const renderCoverPlaceholder = (article, { size = "story" } = {}) => {
+    const alt = getArticleCoverAlt(article);
+    return `<div class="${mediaToneClass(article?.imageTone, { size })}" role="img" aria-label="${escapeHtml(alt)}"></div>`;
+  };
+
+  const renderCoverImage = (
+    article,
+    { className = "", width = 640, height = 400, loading = "lazy", decorative = false } = {}
+  ) => {
+    const src = getArticleCover(article);
+    if (!src) return "";
+
+    const alt = decorative ? "" : getArticleCoverAlt(article);
+    const classAttr = className ? ` class="${escapeHtml(className)}"` : "";
+
+    return `<img${classAttr}
+            src="${escapeHtml(resolveUrl(src))}"
+            alt="${escapeHtml(alt)}"
+            width="${width}"
+            height="${height}"
+            loading="${escapeHtml(loading)}"
+            decoding="async"
+          >`;
+  };
+
+  const COVER_VARIANTS = {
+    lead: {
+      linkClass: "lead-media-link",
+      imgClass: "lead-image",
+      width: 1600,
+      height: 900,
+      size: "lead",
+      loading: "eager"
+    },
+    story: {
+      linkClass: "story-media",
+      imgClass: "story-image",
+      width: 640,
+      height: 400,
+      size: "story",
+      loading: "lazy",
+      decorativeLinkWhenPlaceholder: true
+    },
+    topic: {
+      linkClass: "topic-story-media",
+      imgClass: "topic-story-image",
+      width: 640,
+      height: 400,
+      size: "story",
+      loading: "lazy"
+    },
+    related: {
+      linkClass: "related-media",
+      imgClass: "related-image",
+      width: 640,
+      height: 400,
+      size: "story",
+      loading: "lazy",
+      decorative: true
+    },
+    hero: {
+      linkClass: null,
+      imgClass: null,
+      width: 1600,
+      height: 900,
+      size: "hero",
+      loading: "eager"
+    },
+    search: {
+      linkClass: null,
+      imgClass: "search-result-image",
+      width: 120,
+      height: 75,
+      size: "search",
+      loading: "lazy",
+      decorative: true
+    }
+  };
+
+  /** Unified cover markup: real image from article.image, else central placeholder. */
+  const renderArticleCover = (article, { variant = "story", href = null } = {}) => {
+    const cfg = COVER_VARIANTS[variant] || COVER_VARIANTS.story;
+    const cover = getArticleCover(article);
+    const inner = cover
+      ? renderCoverImage(article, {
+          className: cfg.imgClass || "",
+          width: cfg.width,
+          height: cfg.height,
+          loading: cfg.loading,
+          decorative: Boolean(cfg.decorative)
+        })
+      : renderCoverPlaceholder(article, { size: cfg.size });
+
+    if (!cfg.linkClass || !href) return inner;
+
+    const decorativeLink =
+      Boolean(cfg.decorative) || (Boolean(cfg.decorativeLinkWhenPlaceholder) && !cover);
+    const linkAttrs = decorativeLink ? ' tabindex="-1" aria-hidden="true"' : "";
+    return `<a class="${cfg.linkClass}" href="${escapeHtml(href)}"${linkAttrs}>${inner}</a>`;
+  };
+
+  window.FREIRAUM_getArticleCover = getArticleCover;
 
   const getPublishedArticles = () => {
     const source = Array.isArray(window.FREIRAUM_ARTICLES) ? window.FREIRAUM_ARTICLES : [];
@@ -194,31 +314,6 @@
     featured: articles.slice(1, 1 + FEATURED_COUNT),
     latest: articles.slice(1 + FEATURED_COUNT, 1 + FEATURED_COUNT + LATEST_COUNT)
   });
-
-  const renderLeadMedia = (article, href) => {
-    const alt = article.imageAlt || "Beitragsbild";
-    if (article.image) {
-      return `
-        <a class="lead-media-link" href="${escapeHtml(href)}">
-          <img
-            class="lead-image"
-            src="${escapeHtml(resolveUrl(article.image))}"
-            alt="${escapeHtml(alt)}"
-            width="1600"
-            height="900"
-            loading="eager"
-            decoding="async"
-          >
-        </a>
-      `;
-    }
-
-    return `
-      <a class="lead-media-link" href="${escapeHtml(href)}">
-        <div class="${mediaToneClass(article.imageTone, { lead: true })}" role="img" aria-label="${escapeHtml(alt)}"></div>
-      </a>
-    `;
-  };
 
   const renderLead = (article) => {
     const root = document.querySelector("#lead");
@@ -245,7 +340,7 @@
         </p>
       </div>
       <figure class="lead-media">
-        ${renderLeadMedia(article, href)}
+        ${renderArticleCover(article, { variant: "lead", href })}
       </figure>
     `;
   };
@@ -278,31 +373,6 @@
       .join("");
   };
 
-  const renderStoryMedia = (article, href) => {
-    const alt = article.imageAlt || "Beitragsbild";
-    if (article.image) {
-      return `
-        <a class="story-media" href="${escapeHtml(href)}">
-          <img
-            class="story-image"
-            src="${escapeHtml(resolveUrl(article.image))}"
-            alt="${escapeHtml(alt)}"
-            width="640"
-            height="400"
-            loading="lazy"
-            decoding="async"
-          >
-        </a>
-      `;
-    }
-
-    return `
-      <a class="story-media" href="${escapeHtml(href)}" tabindex="-1" aria-hidden="true">
-        <div class="${mediaToneClass(article.imageTone)}" role="img" aria-label="${escapeHtml(alt)}"></div>
-      </a>
-    `;
-  };
-
   const renderLatest = (articles) => {
     const root = document.querySelector("#latest-grid");
     if (!root) return;
@@ -312,7 +382,7 @@
         const href = resolveUrl(article.href || "#artikel");
         return `
       <article class="story">
-        ${renderStoryMedia(article, href)}
+        ${renderArticleCover(article, { variant: "story", href })}
         <p class="${labelClassName(article.label)}">${escapeHtml(article.label)}</p>
         <h3 class="story-title"><a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a></h3>
         <p class="story-teaser">${escapeHtml(article.teaser || "")}</p>
@@ -498,23 +568,9 @@
     const cards = items
       .map((article) => {
         const href = resolveUrl(article.href || "#artikel");
-        const media = article.image
-          ? `<a class="related-media" href="${escapeHtml(href)}" tabindex="-1" aria-hidden="true">
-              <img
-                class="related-image"
-                src="${escapeHtml(resolveUrl(article.image))}"
-                alt=""
-                width="640"
-                height="400"
-                loading="lazy"
-                decoding="async"
-              >
-            </a>`
-          : "";
-
         return `
       <article class="related-item">
-        ${media}
+        ${renderArticleCover(article, { variant: "related", href })}
         <p class="${labelClassName(article.label)}">${escapeHtml(article.label || "Artikel")}</p>
         <h3 class="related-title">
           <a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a>
@@ -599,25 +655,9 @@
         ${articles
           .map((article) => {
             const href = resolveUrl(article.href);
-            const media = article.image
-              ? `<a class="topic-story-media" href="${escapeHtml(href)}">
-                  <img
-                    class="topic-story-image"
-                    src="${escapeHtml(resolveUrl(article.image))}"
-                    alt="${escapeHtml(article.imageAlt || "")}"
-                    width="640"
-                    height="400"
-                    loading="lazy"
-                    decoding="async"
-                  >
-                </a>`
-              : `<a class="topic-story-media" href="${escapeHtml(href)}">
-                  <div class="${mediaToneClass(article.imageTone)}" role="img" aria-label="${escapeHtml(article.imageAlt || "Beitragsbild")}"></div>
-                </a>`;
-
             return `
           <article class="story topic-story">
-            ${media}
+            ${renderArticleCover(article, { variant: "topic", href })}
             <p class="${labelClassName(article.label)}">${escapeHtml(article.label)}</p>
             <h2 class="story-title"><a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a></h2>
             <p class="story-teaser">${escapeHtml(article.teaser || "")}</p>
@@ -788,6 +828,7 @@
   const collectSearchItems = () => {
     const articles = getPublishedArticles().map((article) => ({
       id: `article-${article.id}`,
+      kind: "article",
       type: article.label || "Artikel",
       title: article.title,
       teaser: article.teaser || "",
@@ -795,6 +836,9 @@
       date: article.date,
       readingMinutesComputed: getReadingMinutes(article),
       href: resolveUrl(article.href || "#artikel"),
+      image: article.image,
+      imageAlt: article.imageAlt,
+      imageTone: article.imageTone,
       haystack: normalizeSearchText(
         [
           article.title,
@@ -809,6 +853,7 @@
 
     const opinions = getPublishedOpinions().map((opinion) => ({
       id: `opinion-${opinion.id}`,
+      kind: "opinion",
       type: opinion.format || "Standpunkt",
       title: opinion.title,
       teaser: opinion.teaser || "",
@@ -816,6 +861,9 @@
       date: opinion.date,
       readingMinutesComputed: getReadingMinutes(opinion),
       href: resolveUrl(opinion.href || "#standpunkte"),
+      image: opinion.image,
+      imageAlt: opinion.imageAlt,
+      imageTone: opinion.imageTone,
       haystack: normalizeSearchText(
         [
           opinion.title,
@@ -866,20 +914,28 @@
       }
 
       results.innerHTML = matches
-        .map(
-          (item) => `
+        .map((item) => {
+          const media =
+            item.kind === "article"
+              ? `<span class="search-result-media">${renderArticleCover(item, { variant: "search" })}</span>`
+              : "";
+
+          return `
         <a class="search-result" href="${escapeHtml(item.href)}">
-          <p class="${labelClassName(item.type)}">${escapeHtml(item.type)}</p>
-          <span class="search-result-title">${escapeHtml(item.title)}</span>
-          ${
-            item.teaser
-              ? `<p class="search-result-teaser">${escapeHtml(shortenTeaser(item.teaser))}</p>`
-              : ""
-          }
-          ${renderCreditLine(item, { className: "meta search-result-meta" })}
+          ${media}
+          <span class="search-result-body">
+            <p class="${labelClassName(item.type)}">${escapeHtml(item.type)}</p>
+            <span class="search-result-title">${escapeHtml(item.title)}</span>
+            ${
+              item.teaser
+                ? `<p class="search-result-teaser">${escapeHtml(shortenTeaser(item.teaser))}</p>`
+                : ""
+            }
+            ${renderCreditLine(item, { className: "meta search-result-meta" })}
+          </span>
         </a>
-      `
-        )
+      `;
+        })
         .join("");
     };
 
@@ -1054,6 +1110,30 @@
     target.textContent = formatReadingTime(calculateReadingTime(body.innerHTML));
   };
 
+  /** Fill article hero from the central `image` field – no hardcoded cover paths in HTML. */
+  const initArticleCover = () => {
+    const figure = document.querySelector(".article-page .article-hero");
+    if (!figure) return;
+
+    const article = findArticleForCurrentPage();
+    if (!article) {
+      figure.hidden = true;
+      figure.innerHTML = "";
+      return;
+    }
+
+    figure.hidden = false;
+    figure.innerHTML = renderArticleCover(article, { variant: "hero" });
+
+    const caption = typeof article.imageCaption === "string" ? article.imageCaption.trim() : "";
+    if (caption && getArticleCover(article)) {
+      figure.insertAdjacentHTML(
+        "beforeend",
+        `<figcaption>${escapeHtml(caption)}</figcaption>`
+      );
+    }
+  };
+
   const initArticleTaxonomy = () => {
     const header = document.querySelector(".article-page .article-header");
     if (!header) return;
@@ -1139,6 +1219,8 @@
   };
 
   const boot = async () => {
+    initArticleCover();
+
     const articles = getPublishedArticles();
     const opinions = getPublishedOpinions();
     await enrichReadingMinutes(articles.concat(opinions));
