@@ -1037,6 +1037,29 @@ main {
   margin-bottom: 0;
 }
 
+/* Classic drop cap – first body paragraph only (article pages) */
+.article-body > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--font-serif);
+  font-size: 3.9em;
+  font-weight: 600;
+  line-height: 0.82;
+  color: var(--ink);
+  margin: 0.1em 0.14em 0 0;
+  padding: 0;
+  background: none;
+  border: none;
+  box-shadow: none;
+  text-shadow: none;
+}
+
+/* Keep following blocks from wrapping under a short opening paragraph */
+.article-body > p:first-of-type::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .article-body h2 {
   font-family: var(--font-serif);
   font-size: clamp(1.22rem, 1.7vw, 1.48rem);
@@ -1141,6 +1164,12 @@ main {
   .article-body {
     font-size: 1.08rem;
     line-height: 1.65;
+  }
+
+  .article-body > p:first-of-type::first-letter {
+    font-size: 2.85em;
+    line-height: 0.84;
+    margin: 0.08em 0.12em 0 0;
   }
 
   .article-body h2 {
