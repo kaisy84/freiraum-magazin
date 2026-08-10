@@ -1169,9 +1169,9 @@ main {
 
   .article-body > p:first-of-type::first-letter {
     /* ~2.3 body lines on small screens */
-    font-size: 3.7em;
+    font-size: 4.55em;
     line-height: 0.82;
-    margin: 0.06em 0.1em 0 0;
+    margin: 0.05em 0.1em 0 0;
   }
 
   .article-body h2 {
