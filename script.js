@@ -293,14 +293,27 @@
   const initTopicsMenu = () => {
     const toggle = document.querySelector("#topics-menu-toggle");
     const dropdown = document.querySelector("#topics-dropdown");
-    if (!toggle || !dropdown) return;
+    const container = toggle ? toggle.closest(".nav-item--topics") : null;
+    if (!toggle || !dropdown || !container) return;
+
+    let closeTimer = null;
+    const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+    const clearCloseTimer = () => {
+      if (closeTimer !== null) {
+        window.clearTimeout(closeTimer);
+        closeTimer = null;
+      }
+    };
 
     const closeTopicsMenu = () => {
+      clearCloseTimer();
       dropdown.hidden = true;
       toggle.setAttribute("aria-expanded", "false");
     };
 
     const openTopicsMenu = () => {
+      clearCloseTimer();
       dropdown.hidden = false;
       toggle.setAttribute("aria-expanded", "true");
     };
@@ -310,15 +323,34 @@
       else closeTopicsMenu();
     };
 
+    const scheduleCloseTopicsMenu = () => {
+      clearCloseTimer();
+      closeTimer = window.setTimeout(() => {
+        closeTimer = null;
+        dropdown.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+      }, 140);
+    };
+
     toggle.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();
       toggleTopicsMenu();
     });
 
+    container.addEventListener("mouseenter", () => {
+      if (!hoverQuery.matches) return;
+      openTopicsMenu();
+    });
+
+    container.addEventListener("mouseleave", () => {
+      if (!hoverQuery.matches) return;
+      scheduleCloseTopicsMenu();
+    });
+
     document.addEventListener("click", (event) => {
       if (dropdown.hidden) return;
-      if (toggle.contains(event.target) || dropdown.contains(event.target)) return;
+      if (container.contains(event.target)) return;
       closeTopicsMenu();
     });
 
