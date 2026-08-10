@@ -290,84 +290,104 @@
     `;
   };
 
-  const initTopicsMenu = () => {
-    const toggle = document.querySelector("#topics-menu-toggle");
-    const dropdown = document.querySelector("#topics-dropdown");
-    const container = toggle ? toggle.closest(".nav-item--topics") : null;
-    if (!toggle || !dropdown || !container) return;
+  const initNavDropdowns = () => {
+    const items = Array.from(document.querySelectorAll(".nav-item--dropdown"));
+    if (!items.length) return;
 
-    let closeTimer = null;
+    const menus = items
+      .map((container) => {
+        const toggle = container.querySelector(".nav-dropdown-toggle");
+        const dropdown = container.querySelector(".nav-dropdown");
+        if (!toggle || !dropdown) return null;
+        return { container, toggle, dropdown, closeTimer: null };
+      })
+      .filter(Boolean);
+
+    if (!menus.length) return;
+
     const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
 
-    const clearCloseTimer = () => {
-      if (closeTimer !== null) {
-        window.clearTimeout(closeTimer);
-        closeTimer = null;
+    const clearCloseTimer = (menu) => {
+      if (menu.closeTimer !== null) {
+        window.clearTimeout(menu.closeTimer);
+        menu.closeTimer = null;
       }
     };
 
-    const closeTopicsMenu = () => {
-      clearCloseTimer();
-      dropdown.hidden = true;
-      toggle.setAttribute("aria-expanded", "false");
+    const closeMenu = (menu) => {
+      clearCloseTimer(menu);
+      menu.dropdown.hidden = true;
+      menu.toggle.setAttribute("aria-expanded", "false");
     };
 
-    const openTopicsMenu = () => {
-      clearCloseTimer();
-      dropdown.hidden = false;
-      toggle.setAttribute("aria-expanded", "true");
+    const closeAllMenus = (except = null) => {
+      menus.forEach((menu) => {
+        if (except && menu === except) return;
+        closeMenu(menu);
+      });
     };
 
-    const toggleTopicsMenu = () => {
-      if (dropdown.hidden) openTopicsMenu();
-      else closeTopicsMenu();
+    const openMenu = (menu) => {
+      closeAllMenus(menu);
+      clearCloseTimer(menu);
+      menu.dropdown.hidden = false;
+      menu.toggle.setAttribute("aria-expanded", "true");
     };
 
-    const scheduleCloseTopicsMenu = () => {
-      clearCloseTimer();
-      closeTimer = window.setTimeout(() => {
-        closeTimer = null;
-        dropdown.hidden = true;
-        toggle.setAttribute("aria-expanded", "false");
+    const scheduleCloseMenu = (menu) => {
+      clearCloseTimer(menu);
+      menu.closeTimer = window.setTimeout(() => {
+        menu.closeTimer = null;
+        menu.dropdown.hidden = true;
+        menu.toggle.setAttribute("aria-expanded", "false");
       }, 140);
     };
 
-    toggle.addEventListener("click", (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      toggleTopicsMenu();
-    });
+    menus.forEach((menu) => {
+      menu.toggle.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        if (menu.dropdown.hidden) openMenu(menu);
+        else closeMenu(menu);
+      });
 
-    container.addEventListener("mouseenter", () => {
-      if (!hoverQuery.matches) return;
-      openTopicsMenu();
-    });
+      menu.container.addEventListener("mouseenter", () => {
+        if (!hoverQuery.matches) return;
+        openMenu(menu);
+      });
 
-    container.addEventListener("mouseleave", () => {
-      if (!hoverQuery.matches) return;
-      scheduleCloseTopicsMenu();
-    });
+      menu.container.addEventListener("mouseleave", () => {
+        if (!hoverQuery.matches) return;
+        scheduleCloseMenu(menu);
+      });
 
-    document.addEventListener("click", (event) => {
-      if (dropdown.hidden) return;
-      if (container.contains(event.target)) return;
-      closeTopicsMenu();
-    });
-
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && !dropdown.hidden) {
-        closeTopicsMenu();
-        toggle.focus();
-      }
-    });
-
-    document.querySelectorAll("[data-topic-link]").forEach((link) => {
-      link.addEventListener("click", () => {
-        closeTopicsMenu();
+      menu.dropdown.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => closeMenu(menu));
       });
     });
 
-    window.FREIRAUM_closeTopicsMenu = closeTopicsMenu;
+    document.addEventListener("click", (event) => {
+      const inside = menus.some((menu) => menu.container.contains(event.target));
+      if (!inside) closeAllMenus();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape") return;
+      const openMenuEntry = menus.find((menu) => !menu.dropdown.hidden);
+      if (!openMenuEntry) return;
+      closeMenu(openMenuEntry);
+      openMenuEntry.toggle.focus();
+    });
+
+    // Topic links are injected after init; close via delegation.
+    document.addEventListener("click", (event) => {
+      const topicLink = event.target.closest("[data-topic-link]");
+      if (!topicLink) return;
+      closeAllMenus();
+    });
+
+    window.FREIRAUM_closeNavMenus = closeAllMenus;
+    window.FREIRAUM_closeTopicsMenu = closeAllMenus;
   };
 
   const getPublishedOpinions = () => {
@@ -644,7 +664,7 @@
     }
 
     initSearch();
-    initTopicsMenu();
+    initNavDropdowns();
   };
 
   const initReveal = () => {

@@ -7,16 +7,30 @@
  * Anzeige redaktioneller Beiträge: Redaktion FREIRAUM · [Veröffentlichungsdatum]
  *
  * Hauptthemen (ausschließlich diese Bezeichnungen in `topics` verwenden):
- * - Schule & Bildungspolitik
+ * - Schule & Bildung
+ * - Freilernen & Bildungswege
+ * - Kindheit & Familie
  * - Lernen & Entwicklung
- * - Freilernen & Homeschooling
+ * - Gesellschaft & Sozialpsychologie
  */
 window.FREIRAUM_TOPICS = [
   {
     id: "schule-bildungspolitik",
-    name: "Schule & Bildungspolitik",
+    name: "Schule & Bildung",
     href: "themen/schule-bildungspolitik.html",
     description: "Beiträge zu Schule, Schulsystem und bildungspolitischen Fragen."
+  },
+  {
+    id: "freilernen-homeschooling",
+    name: "Freilernen & Bildungswege",
+    href: "themen/freilernen-homeschooling.html",
+    description: "Beiträge zu Freilernen, Homeschooling und Bildungswegen außerhalb der Schule."
+  },
+  {
+    id: "kindheit-familie",
+    name: "Kindheit & Familie",
+    href: "#",
+    description: "Beiträge zu Kindheit, Familie und dem Alltag zwischen Fürsorge und Bildung."
   },
   {
     id: "lernen-entwicklung",
@@ -25,10 +39,10 @@ window.FREIRAUM_TOPICS = [
     description: "Beiträge zu Lernen, Kindheit und individueller Entwicklung."
   },
   {
-    id: "freilernen-homeschooling",
-    name: "Freilernen & Homeschooling",
-    href: "themen/freilernen-homeschooling.html",
-    description: "Beiträge zu Freilernen, Homeschooling und Bildungswegen außerhalb der Schule."
+    id: "gesellschaft-sozialpsychologie",
+    name: "Gesellschaft & Sozialpsychologie",
+    href: "#",
+    description: "Beiträge zu gesellschaftlichen Fragen und sozialpsychologischen Zusammenhängen."
   }
 ];
 
@@ -47,7 +61,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Kind sitzt auf der Couch und schaut eine Naturdokumentation im Fernsehen",
     imageCaption: "",
     imageTone: "alt",
-    topics: ["Freilernen & Homeschooling"],
+    topics: ["Freilernen & Bildungswege"],
     published: true
   },
   {
@@ -64,7 +78,7 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Kinderhand mit Bleistift über einem Matheblatt auf einem Holztisch",
     imageCaption: "",
     imageTone: "default",
-    topics: ["Schule & Bildungspolitik"],
+    topics: ["Schule & Bildung"],
     published: true
   },
   {

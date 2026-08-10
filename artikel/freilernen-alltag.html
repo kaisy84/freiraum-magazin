@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../style.css?v=20260810a">
+  <link rel="stylesheet" href="../style.css?v=20260810b">
 </head>
 <body data-site-root="../">
   <a class="skip-link" href="#main">Zum Inhalt springen</a>
@@ -27,21 +27,41 @@
 
       <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
         <ul class="nav-list">
-          <li><a href="../index.html#artikel">Artikel</a></li>
-          <li class="nav-item--topics">
-            <button
-              type="button"
-              class="nav-topics-toggle"
-              id="topics-menu-toggle"
-              aria-expanded="false"
-              aria-controls="topics-dropdown"
-            >
+          <li class="nav-item--dropdown">
+            <button type="button" class="nav-dropdown-toggle" id="artikel-menu-toggle" aria-expanded="false" aria-controls="artikel-dropdown">
+              Artikel
+            </button>
+            <ul class="nav-dropdown" id="artikel-dropdown" hidden>
+              <li><a href="../index.html#artikel">Neu erschienen</a></li>
+              <li><a href="../index.html#artikel">Alle Artikel</a></li>
+              <li><a href="../index.html#standpunkte">Standpunkte</a></li>
+            </ul>
+          </li>
+          <li class="nav-item--dropdown">
+            <button type="button" class="nav-dropdown-toggle" id="topics-menu-toggle" aria-expanded="false" aria-controls="topics-dropdown">
               Themen
             </button>
-            <ul class="nav-topics-dropdown" id="topics-dropdown" hidden></ul>
+            <ul class="nav-dropdown" id="topics-dropdown" hidden></ul>
           </li>
-          <li><a href="../index.html#erfahrungen">Erfahrungen</a></li>
-          <li><a href="../index.html#ueber-uns">Über uns</a></li>
+          <li class="nav-item--dropdown">
+            <button type="button" class="nav-dropdown-toggle" id="erfahrungen-menu-toggle" aria-expanded="false" aria-controls="erfahrungen-dropdown">
+              Erfahrungen
+            </button>
+            <ul class="nav-dropdown" id="erfahrungen-dropdown" hidden>
+              <li><a href="../index.html#erfahrungen">Erfahrungsberichte lesen</a></li>
+              <li><a href="../kontakt.html#erfahrungen">Eigene Erfahrung einreichen</a></li>
+            </ul>
+          </li>
+          <li class="nav-item--dropdown">
+            <button type="button" class="nav-dropdown-toggle" id="ueber-menu-toggle" aria-expanded="false" aria-controls="ueber-dropdown">
+              Über uns
+            </button>
+            <ul class="nav-dropdown" id="ueber-dropdown" hidden>
+              <li><a href="../index.html#ueber-uns">Über FREIRAUM</a></li>
+              <li><a href="../kontakt.html">Redaktion</a></li>
+              <li><a href="../index.html#artikel">Autor:innen</a></li>
+            </ul>
+          </li>
           <li>
             <button type="button" class="nav-search" id="search-toggle" aria-expanded="false" aria-controls="search-panel">
               Suche
@@ -368,8 +388,8 @@
     </p>
   </footer>
 
-  <script src="../articles.js"></script>
+  <script src="../articles.js?v=20260810b"></script>
   <script src="../opinions.js"></script>
-  <script src="../script.js?v=20260810a"></script>
+  <script src="../script.js?v=20260810b"></script>
 </body>
 </html>
