@@ -5,6 +5,10 @@
  *
  * Lesezeit: bevorzugt aus `body` (Volltext) oder späterer Standpunkt-Seite.
  * `readingMinutes` ist nur Fallback, solange kein Volltext vorliegt.
+ *
+ * Einordnung wie bei Artikeln:
+ * - `topics`: Hauptthemen
+ * - `tags`: konkrete Schlagwörter
  */
 window.FREIRAUM_OPINIONS = [
   {
@@ -17,6 +21,8 @@ window.FREIRAUM_OPINIONS = [
     date: "2026-07-25",
     readingMinutes: 24,
     href: "#standpunkte",
+    topics: ["Schule & Bildung", "Kindheit & Familie"],
+    tags: ["Leistungsdruck", "Bildungspolitik"],
     published: true
   },
   {
@@ -29,6 +35,8 @@ window.FREIRAUM_OPINIONS = [
     date: "2026-07-20",
     readingMinutes: 9,
     href: "#standpunkte",
+    topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
+    tags: ["Bildungspolitik", "Eltern und Schule"],
     published: true
   },
   {
@@ -41,6 +49,8 @@ window.FREIRAUM_OPINIONS = [
     date: "2026-07-18",
     readingMinutes: 14,
     href: "#standpunkte",
+    topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
+    tags: ["Bildungspolitik"],
     published: true
   }
 ];

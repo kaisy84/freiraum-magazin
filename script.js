@@ -308,8 +308,86 @@
   const getMainTopics = () =>
     Array.isArray(window.FREIRAUM_TOPICS) ? window.FREIRAUM_TOPICS.filter((topic) => topic && topic.name) : [];
 
+  const slugifyLabel = (value) =>
+    String(value || "")
+      .toLowerCase()
+      .replace(/ä/g, "ae")
+      .replace(/ö/g, "oe")
+      .replace(/ü/g, "ue")
+      .replace(/ß/g, "ss")
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/&/g, " und ")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "")
+      .replace(/-+/g, "-");
+
+  const topicHrefForName = (name) => {
+    const topic = getMainTopics().find((entry) => entry.name === name);
+    if (topic && topic.href) return resolveUrl(topic.href);
+    return resolveUrl(`themen/${slugifyLabel(name)}.html`);
+  };
+
+  const tagHrefForName = (name) => resolveUrl(`schlagwort/${slugifyLabel(name)}.html`);
+
+  const normalizeTopicList = (value) =>
+    (Array.isArray(value) ? value : []).map((entry) => String(entry || "").trim()).filter(Boolean);
+
+  const normalizeTagList = (value) =>
+    (Array.isArray(value) ? value : []).map((entry) => String(entry || "").trim()).filter(Boolean);
+
   const topicLinkHtml = (topic) =>
     `<a href="${escapeHtml(resolveUrl(topic.href || "#"))}" data-topic-link="${escapeHtml(topic.id || "")}">${escapeHtml(topic.name)}</a>`;
+
+  const renderTaxonomyLine = (item) => {
+    const topics = normalizeTopicList(item.topics).slice(0, 2);
+    const tags = normalizeTagList(item.tags).slice(0, 2);
+    if (!topics.length && !tags.length) return "";
+
+    const topicLinks = topics
+      .map(
+        (name, index) =>
+          `${index > 0 ? '<span class="meta-sep" aria-hidden="true">·</span>' : ""}<a class="article-taxonomy-topic" href="${escapeHtml(topicHrefForName(name))}">${escapeHtml(name)}</a>`
+      )
+      .join("");
+
+    const tagLinks = tags
+      .map(
+        (name, index) =>
+          `${index > 0 ? '<span class="meta-sep" aria-hidden="true">·</span>' : ""}<a class="article-taxonomy-tag" href="${escapeHtml(tagHrefForName(name))}">${escapeHtml(name)}</a>`
+      )
+      .join("");
+
+    const arrow =
+      topics.length && tags.length
+        ? '<span class="article-taxonomy-arrow" aria-hidden="true">→</span>'
+        : "";
+
+    return `
+      <p class="article-taxonomy">
+        ${topics.length ? `<span class="article-taxonomy-topics">${topicLinks}</span>` : ""}
+        ${arrow}
+        ${tags.length ? `<span class="article-taxonomy-tags">${tagLinks}</span>` : ""}
+      </p>
+    `;
+  };
+
+  const findArticleForCurrentPage = () => {
+    const byId = document.body.dataset.articleId;
+    const articles = getPublishedArticles();
+    if (byId) {
+      const match = articles.find((article) => article.id === byId);
+      if (match) return match;
+    }
+
+    const path = window.location.pathname.replace(/\\/g, "/");
+    return (
+      articles.find((article) => {
+        const href = String(article.href || "");
+        return href && path.endsWith(href.replace(/^\.\//, ""));
+      }) || null
+    );
+  };
 
   const renderTopicsNavigation = () => {
     const topics = getMainTopics();
@@ -557,7 +635,8 @@
           article.teaser,
           article.label,
           article.author,
-          Array.isArray(article.topics) ? article.topics.join(" ") : ""
+          normalizeTopicList(article.topics).join(" "),
+          normalizeTagList(article.tags).join(" ")
         ].join(" ")
       )
     }));
@@ -572,7 +651,14 @@
       readingMinutesComputed: getReadingMinutes(opinion),
       href: resolveUrl(opinion.href || "#standpunkte"),
       haystack: normalizeSearchText(
-        [opinion.title, opinion.teaser, opinion.format, opinion.author].join(" ")
+        [
+          opinion.title,
+          opinion.teaser,
+          opinion.format,
+          opinion.author,
+          normalizeTopicList(opinion.topics).join(" "),
+          normalizeTagList(opinion.tags).join(" ")
+        ].join(" ")
       )
     }));
 
@@ -802,6 +888,24 @@
     target.textContent = formatReadingTime(calculateReadingTime(body.innerHTML));
   };
 
+  const initArticleTaxonomy = () => {
+    const header = document.querySelector(".article-page .article-header");
+    if (!header) return;
+
+    const existing = header.querySelector(".article-taxonomy");
+    if (existing) existing.remove();
+
+    const article = findArticleForCurrentPage();
+    if (!article) return;
+
+    const markup = renderTaxonomyLine(article);
+    if (!markup) return;
+
+    const byline = header.querySelector(".byline");
+    if (byline) byline.insertAdjacentHTML("afterend", markup);
+    else header.insertAdjacentHTML("beforeend", markup);
+  };
+
   const boot = async () => {
     const articles = getPublishedArticles();
     const opinions = getPublishedOpinions();
@@ -812,6 +916,7 @@
     renderTopicsNavigation();
     renderTopicPage();
     initArticleReadingTime();
+    initArticleTaxonomy();
     initChrome();
     initReveal();
   };

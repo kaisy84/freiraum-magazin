@@ -8,6 +8,10 @@
  * `readingMinutes` ist nur noch optionaler Fallback, wenn kein voller Artikeltext
  * (Artikelseite oder `body`) verfügbar ist.
  *
+ * Zwei getrennte Ebenen der Einordnung:
+ * - `topics`: ausschließlich die fünf Hauptthemen (große redaktionelle Bereiche)
+ * - `tags`: konkrete Schlagwörter zum Gegenstand des Beitrags
+ *
  * Hauptthemen (ausschließlich diese Bezeichnungen in `topics` verwenden):
  * - Schule & Bildung
  * - Freilernen & Bildungswege
@@ -17,21 +21,21 @@
  */
 window.FREIRAUM_TOPICS = [
   {
-    id: "schule-bildungspolitik",
+    id: "schule-bildung",
     name: "Schule & Bildung",
-    href: "themen/schule-bildungspolitik.html",
+    href: "themen/schule-bildung.html",
     description: "Beiträge zu Schule, Schulsystem und bildungspolitischen Fragen."
   },
   {
-    id: "freilernen-homeschooling",
+    id: "freilernen-bildungswege",
     name: "Freilernen & Bildungswege",
-    href: "themen/freilernen-homeschooling.html",
+    href: "themen/freilernen-bildungswege.html",
     description: "Beiträge zu Freilernen, Homeschooling und Bildungswegen außerhalb der Schule."
   },
   {
     id: "kindheit-familie",
     name: "Kindheit & Familie",
-    href: "#",
+    href: "themen/kindheit-familie.html",
     description: "Beiträge zu Kindheit, Familie und dem Alltag zwischen Fürsorge und Bildung."
   },
   {
@@ -43,7 +47,7 @@ window.FREIRAUM_TOPICS = [
   {
     id: "gesellschaft-sozialpsychologie",
     name: "Gesellschaft & Sozialpsychologie",
-    href: "#",
+    href: "themen/gesellschaft-sozialpsychologie.html",
     description: "Beiträge zu gesellschaftlichen Fragen und sozialpsychologischen Zusammenhängen."
   }
 ];
@@ -63,6 +67,7 @@ window.FREIRAUM_ARTICLES = [
     imageCaption: "",
     imageTone: "alt",
     topics: ["Freilernen & Bildungswege"],
+    tags: ["Freilernen", "Homeschooling"],
     published: true
   },
   {
@@ -78,7 +83,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Kinderhand mit Bleistift über einem Matheblatt auf einem Holztisch",
     imageCaption: "",
     imageTone: "default",
-    topics: ["Schule & Bildung"],
+    topics: ["Schule & Bildung", "Kindheit & Familie"],
+    tags: ["Schulpflicht", "Bildungspolitik", "Homeschooling"],
     published: true
   },
   {
@@ -94,7 +100,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Sechs Kinder sitzen nebeneinander auf einem umgestürzten Baumstamm im Grünen, den Rücken zur Kamera",
     imageCaption: "",
     imageTone: "default",
-    topics: ["Lernen & Entwicklung"],
+    topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
+    tags: ["Sozialverhalten", "Sozialisation", "Jahrgangsklassen", "Homeschooling"],
     published: true
   },
   {
@@ -110,7 +117,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "sage",
-    topics: [],
+    topics: ["Schule & Bildung", "Kindheit & Familie"],
+    tags: ["Eltern und Schule"],
     published: true
   },
   {
@@ -126,7 +134,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "sand",
-    topics: [],
+    topics: ["Freilernen & Bildungswege", "Schule & Bildung"],
+    tags: ["Homeschooling", "Schulpflicht", "Bildungspolitik"],
     published: true
   },
   {
@@ -141,7 +150,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "default",
-    topics: [],
+    topics: ["Schule & Bildung", "Kindheit & Familie"],
+    tags: ["Hausaufgaben", "Leistungsdruck"],
     published: true
   },
   {
@@ -157,7 +167,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "alt",
-    topics: [],
+    topics: ["Schule & Bildung", "Lernen & Entwicklung"],
+    tags: ["Noten", "Leistungsdruck", "soziale Vergleiche"],
     published: true
   },
   {
@@ -173,7 +184,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "sage",
-    topics: [],
+    topics: ["Schule & Bildung", "Lernen & Entwicklung"],
+    tags: ["LRS", "ADHS", "Neurodivergenz"],
     published: true
   },
   {
@@ -189,7 +201,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "sand",
-    topics: [],
+    topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
+    tags: ["Bildungspolitik"],
     published: true
   },
   {
@@ -205,7 +218,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "default",
-    topics: [],
+    topics: ["Gesellschaft & Sozialpsychologie", "Lernen & Entwicklung"],
+    tags: ["soziale Vergleiche", "Jahrgangsklassen"],
     published: true
   },
   {
@@ -221,7 +235,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "alt",
-    topics: [],
+    topics: ["Lernen & Entwicklung", "Schule & Bildung"],
+    tags: ["Jahrgangsklassen"],
     published: true
   },
   {
@@ -237,7 +252,8 @@ window.FREIRAUM_ARTICLES = [
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "sage",
-    topics: [],
+    topics: ["Schule & Bildung"],
+    tags: ["Bildungspolitik"],
     published: true
   }
 ];

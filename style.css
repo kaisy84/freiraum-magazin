@@ -637,6 +637,49 @@ main {
   margin: 0;
 }
 
+.article-taxonomy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.55rem;
+  margin: 0.7rem 0 0;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
+.article-taxonomy-topics,
+.article-taxonomy-tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+}
+
+.article-taxonomy a {
+  text-decoration: none;
+}
+
+.article-taxonomy-topic {
+  color: var(--green);
+  font-weight: 500;
+}
+
+.article-taxonomy-tag {
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.article-taxonomy a:hover,
+.article-taxonomy a:focus-visible {
+  color: var(--terracotta);
+}
+
+.article-taxonomy-arrow {
+  color: var(--sand);
+}
+
 /* ----- Topic pages ----- */
 
 .legal-page {
