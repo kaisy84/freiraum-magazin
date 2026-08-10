@@ -618,19 +618,33 @@ main {
 /* ----- Article page ----- */
 
 .article-page {
+  --article-measure: 46.5rem; /* ~744px: journalistic column, not full page */
   padding: clamp(2rem, 4vw, 3.25rem) 0 var(--section-space);
 }
 
 .article-header {
-  max-width: 42rem;
-  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+  max-width: var(--article-measure);
+  margin-bottom: clamp(1.35rem, 2.5vw, 1.85rem);
 }
 
 .article-title {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.9rem, 3.6vw, 2.85rem);
   font-weight: 600;
   letter-spacing: -0.025em;
-  margin-bottom: 0.75rem;
+  margin: 0 0 0.65rem;
+  text-align: left;
+  color: var(--green);
+}
+
+.article-deck {
+  margin: 0 0 1rem;
+  max-width: 40rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.12rem, 1.6vw, 1.28rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  text-align: left;
 }
 
 .article-header .byline {
@@ -990,7 +1004,8 @@ main {
 }
 
 .article-hero {
-  margin: 0 0 clamp(2rem, 4vw, 2.75rem);
+  max-width: min(56rem, 100%);
+  margin: 0 0 clamp(1.85rem, 3.5vw, 2.5rem);
 }
 
 .article-hero img {
@@ -1005,23 +1020,139 @@ main {
 }
 
 .article-body {
-  max-width: 40rem;
+  max-width: var(--article-measure);
   font-family: var(--font-serif);
-  font-size: clamp(1.08rem, 1.5vw, 1.2rem);
-  line-height: 1.7;
+  font-size: clamp(1.1rem, 1.25vw, 1.2rem);
+  line-height: 1.65;
   color: var(--ink);
+  text-align: left;
+  text-wrap: pretty;
 }
 
 .article-body p {
-  margin: 0 0 1.15rem;
+  margin: 0 0 0.75em;
+}
+
+.article-body p:last-child {
+  margin-bottom: 0;
 }
 
 .article-body h2 {
-  font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+  font-family: var(--font-serif);
+  font-size: clamp(1.22rem, 1.7vw, 1.48rem);
   font-weight: 600;
   color: var(--green);
-  margin: 2.4rem 0 1rem;
+  margin: 2.65rem 0 0.7rem;
   letter-spacing: -0.015em;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.article-body h2:first-child {
+  margin-top: 0;
+}
+
+/* Optional deck under a section heading */
+.article-section-lead {
+  margin: 0 0 1em;
+  font-family: var(--font-serif);
+  font-size: 1.05em;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+/* Quiet pullquote for longer pieces – opt-in via markup */
+.article-pullquote {
+  margin: 1.75rem 0 1.6rem;
+  padding: 0.15rem 0 0.15rem 1rem;
+  border-left: 1px solid color-mix(in srgb, var(--green) 45%, var(--line-strong));
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 1.7vw, 1.38rem);
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.45;
+  color: var(--green);
+  text-align: left;
+  quotes: none;
+}
+
+.article-pullquote p {
+  margin: 0;
+}
+
+.article-pullquote cite,
+.article-pullquote footer {
+  display: block;
+  margin-top: 0.55rem;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+/* Sources / further reading – prepared for future use */
+.article-sources {
+  max-width: var(--article-measure);
+  margin: clamp(2.5rem, 4vw, 3.25rem) 0 0;
+  padding-top: clamp(1.35rem, 2.5vw, 1.75rem);
+  border-top: 1px solid var(--line);
+}
+
+.article-sources h2 {
+  margin: 0 0 0.85rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 1.5vw, 1.3rem);
+  font-weight: 600;
+  color: var(--green);
+  letter-spacing: -0.01em;
+}
+
+.article-sources ol,
+.article-sources ul {
+  margin: 0;
+  padding-left: 1.15rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.article-sources li {
+  margin: 0 0 0.45rem;
+}
+
+.article-sources a {
+  color: var(--terracotta);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.article-sources a:hover,
+.article-sources a:focus-visible {
+  color: var(--green);
+}
+
+@media (max-width: 700px) {
+  .article-page {
+    --article-measure: 100%;
+  }
+
+  .article-body {
+    font-size: 1.08rem;
+    line-height: 1.65;
+  }
+
+  .article-body h2 {
+    font-size: 1.22rem;
+    margin-top: 2.15rem;
+  }
+
+  .article-pullquote {
+    margin-left: 0;
+    padding-left: 0.85rem;
+    font-size: 1.15rem;
+  }
 }
 
 /* Reading progress – article pages only (injected by JS) */
