@@ -1047,6 +1047,72 @@
     else header.insertAdjacentHTML("beforeend", markup);
   };
 
+  /**
+   * Thin reading-progress line for article pages.
+   * Progress is measured against `.article-body` only (not header/footer/related).
+   */
+  const initArticleReadingProgress = () => {
+    const page = document.querySelector(".article-page");
+    const content = page?.querySelector(".article-body");
+    if (!page || !content) return;
+    if (document.querySelector(".reading-progress")) return;
+
+    const track = document.createElement("div");
+    track.className = "reading-progress";
+    track.setAttribute("aria-hidden", "true");
+    track.innerHTML = '<div class="reading-progress__fill"></div>';
+    document.body.prepend(track);
+
+    const fill = track.firstElementChild;
+    let contentTop = 0;
+    let contentHeight = 0;
+    let ticking = false;
+
+    const measure = () => {
+      const rect = content.getBoundingClientRect();
+      contentTop = rect.top + window.scrollY;
+      contentHeight = content.offsetHeight;
+    };
+
+    const applyProgress = (progress) => {
+      fill.style.transform = `scaleX(${progress})`;
+    };
+
+    const update = () => {
+      ticking = false;
+      const viewportHeight = window.innerHeight || 1;
+      const scrollY = window.scrollY;
+      const start = contentTop;
+      const end = contentTop + contentHeight - viewportHeight;
+      let progress = 0;
+
+      if (end <= start) {
+        progress = scrollY + viewportHeight >= contentTop + contentHeight ? 1 : 0;
+      } else {
+        progress = (scrollY - start) / (end - start);
+      }
+
+      applyProgress(Math.min(1, Math.max(0, progress)));
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    };
+
+    const onResize = () => {
+      measure();
+      update();
+    };
+
+    measure();
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
+    window.addEventListener("orientationchange", onResize);
+  };
+
   const boot = async () => {
     const articles = getPublishedArticles();
     const opinions = getPublishedOpinions();
@@ -1059,6 +1125,7 @@
     initArticleReadingTime();
     initArticleTaxonomy();
     initArticleRelated();
+    initArticleReadingProgress();
     initChrome();
     initReveal();
   };
