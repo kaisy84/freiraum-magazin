@@ -436,6 +436,10 @@ input {
   margin-bottom: 0.3rem;
 }
 
+.search-result-meta {
+  margin: 0.4rem 0 0;
+}
+
 .search-result-teaser {
   margin: 0;
   font-size: 0.92rem;

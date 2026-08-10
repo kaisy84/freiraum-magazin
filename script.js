@@ -41,22 +41,118 @@
     return name === DEFAULT_AUTHOR ? name : `Von ${name}`;
   };
 
-  const renderCreditLine = (item, { className = "byline", includeReadingTime = false } = {}) => {
-    const reading =
-      includeReadingTime && item.readingMinutes
-        ? `
+  const WORDS_PER_MINUTE = 220;
+  const readingTimeCache = new Map();
+
+  /** Strip tags/entities and collapse whitespace for word counting. */
+  const stripToPlainText = (value) =>
+    String(value || "")
+      .replace(/<script[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style[\s\S]*?<\/style>/gi, " ")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/&nbsp;/gi, " ")
+      .replace(/&#\d+;/g, " ")
+      .replace(/&[a-z]+;/gi, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const countWords = (value) => {
+    const plain = stripToPlainText(value);
+    if (!plain) return 0;
+    return plain.split(/\s+/).filter(Boolean).length;
+  };
+
+  /** Auto reading time from plain text or HTML. Min. 1 minute, 220 wpm, rounded up. */
+  const calculateReadingTime = (text) => {
+    const words = countWords(text);
+    return Math.max(1, Math.ceil(words / WORDS_PER_MINUTE));
+  };
+
+  const formatReadingTime = (minutes) => `${Math.max(1, Number(minutes) || 1)} Min. Lesezeit`;
+
+  const readingCacheKey = (item) => String(item.id || item.href || "");
+
+  const getReadingMinutes = (item) => {
+    if (!item) return 1;
+    if (item.readingMinutesComputed) return item.readingMinutesComputed;
+    const cached = readingTimeCache.get(readingCacheKey(item));
+    if (cached) return cached;
+    if (item.readingMinutes) return Math.max(1, Math.ceil(Number(item.readingMinutes)));
+    return calculateReadingTime([item.title, item.teaser, item.body].filter(Boolean).join(" "));
+  };
+
+  const setReadingMinutes = (item, minutes) => {
+    const value = Math.max(1, Number(minutes) || 1);
+    item.readingMinutesComputed = value;
+    readingTimeCache.set(readingCacheKey(item), value);
+    return value;
+  };
+
+  const hasArticlePage = (item) => /^artikel\/.+\.html$/i.test(String(item.href || ""));
+
+  const loadReadingMinutes = async (item) => {
+    if (!item) return 1;
+    if (item.readingMinutesComputed) return item.readingMinutesComputed;
+
+    const key = readingCacheKey(item);
+    if (readingTimeCache.has(key)) {
+      item.readingMinutesComputed = readingTimeCache.get(key);
+      return item.readingMinutesComputed;
+    }
+
+    if (item.body) {
+      return setReadingMinutes(item, calculateReadingTime(item.body));
+    }
+
+    if (hasArticlePage(item)) {
+      try {
+        const response = await fetch(resolveUrl(item.href), { credentials: "same-origin" });
+        if (response.ok) {
+          const html = await response.text();
+          const doc = new DOMParser().parseFromString(html, "text/html");
+          const body = doc.querySelector(".article-body");
+          if (body) {
+            return setReadingMinutes(item, calculateReadingTime(body.innerHTML));
+          }
+        }
+      } catch (_error) {
+        // Fall through to temporary fallbacks.
+      }
+    }
+
+    if (item.readingMinutes) {
+      return setReadingMinutes(item, item.readingMinutes);
+    }
+
+    return setReadingMinutes(
+      item,
+      calculateReadingTime([item.title, item.teaser].filter(Boolean).join(" "))
+    );
+  };
+
+  const enrichReadingMinutes = async (items) => {
+    await Promise.all(items.map((item) => loadReadingMinutes(item)));
+  };
+
+  const readingTimeMarkup = (item) => `
           <span class="meta-sep" aria-hidden="true">·</span>
-          <span>${escapeHtml(item.readingMinutes)} Min. Lesezeit</span>`
-        : "";
+          <span>${escapeHtml(formatReadingTime(getReadingMinutes(item)))}</span>`;
+
+  const renderCreditLine = (item, { className = "byline", showAuthor = true } = {}) => {
+    const authorBlock = showAuthor
+      ? `
+        <span class="byline-author">${escapeHtml(formatAuthorLabel(item.author))}</span>
+        <span class="meta-sep" aria-hidden="true">·</span>`
+      : "";
 
     return `
-      <p class="${className}">
-        <span class="byline-author">${escapeHtml(formatAuthorLabel(item.author))}</span>
-        <span class="meta-sep" aria-hidden="true">·</span>
-        <time datetime="${escapeHtml(item.date)}">${escapeHtml(formatDate(item.date))}</time>${reading}
+      <p class="${className}">${authorBlock}
+        <time datetime="${escapeHtml(item.date)}">${escapeHtml(formatDate(item.date))}</time>${readingTimeMarkup(item)}
       </p>
     `;
   };
+
+  window.FREIRAUM_calculateReadingTime = calculateReadingTime;
 
   const labelClassName = (label) => {
     const key = String(label || "").toLowerCase();
@@ -143,7 +239,7 @@
         <h1 id="lead-headline">
           <a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a>
         </h1>
-        ${renderCreditLine(article, { className: "byline", includeReadingTime: true })}
+        ${renderCreditLine(article, { className: "byline" })}
         <p class="lead-teaser">
           <a class="lead-teaser-link" href="${escapeHtml(href)}">${escapeHtml(article.teaser || "")}</a>
         </p>
@@ -195,7 +291,7 @@
         <p class="${labelClassName(article.label)}">${escapeHtml(article.label)}</p>
         <h3 class="story-title"><a href="${escapeHtml(href)}">${escapeHtml(article.title)}</a></h3>
         <p class="story-teaser">${escapeHtml(article.teaser || "")}</p>
-        <p class="meta"><time datetime="${escapeHtml(article.date)}">${escapeHtml(formatDate(article.date))}</time></p>
+        ${renderCreditLine(article, { className: "meta", showAuthor: false })}
       </article>
     `;
       })
@@ -421,14 +517,7 @@
         <p class="${labelClassName(opinion.format)}">${escapeHtml(opinion.format)}</p>
         <h3 class="debate-title"><a href="${escapeHtml(opinion.href || "#standpunkte")}">${escapeHtml(opinion.title)}</a></h3>
         <p class="debate-teaser">${escapeHtml(opinion.teaser || "")}</p>
-        <p class="meta">
-          <span>${escapeHtml(formatAuthorLabel(opinion.author))}</span>
-          ${
-            opinion.readingMinutes
-              ? `<span class="meta-sep" aria-hidden="true">·</span><span>${escapeHtml(opinion.readingMinutes)} Min.</span>`
-              : ""
-          }
-        </p>
+        ${renderCreditLine(opinion, { className: "meta" })}
       </article>
     `
       )
@@ -458,6 +547,9 @@
       type: article.label || "Artikel",
       title: article.title,
       teaser: article.teaser || "",
+      author: article.author,
+      date: article.date,
+      readingMinutesComputed: getReadingMinutes(article),
       href: resolveUrl(article.href || "#artikel"),
       haystack: normalizeSearchText(
         [
@@ -475,6 +567,9 @@
       type: opinion.format || "Standpunkt",
       title: opinion.title,
       teaser: opinion.teaser || "",
+      author: opinion.author,
+      date: opinion.date,
+      readingMinutesComputed: getReadingMinutes(opinion),
       href: resolveUrl(opinion.href || "#standpunkte"),
       haystack: normalizeSearchText(
         [opinion.title, opinion.teaser, opinion.format, opinion.author].join(" ")
@@ -529,6 +624,7 @@
               ? `<p class="search-result-teaser">${escapeHtml(shortenTeaser(item.teaser))}</p>`
               : ""
           }
+          ${renderCreditLine(item, { className: "meta search-result-meta" })}
         </a>
       `
         )
@@ -699,10 +795,26 @@
     }
   };
 
-  renderHomepageArticles();
-  renderStandpunkte();
-  renderTopicsNavigation();
-  renderTopicPage();
-  initChrome();
-  initReveal();
+  const initArticleReadingTime = () => {
+    const body = document.querySelector(".article-page .article-body");
+    const target = document.querySelector("[data-reading-time]");
+    if (!body || !target) return;
+    target.textContent = formatReadingTime(calculateReadingTime(body.innerHTML));
+  };
+
+  const boot = async () => {
+    const articles = getPublishedArticles();
+    const opinions = getPublishedOpinions();
+    await enrichReadingMinutes(articles.concat(opinions));
+
+    renderHomepageArticles();
+    renderStandpunkte();
+    renderTopicsNavigation();
+    renderTopicPage();
+    initArticleReadingTime();
+    initChrome();
+    initReveal();
+  };
+
+  boot();
 })();

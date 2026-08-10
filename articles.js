@@ -4,7 +4,9 @@
  * `published: false` blendet einen Beitrag aus.
  *
  * Autor: Standard ist „Redaktion FREIRAUM“, sofern kein anderer Autor gesetzt ist.
- * Anzeige redaktioneller Beiträge: Redaktion FREIRAUM · [Veröffentlichungsdatum]
+ * Anzeige: Autor · Datum · automatisch berechnete Lesezeit (script.js, 220 Wpm).
+ * `readingMinutes` ist nur noch optionaler Fallback, wenn kein voller Artikeltext
+ * (Artikelseite oder `body`) verfügbar ist.
  *
  * Hauptthemen (ausschließlich diese Bezeichnungen in `topics` verwenden):
  * - Schule & Bildung
@@ -55,7 +57,6 @@ window.FREIRAUM_ARTICLES = [
     label: "Reportage",
     author: "Redaktion FREIRAUM",
     date: "2026-08-09",
-    readingMinutes: 17,
     href: "artikel/freilernen-alltag.html",
     image: "assets/images/freilernen-alltag.jpg",
     imageAlt: "Kind sitzt auf der Couch und schaut eine Naturdokumentation im Fernsehen",
@@ -72,7 +73,6 @@ window.FREIRAUM_ARTICLES = [
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-08-09",
-    readingMinutes: 16,
     href: "artikel/schulpflicht-alternativen.html",
     image: "assets/images/schulpflicht-alternativen.jpg",
     imageAlt: "Kinderhand mit Bleistift über einem Matheblatt auf einem Holztisch",
@@ -89,7 +89,6 @@ window.FREIRAUM_ARTICLES = [
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-08-04",
-    readingMinutes: 18,
     href: "artikel/sozialverhalten-schule.html",
     image: "assets/images/sozialverhalten-schule.jpg",
     imageAlt: "Sechs Kinder sitzen nebeneinander auf einem umgestürzten Baumstamm im Grünen, den Rücken zur Kamera",

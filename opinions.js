@@ -2,6 +2,9 @@
  * Zentrale Standpunkte-Daten für FREIRAUM.
  * Nur formats mit klarer Position: Kommentar, Essay, Gastbeitrag, Position.
  * Die Startseite zeigt die neuesten veröffentlichten Beiträge (max. 3).
+ *
+ * Lesezeit: bevorzugt aus `body` (Volltext) oder späterer Standpunkt-Seite.
+ * `readingMinutes` ist nur Fallback, solange kein Volltext vorliegt.
  */
 window.FREIRAUM_OPINIONS = [
   {
