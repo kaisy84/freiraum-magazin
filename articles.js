@@ -20,11 +20,13 @@
  * - Optional: `imageAlt` (Alt-Text), `imageCaption`, `imageTone` (nur Platzhalterfarbe).
  * - Keine weiteren Bildfelder und keine Bildpfade in HTML-Seiten pflegen.
  *
- * SEO (von script.js auf Artikelseiten ausgegeben):
- * - `seoTitle`: optionaler HTML-/Social-Titel; Fallback: „[title] | FREIRAUM“
- * - `seoDescription`: optionale Meta Description; Fallback: `teaser`
- * - `dateModified`: nur bei inhaltlich relevanten Änderungen setzen (sonst weglassen/null)
- * - Canonical, Open Graph, Twitter Card und Schema.org Article nutzen dieselbe Quelle.
+ * SEO (statisch im HTML jeder Artikelseite + Datenquelle hier):
+ * - `seoTitle`, `seoDescription`, `date`, `dateModified`, `image`, `author`, `topics`
+ * - Beim Veröffentlichen: dieselben Werte in den <head> der Artikelseite schreiben
+ *   (title, description, canonical, Open Graph, Twitter, JSON-LD Article).
+ * - Canonical/OG/Schema immer mit https://magazin-freiraum.de – nie github.io.
+ * - Fallback, falls Felder fehlen: seoTitle → „[title] | FREIRAUM“, seoDescription → teaser.
+ * - `dateModified` nur bei inhaltlich relevanten Änderungen setzen.
  *
  * Hauptthemen (ausschließlich diese Bezeichnungen in `topics` verwenden):
  * - Schule & Bildung

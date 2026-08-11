@@ -592,13 +592,17 @@
     return { "@type": "Person", name };
   };
 
-  /** Onpage SEO for article pages – single source: articles.js */
+  /** Onpage SEO fallback – static <head> on article pages is authoritative for crawlers. */
   const initArticleSeo = () => {
     if (!document.head) return;
     const isArticlePage =
       Boolean(document.body?.dataset?.articleId || document.documentElement?.dataset?.articleId) ||
       Boolean(document.querySelector(".article-page"));
     if (!isArticlePage) return;
+
+    // Prefer server-delivered SEO (visible in view-source). Do not inject duplicates.
+    const existingCanonical = document.head.querySelector('link[rel="canonical"]');
+    if (existingCanonical) return;
 
     const article = findArticleForCurrentPage();
     if (!article || !hasArticlePage(article)) return;
