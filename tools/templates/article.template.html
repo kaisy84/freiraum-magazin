@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{SEO_BLOCK}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css?v={{ASSET_VERSION}}">
+</head>
+<body data-site-root="../" data-article-id="{{ARTICLE_ID}}">
+  <a class="skip-link" href="#main">Zum Inhalt springen</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand">
+        <a class="brand-name" href="../index.html">FREIRAUM</a>
+        <p class="brand-tagline">Magazin für Bildung, Schule und Gesellschaft</p>
+      </div>
+
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menü öffnen">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Hauptnavigation">
+        <ul class="nav-list">
+          <li class="nav-item--dropdown">
+            <button type="button" class="nav-dropdown-toggle" id="artikel-menu-toggle" aria-expanded="false" aria-controls="artikel-dropdown">
+              Artikel
+            </button>
+            <ul class="nav-dropdown" id="artikel-dropdown" hidden>
+              <li><a href="../index.html#artikel">Neu erschienen</a></li>
+              <li><a href="../index.html#artikel">Alle Artikel</a></li>
+              <li><a href="../index.html#standpunkte">Standpunkte</a></li>
+            </ul>
+          </li>
+          <li class="nav-item--dropdown">
+            <button type="button" class="nav-dropdown-toggle" id="topics-menu-toggle" aria-expanded="false" aria-controls="topics-dropdown">
+              Themen
+            </button>
+            <ul class="nav-dropdown" id="topics-dropdown" hidden></ul>
+          </li>
+          <li class="nav-item--dropdown">
+            <button type="button" class="nav-dropdown-toggle" id="erfahrungen-menu-toggle" aria-expanded="false" aria-controls="erfahrungen-dropdown">
+              Erfahrungen
+            </button>
+            <ul class="nav-dropdown" id="erfahrungen-dropdown" hidden>
+              <li><a href="../index.html#erfahrungen">Erfahrungsberichte lesen</a></li>
+              <li><a href="../kontakt.html#erfahrungen">Eigene Erfahrung einreichen</a></li>
+            </ul>
+          </li>
+          <li class="nav-item--dropdown">
+            <button type="button" class="nav-dropdown-toggle" id="ueber-menu-toggle" aria-expanded="false" aria-controls="ueber-dropdown">
+              Über uns
+            </button>
+            <ul class="nav-dropdown" id="ueber-dropdown" hidden>
+              <li><a href="../index.html#ueber-uns">Über FREIRAUM</a></li>
+              <li><a href="../kontakt.html">Redaktion</a></li>
+              <li><a href="../index.html#artikel">Autor:innen</a></li>
+            </ul>
+          </li>
+          <li>
+            <button type="button" class="nav-search" id="search-toggle" aria-expanded="false" aria-controls="search-panel">
+              Suche
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="search-panel" id="search-panel" hidden>
+      <div class="search-panel-inner">
+        <form class="search-form" role="search" action="#" method="get">
+          <label class="visually-hidden" for="site-search">Suche</label>
+          <input
+            id="site-search"
+            class="search-input"
+            type="search"
+            name="q"
+            placeholder="Artikel, Themen oder Begriffe suchen …"
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button type="button" class="search-close" id="search-close" aria-label="Suche schließen">
+            <span aria-hidden="true">×</span>
+          </button>
+        </form>
+        <div class="search-results" id="search-results" hidden></div>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="article-page">
+      <header class="article-header">
+        <p class="label">{{LABEL}}</p>
+        <h1 class="article-title">{{TITLE}}</h1>
+        <p class="article-deck">{{TEASER}}</p>
+        <p class="byline">
+          <span class="byline-author">{{AUTHOR_DISPLAY}}</span>
+          <span class="meta-sep" aria-hidden="true">·</span>
+          <time datetime="{{DATE_ISO}}">{{DATE_DISPLAY}}</time>
+          <span class="meta-sep" aria-hidden="true">·</span>
+          <span data-reading-time></span>
+        </p>
+      </header>
+
+      <figure class="article-hero" data-article-cover></figure>
+
+      <div class="article-body">
+{{BODY}}
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer" id="ueber-uns">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <p class="footer-name">FREIRAUM</p>
+        <p class="footer-tagline">Magazin für Bildung, Schule und Gesellschaft</p>
+        <p class="footer-about">
+          Unabhängiges, ausdrücklich schulkritisches Online-Magazin. Wir schreiben über Schule, Bildungssystem, Freilernen, Kindheit und die Fragen, die im Alltag oft zu kurz kommen.
+        </p>
+      </div>
+
+      <nav class="footer-nav" aria-label="Fußzeile">
+        <ul>
+          <li><a href="../index.html#ueber-uns">Über uns</a></li>
+          <li><a href="../index.html#newsletter">Newsletter</a></li>
+          <li><a href="../index.html#artikel">Autorinnen &amp; Autoren</a></li>
+          <li><a href="../kontakt.html">Kontakt</a></li>
+          <li><a href="../impressum.html">Impressum</a></li>
+          <li><a href="../datenschutz.html">Datenschutz</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="footer-copy">
+      <span>© <span data-year></span> FREIRAUM</span>
+    </p>
+  </footer>
+
+  <script src="../articles.js?v={{ASSET_VERSION}}"></script>
+  <script src="../opinions.js?v={{ASSET_VERSION}}"></script>
+  <script src="../script.js?v={{ASSET_VERSION}}"></script>
+</body>
+</html>

@@ -22,11 +22,13 @@
  *
  * SEO (statisch im HTML jeder Artikelseite + Datenquelle hier):
  * - `seoTitle`, `seoDescription`, `date`, `dateModified`, `image`, `author`, `topics`
- * - Beim Veröffentlichen: dieselben Werte in den <head> der Artikelseite schreiben
- *   (title, description, canonical, Open Graph, Twitter, JSON-LD Article).
+ * - Veröffentlichung IMMER über tools/publish-article.ps1 (siehe docs/ARTIKEL-VEROEFFENTLICHEN.md)
+ * - Der Generator schreibt Title/Description/Canonical/OG/Twitter/JSON-LD in den
+ *   statischen <head> (Marker <!-- freiraum-seo:start/end -->), sichtbar in view-source.
  * - Canonical/OG/Schema immer mit https://magazin-freiraum.de – nie github.io.
  * - Fallback, falls Felder fehlen: seoTitle → „[title] | FREIRAUM“, seoDescription → teaser.
  * - `dateModified` nur bei inhaltlich relevanten Änderungen setzen.
+ * - Vor Push: tools/validate-articles.ps1
  *
  * Hauptthemen (ausschließlich diese Bezeichnungen in `topics` verwenden):
  * - Schule & Bildung

@@ -1,0 +1,43 @@
+---
+description: FREIRAUM article publishing requires the SEO generator workflow
+alwaysApply: true
+---
+
+# FREIRAUM article publishing
+
+When creating or updating a **published full article**, SEO is mandatory and must be **static HTML** (visible in `view-source`), never JS-only.
+
+## Required workflow
+
+1. Put metadata in `articles.js` (`seoTitle`, `seoDescription`, `image`, `imageAlt`, `author`, `date`, `dateModified`, `topics`, `tags`, `href`, `published`).
+2. Run the central generator:
+
+```powershell
+# New article (also inserts into articles.js)
+.\tools\publish-article.ps1 -New -Id "..." -Title "..." -Teaser "..." `
+  -BodyFile ".\drafts\....body.html" `
+  -Image "assets/images/....jpg" -ImageAlt "..." `
+  -Topics "..." -Tags "..." -SeoTitle "..." -SeoDescription "..."
+
+# After editing articles.js for an existing page
+.\tools\publish-article.ps1 -SyncId <id>
+
+# Regenerate SEO heads for all full articles
+.\tools\publish-article.ps1 -SyncAll
+```
+
+3. Validate before push:
+
+```powershell
+.\tools\validate-articles.ps1
+```
+
+Do **not** report an article as finished if validation fails.
+
+## Rules
+
+- Canonical / OG / Twitter / JSON-LD use `https://magazin-freiraum.de` only (never `kaisy84.github.io`).
+- One cover field: `image` (no separate SEO image system).
+- `dateModified` only for real content edits.
+- Author: `Redaktion FREIRAUM` → Organization; named author → Person.
+- Fallbacks: missing `seoTitle` → `[title] | FREIRAUM`; missing `seoDescription` → `teaser`.
