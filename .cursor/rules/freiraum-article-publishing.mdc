@@ -32,6 +32,9 @@ When creating or updating a **published full article**, SEO is mandatory and mus
 .\tools\validate-articles.ps1
 ```
 
+`publish-article.ps1` also regenerates `sitemap.xml` and `robots.txt` automatically
+(published full articles only; never `published: false` stubs).
+
 Do **not** report an article as finished if validation fails.
 
 ## Rules

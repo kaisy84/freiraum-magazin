@@ -61,6 +61,25 @@ Der Befehl:
 .\tools\validate-articles.ps1
 ```
 
+`publish-article.ps1` aktualisiert dabei automatisch:
+
+- `sitemap.xml` (nur veröffentlichte Vollartikel + indexierbare Seiten)
+- `robots.txt` (verweist auf die Sitemap)
+
+Unveröffentlichte Artikel (`published: false`) erscheinen nicht in der Sitemap.
+
+## Sitemap & robots.txt
+
+- Domain ausschließlich: `https://magazin-freiraum.de`
+- Artikel-`<lastmod>`: `dateModified` falls gesetzt, sonst `date`
+- Manuell neu erzeugen:
+
+```powershell
+Import-Module .\tools\FreiraumPublish.psm1 -Force
+Update-FreiraumSitemap
+Update-FreiraumRobotsTxt
+```
+
 ## Bestehenden Artikel aktualisieren
 
 Nach Änderungen an SEO-Feldern in `articles.js`:

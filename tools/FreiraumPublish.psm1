@@ -602,7 +602,129 @@ function Sync-PublishedArticleSeo {
       Issues = $check.Issues
     }
   }
+
+  Update-FreiraumSitemap -Root $Root | Out-Null
+  Update-FreiraumRobotsTxt -Root $Root | Out-Null
   return $results
+}
+
+function Get-ArticleLastmod {
+  param($Article)
+  $modified = if ($null -ne $Article.dateModified) { ([string]$Article.dateModified).Trim() } else { "" }
+  if ($modified) { return $modified }
+  return ([string]$Article.date).Trim()
+}
+
+function Get-FileLastmod {
+  param([string]$Path)
+  if (-not (Test-Path $Path)) { return (Get-Date -Format "yyyy-MM-dd") }
+  return ([IO.File]::GetLastWriteTime($Path).ToString("yyyy-MM-dd"))
+}
+
+function Update-FreiraumSitemap {
+  param([string]$Root = (Get-FreiraumRoot))
+
+  $origin = $script:FreiraumSiteOrigin
+  $entries = New-Object System.Collections.Generic.List[object]
+
+  # Homepage
+  $entries.Add([pscustomobject]@{
+    Loc     = "$origin/"
+    Lastmod = Get-FileLastmod (Join-Path $Root "index.html")
+    Type    = "home"
+  })
+
+  # Published full articles only
+  $articles = @(Get-FreiraumArticles -Root $Root | Where-Object {
+    $_.published -and $_.href -match '^artikel/.+\.html$'
+  })
+  foreach ($article in ($articles | Sort-Object date -Descending)) {
+    $htmlPath = Get-ArticleHtmlPath -Article $article -Root $Root
+    if (-not $htmlPath -or -not (Test-Path $htmlPath)) { continue }
+    $entries.Add([pscustomobject]@{
+      Loc     = Get-AbsoluteUrl $article.href
+      Lastmod = Get-ArticleLastmod $article
+      Type    = "article"
+    })
+  }
+
+  # Existing topic pages that are actually on disk
+  $topicsDir = Join-Path $Root "themen"
+  if (Test-Path $topicsDir) {
+    Get-ChildItem $topicsDir -Filter "*.html" | Sort-Object Name | ForEach-Object {
+      $rel = "themen/$($_.Name)"
+      $entries.Add([pscustomobject]@{
+        Loc     = Get-AbsoluteUrl $rel
+        Lastmod = Get-FileLastmod $_.FullName
+        Type    = "topic"
+      })
+    }
+  }
+
+  # Standalone information pages
+  foreach ($page in @("kontakt.html", "impressum.html", "datenschutz.html")) {
+    $full = Join-Path $Root $page
+    if (-not (Test-Path $full)) { continue }
+    $entries.Add([pscustomobject]@{
+      Loc     = Get-AbsoluteUrl $page
+      Lastmod = Get-FileLastmod $full
+      Type    = "info"
+    })
+  }
+
+  # Deduplicate by loc, keep first
+  $seen = @{}
+  $unique = New-Object System.Collections.Generic.List[object]
+  foreach ($entry in $entries) {
+    if ($seen.ContainsKey($entry.Loc)) { continue }
+    if ($entry.Loc -match 'github\.io') { throw "Sitemap must not contain github.io URLs" }
+    if ($entry.Loc -notmatch '^https://magazin-freiraum\.de/') {
+      throw "Sitemap URL must use magazin-freiraum.de: $($entry.Loc)"
+    }
+    if ($entry.Loc -match '#') { continue }
+    $seen[$entry.Loc] = $true
+    $unique.Add($entry)
+  }
+
+  $sb = New-Object System.Text.StringBuilder
+  [void]$sb.AppendLine('<?xml version="1.0" encoding="UTF-8"?>')
+  [void]$sb.AppendLine('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+  foreach ($entry in $unique) {
+    [void]$sb.AppendLine("  <url>")
+    [void]$sb.AppendLine("    <loc>$($entry.Loc)</loc>")
+    if ($entry.Lastmod) {
+      [void]$sb.AppendLine("    <lastmod>$($entry.Lastmod)</lastmod>")
+    }
+    [void]$sb.AppendLine("  </url>")
+  }
+  [void]$sb.AppendLine("</urlset>")
+
+  $outPath = Join-Path $Root "sitemap.xml"
+  $utf8 = New-Object System.Text.UTF8Encoding $false
+  [IO.File]::WriteAllText($outPath, $sb.ToString(), $utf8)
+
+  return [pscustomobject]@{
+    Path     = $outPath
+    UrlCount = $unique.Count
+    Entries  = @($unique.ToArray())
+  }
+}
+
+function Update-FreiraumRobotsTxt {
+  param([string]$Root = (Get-FreiraumRoot))
+
+  $content = @(
+    "User-agent: *"
+    "Allow: /"
+    ""
+    "Sitemap: $($script:FreiraumSiteOrigin)/sitemap.xml"
+    ""
+  ) -join "`n"
+
+  $outPath = Join-Path $Root "robots.txt"
+  $utf8 = New-Object System.Text.UTF8Encoding $false
+  [IO.File]::WriteAllText($outPath, $content, $utf8)
+  return $outPath
 }
 
 function Publish-NewFreiraumArticle {
@@ -656,6 +778,8 @@ function Publish-NewFreiraumArticle {
 
   Add-ArticleToArticlesJs -Article $article -Root $Root
   $path = New-ArticleHtmlFile -Article $article -BodyHtml $body -Root $Root
+  Update-FreiraumSitemap -Root $Root | Out-Null
+  Update-FreiraumRobotsTxt -Root $Root | Out-Null
   $check = Test-ArticleSeoCompleteness -Article $article -Root $Root
   return [pscustomobject]@{
     Id     = $Id
@@ -679,5 +803,7 @@ Export-ModuleMember -Function @(
   "Add-ArticleToArticlesJs",
   "Test-ArticleSeoCompleteness",
   "Sync-PublishedArticleSeo",
-  "Publish-NewFreiraumArticle"
+  "Publish-NewFreiraumArticle",
+  "Update-FreiraumSitemap",
+  "Update-FreiraumRobotsTxt"
 )

@@ -29,6 +29,7 @@
  * - Fallback, falls Felder fehlen: seoTitle → „[title] | FREIRAUM“, seoDescription → teaser.
  * - `dateModified` nur bei inhaltlich relevanten Änderungen setzen.
  * - Vor Push: tools/validate-articles.ps1
+ * - Sitemap/robots: tools/publish-article.ps1 regeneriert sitemap.xml + robots.txt automatisch
  *
  * Hauptthemen (ausschließlich diese Bezeichnungen in `topics` verwenden):
  * - Schule & Bildung
