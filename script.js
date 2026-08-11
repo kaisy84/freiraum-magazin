@@ -3,7 +3,8 @@
   const LATEST_COUNT = 9;
   const OPINION_COUNT = 3;
   const OPINION_FORMATS = new Set(["kommentar", "essay", "gastbeitrag", "position"]);
-  const siteRoot = document.body.dataset.siteRoot || "";
+  const SITE_ORIGIN = "https://magazin-freiraum.de";
+  const siteRoot = document.body?.dataset?.siteRoot || "";
 
   const escapeHtml = (value) =>
     String(value)
@@ -468,7 +469,8 @@
   };
 
   const findArticleForCurrentPage = () => {
-    const byId = document.body.dataset.articleId;
+    const byId =
+      document.body?.dataset?.articleId || document.documentElement?.dataset?.articleId || "";
     const articles = getPublishedArticles();
     if (byId) {
       const match = articles.find((article) => article.id === byId);
@@ -483,6 +485,179 @@
       }) || null
     );
   };
+
+  const getSeoTitle = (article) => {
+    const custom = typeof article.seoTitle === "string" ? article.seoTitle.trim() : "";
+    if (custom) return custom;
+    return `${article.title} | FREIRAUM`;
+  };
+
+  const getSeoDescription = (article) => {
+    const custom = typeof article.seoDescription === "string" ? article.seoDescription.trim() : "";
+    if (custom) return custom;
+    return String(article.teaser || "").trim();
+  };
+
+  const getDateModified = (article) => {
+    if (!article || article.dateModified == null) return null;
+    const value = String(article.dateModified).trim();
+    return value || null;
+  };
+
+  /** Absolute public URL on magazin-freiraum.de (never github.io). */
+  const toCanonicalUrl = (path) => {
+    if (!path) return `${SITE_ORIGIN}/`;
+    const raw = String(path).trim();
+    if (/^https?:\/\//i.test(raw)) {
+      try {
+        const url = new URL(raw);
+        if (/github\.io$/i.test(url.hostname)) {
+          return `${SITE_ORIGIN}${url.pathname}${url.search}${url.hash}`;
+        }
+        return url.toString();
+      } catch (_error) {
+        return `${SITE_ORIGIN}/`;
+      }
+    }
+    if (raw.startsWith("#")) return `${SITE_ORIGIN}/`;
+    const clean = raw.replace(/^\.\//, "").replace(/^\//, "");
+    return `${SITE_ORIGIN}/${clean}`;
+  };
+
+  const toAbsoluteAssetUrl = (path) => {
+    const cover = typeof path === "string" ? path.trim() : "";
+    if (!cover) return null;
+    return toCanonicalUrl(cover);
+  };
+
+  const setUniqueMetaByName = (name, content) => {
+    const nodes = Array.from(document.head.querySelectorAll(`meta[name="${name}"]`));
+    nodes.slice(1).forEach((node) => node.remove());
+    let el = nodes[0];
+    if (!el) {
+      el = document.createElement("meta");
+      el.setAttribute("name", name);
+      document.head.appendChild(el);
+    }
+    el.setAttribute("content", content);
+  };
+
+  const setUniqueMetaByProperty = (property, content) => {
+    const nodes = Array.from(document.head.querySelectorAll(`meta[property="${property}"]`));
+    nodes.slice(1).forEach((node) => node.remove());
+    let el = nodes[0];
+    if (!el) {
+      el = document.createElement("meta");
+      el.setAttribute("property", property);
+      document.head.appendChild(el);
+    }
+    el.setAttribute("content", content);
+  };
+
+  const removeMetaByProperty = (property) => {
+    document.head.querySelectorAll(`meta[property="${property}"]`).forEach((node) => node.remove());
+  };
+
+  const setUniqueCanonical = (href) => {
+    const nodes = Array.from(document.head.querySelectorAll('link[rel="canonical"]'));
+    nodes.slice(1).forEach((node) => node.remove());
+    let el = nodes[0];
+    if (!el) {
+      el = document.createElement("link");
+      el.setAttribute("rel", "canonical");
+      document.head.appendChild(el);
+    }
+    el.setAttribute("href", href);
+  };
+
+  const setJsonLd = (data) => {
+    document.head
+      .querySelectorAll('script[type="application/ld+json"][data-freiraum-seo]')
+      .forEach((node) => node.remove());
+    const el = document.createElement("script");
+    el.type = "application/ld+json";
+    el.setAttribute("data-freiraum-seo", "article");
+    el.textContent = JSON.stringify(data);
+    document.head.appendChild(el);
+  };
+
+  const schemaAuthorForArticle = (article) => {
+    const name = resolveAuthor(article.author);
+    if (/^redaktion\s+freiraum$/i.test(name)) {
+      return { "@type": "Organization", name: "Redaktion FREIRAUM" };
+    }
+    if (/^anonym\b/i.test(name)) {
+      return { "@type": "Organization", name: "FREIRAUM" };
+    }
+    return { "@type": "Person", name };
+  };
+
+  /** Onpage SEO for article pages – single source: articles.js */
+  const initArticleSeo = () => {
+    if (!document.head) return;
+    const isArticlePage =
+      Boolean(document.body?.dataset?.articleId || document.documentElement?.dataset?.articleId) ||
+      Boolean(document.querySelector(".article-page"));
+    if (!isArticlePage) return;
+
+    const article = findArticleForCurrentPage();
+    if (!article || !hasArticlePage(article)) return;
+
+    const seoTitle = getSeoTitle(article);
+    const seoDescription = getSeoDescription(article);
+    const canonical = toCanonicalUrl(article.href);
+    const imageUrl = toAbsoluteAssetUrl(getArticleCover(article));
+    const modified = getDateModified(article);
+    const section = Array.isArray(article.topics) && article.topics[0] ? article.topics[0] : "";
+
+    document.title = seoTitle;
+    if (seoDescription) setUniqueMetaByName("description", seoDescription);
+    setUniqueCanonical(canonical);
+
+    setUniqueMetaByProperty("og:type", "article");
+    setUniqueMetaByProperty("og:site_name", "FREIRAUM");
+    setUniqueMetaByProperty("og:title", seoTitle);
+    if (seoDescription) setUniqueMetaByProperty("og:description", seoDescription);
+    setUniqueMetaByProperty("og:url", canonical);
+    if (imageUrl) setUniqueMetaByProperty("og:image", imageUrl);
+    else removeMetaByProperty("og:image");
+
+    if (article.date) setUniqueMetaByProperty("article:published_time", article.date);
+    if (modified) setUniqueMetaByProperty("article:modified_time", modified);
+    else removeMetaByProperty("article:modified_time");
+    if (section) setUniqueMetaByProperty("article:section", section);
+
+    setUniqueMetaByName("twitter:card", "summary_large_image");
+    setUniqueMetaByName("twitter:title", seoTitle);
+    if (seoDescription) setUniqueMetaByName("twitter:description", seoDescription);
+    if (imageUrl) setUniqueMetaByName("twitter:image", imageUrl);
+
+    const jsonLd = {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: article.title,
+      description: seoDescription || undefined,
+      datePublished: article.date || undefined,
+      author: schemaAuthorForArticle(article),
+      publisher: {
+        "@type": "Organization",
+        name: "FREIRAUM",
+        url: `${SITE_ORIGIN}/`
+      },
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonical
+      }
+    };
+
+    if (imageUrl) jsonLd.image = [imageUrl];
+    if (modified) jsonLd.dateModified = modified;
+    if (section) jsonLd.articleSection = section;
+
+    setJsonLd(jsonLd);
+  };
+
+  window.FREIRAUM_initArticleSeo = initArticleSeo;
 
   /**
    * Related reading recommendations.
@@ -1219,6 +1394,7 @@
   };
 
   const boot = async () => {
+    initArticleSeo();
     initArticleCover();
 
     const articles = getPublishedArticles();
@@ -1237,5 +1413,6 @@
     initReveal();
   };
 
+  initArticleSeo();
   boot();
 })();

@@ -15,10 +15,16 @@
  * Coverbild (einzige Bildquelle pro Artikel):
  * - `image`: relativer Pfad zum Titelbild (z. B. "assets/images/….jpg")
  * - Wird automatisch verwendet für Startseite, Themenseiten, Suche,
- *   „Weiterlesen“ und die Hero-Abbildung der Artikelseite.
+ *   „Weiterlesen“, Artikelseite sowie Open Graph, Twitter und Schema.org.
  * - Ohne `image` erscheint der zentrale FREIRAUM-Platzhalter.
  * - Optional: `imageAlt` (Alt-Text), `imageCaption`, `imageTone` (nur Platzhalterfarbe).
  * - Keine weiteren Bildfelder und keine Bildpfade in HTML-Seiten pflegen.
+ *
+ * SEO (von script.js auf Artikelseiten ausgegeben):
+ * - `seoTitle`: optionaler HTML-/Social-Titel; Fallback: „[title] | FREIRAUM“
+ * - `seoDescription`: optionale Meta Description; Fallback: `teaser`
+ * - `dateModified`: nur bei inhaltlich relevanten Änderungen setzen (sonst weglassen/null)
+ * - Canonical, Open Graph, Twitter Card und Schema.org Article nutzen dieselbe Quelle.
  *
  * Hauptthemen (ausschließlich diese Bezeichnungen in `topics` verwenden):
  * - Schule & Bildung
@@ -64,11 +70,15 @@ window.FREIRAUM_ARTICLES = [
   {
     id: "eltern-schweigen",
     title: "Wenn Eltern in der Schule lieber schweigen",
+    seoTitle: "Wenn Eltern in der Schule lieber schweigen | FREIRAUM",
+    seoDescription:
+      "Eltern sollen Partner der Schule sein – doch was geschieht, wenn sie widersprechen? Über Elterngespräche, institutionelle Macht und die Grenzen der Erziehungspartnerschaft.",
     teaser:
       "Eltern sollen Partner der Schule sein. Doch was geschieht, wenn sie widersprechen? Über institutionelle Macht, vorsichtige Gespräche und die Frage, wie viel offene Kritik eine Erziehungspartnerschaft tatsächlich aushält.",
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-08-10",
+    dateModified: null,
     href: "artikel/eltern-schweigen.html",
     image: "assets/images/wenn-eltern-schweigen.jpg",
     imageAlt: "Zwei Personen sitzen sich an einem Holztisch gegenüber; auf dem Tisch liegen ein Dokument und ein Stift",
@@ -81,11 +91,15 @@ window.FREIRAUM_ARTICLES = [
   {
     id: "freilernen-alltag",
     title: "Freilernen im Alltag: Was bleibt, wenn der Stundenplan wegfällt?",
+    seoTitle: "Freilernen im Alltag: Lernen ohne Stundenplan | FREIRAUM",
+    seoDescription:
+      "Wie sieht Freilernen im Alltag aus? Ein Blick auf selbstbestimmtes Lernen, Struktur und die Frage, was geschieht, wenn der Stundenplan wegfällt.",
     teaser:
       "Ein Kind forscht am Küchentisch über Vulkane – ohne Stundenplan und ohne Klingeln. Was bleibt vom Lernen, wenn die äußere Ordnung wegfällt?",
     label: "Reportage",
     author: "Redaktion FREIRAUM",
     date: "2026-08-09",
+    dateModified: null,
     href: "artikel/freilernen-alltag.html",
     image: "assets/images/freilernen-alltag.jpg",
     imageAlt: "Kind sitzt auf der Couch und schaut eine Naturdokumentation im Fernsehen",
@@ -98,11 +112,15 @@ window.FREIRAUM_ARTICLES = [
   {
     id: "schulpflicht-alternativen",
     title: "Schulpflicht ohne Alternativen: Wer entscheidet über Kindheit?",
+    seoTitle: "Schulpflicht ohne Alternativen | FREIRAUM",
+    seoDescription:
+      "Was bedeutet die Schulpflicht für Familien, die andere Bildungswege suchen? Eine Analyse der rechtlichen Konstruktion und fehlender Alternativen in Deutschland.",
     teaser:
       "Ein Blick auf die rechtliche Konstruktion der Schulpflicht – und auf das, was sie für Familien bedeutet, die andere Wege suchen.",
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-08-09",
+    dateModified: null,
     href: "artikel/schulpflicht-alternativen.html",
     image: "assets/images/schulpflicht-alternativen.jpg",
     imageAlt: "Kinderhand mit Bleistift über einem Matheblatt auf einem Holztisch",
@@ -115,11 +133,15 @@ window.FREIRAUM_ARTICLES = [
   {
     id: "sozialverhalten-schule",
     title: "Lernen Kinder Sozialverhalten wirklich in der Schule?",
+    seoTitle: "Lernen Kinder Sozialverhalten wirklich in der Schule? | FREIRAUM",
+    seoDescription:
+      "Müssen Kinder in die Schule, um Sozialverhalten zu lernen? Eine Analyse über Peergruppen, Homeschooling und die Frage, welche sozialen Räume Kindheit wirklich braucht.",
     teaser:
       "Kaum eine Diskussion über Homeschooling oder Freilernen kommt ohne diesen Satz aus: „Aber Kinder müssen doch in die Schule, um Sozialverhalten zu lernen.“",
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-08-04",
+    dateModified: null,
     href: "artikel/sozialverhalten-schule.html",
     image: "assets/images/sozialverhalten-schule.jpg",
     imageAlt: "Sechs Kinder sitzen nebeneinander auf einem umgestürzten Baumstamm im Grünen, den Rücken zur Kamera",
@@ -137,6 +159,7 @@ window.FREIRAUM_ARTICLES = [
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-07-26",
+    dateModified: null,
     readingMinutes: 13,
     href: "#artikel",
     imageAlt: "Platzhalterbild",
@@ -153,6 +176,7 @@ window.FREIRAUM_ARTICLES = [
     label: "Debatte",
     author: "Mira Soltani",
     date: "2026-07-22",
+    dateModified: null,
     readingMinutes: 10,
     href: "#artikel",
     imageAlt: "Platzhalterbild",
@@ -170,6 +194,7 @@ window.FREIRAUM_ARTICLES = [
     label: "Debatte",
     author: "Redaktion FREIRAUM",
     date: "2026-07-19",
+    dateModified: null,
     readingMinutes: 9,
     href: "#artikel",
     imageAlt: "Platzhalterbild",
@@ -187,6 +212,7 @@ window.FREIRAUM_ARTICLES = [
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-07-14",
+    dateModified: null,
     readingMinutes: 14,
     href: "#artikel",
     imageAlt: "Platzhalterbild",
@@ -204,6 +230,7 @@ window.FREIRAUM_ARTICLES = [
     label: "Kommentar",
     author: "Redaktion FREIRAUM",
     date: "2026-07-11",
+    dateModified: null,
     readingMinutes: 8,
     href: "#artikel",
     imageAlt: "Platzhalterbild",
@@ -221,6 +248,7 @@ window.FREIRAUM_ARTICLES = [
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-07-07",
+    dateModified: null,
     readingMinutes: 12,
     href: "#artikel",
     imageAlt: "Platzhalterbild",
@@ -238,6 +266,7 @@ window.FREIRAUM_ARTICLES = [
     label: "Debatte",
     author: "Redaktion FREIRAUM",
     date: "2026-07-02",
+    dateModified: null,
     readingMinutes: 11,
     href: "#artikel",
     imageAlt: "Platzhalterbild",
@@ -255,6 +284,7 @@ window.FREIRAUM_ARTICLES = [
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-06-28",
+    dateModified: null,
     readingMinutes: 10,
     href: "#artikel",
     imageAlt: "Platzhalterbild",
