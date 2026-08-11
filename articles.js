@@ -159,16 +159,18 @@ window.FREIRAUM_ARTICLES = [
   {
     id: "homeschooling-deutschland",
     title: "Homeschooling in Deutschland: Zwischen Tabu und Sehnsucht",
+    seoTitle: "Homeschooling in Deutschland: Zwischen Tabu und Sehnsucht | FREIRAUM",
+    seoDescription:
+      "Warum Homeschooling in Deutschland so stark polarisiert – zwischen Schulpflicht, Elternrecht und der Frage, was Bildung wirklich braucht.",
     teaser:
       "Warum eine Praxis, die anderswo legal ist, hierzulande so stark polarisiert – und welche Fragen oft ungeklärt bleiben.",
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-07-26",
     dateModified: null,
-    readingMinutes: 13,
-    href: "#artikel",
+    href: "artikel/homeschooling-deutschland.html",
     imageAlt: "Platzhalterbild",
-    imageCaption: "Platzhalter – Bild folgt",
+    imageCaption: "",
     imageTone: "sand",
     topics: ["Freilernen & Bildungswege", "Schule & Bildung"],
     tags: ["Homeschooling", "Schulpflicht", "Bildungspolitik"],

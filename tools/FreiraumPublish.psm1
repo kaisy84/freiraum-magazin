@@ -504,9 +504,11 @@ function Test-ArticleSeoCompleteness {
   }
 
   $ogImage = [regex]::Match($html, '<meta\s+property="og:image"\s+content="([^"]+)"').Groups[1].Value
-  if (-not $ogImage) { $issues.Add("og:image missing") }
-  elseif ($ogImage -notmatch '^https://magazin-freiraum\.de/') {
-    $issues.Add("og:image must be absolute on magazin-freiraum.de")
+  if ($Article.image) {
+    if (-not $ogImage) { $issues.Add("og:image missing") }
+    elseif ($ogImage -notmatch '^https://magazin-freiraum\.de/') {
+      $issues.Add("og:image must be absolute on magazin-freiraum.de")
+    }
   }
 
   if ($html -notmatch 'twitter:card"\s+content="summary_large_image"') {
@@ -543,8 +545,8 @@ function Test-ArticleSeoCompleteness {
     }
   }
 
-  if (-not $Article.image) { $issues.Add("articles.js image missing") }
-  if (-not $Article.imageAlt) { $issues.Add("articles.js imageAlt missing") }
+  # Cover image is optional: without `image`, the site shows the shared placeholder.
+  if ($Article.image -and -not $Article.imageAlt) { $issues.Add("articles.js imageAlt missing when image is set") }
   if ($html -notmatch 'data-reading-time') { $issues.Add("reading time placeholder missing") }
 
   $bodyMatch = [regex]::Match($html, '(?s)<div class="article-body">(.*?)</div>')
@@ -576,17 +578,20 @@ function Sync-PublishedArticleSeo {
   )
 
   $articles = @(Get-FreiraumArticles -Root $Root)
-  $targets = if ($Id) {
-    @($articles | Where-Object { $_.id -eq $Id })
-  }
-  elseif ($All) {
-    @($articles | Where-Object {
-      $_.published -and $_.href -match '^artikel/.+\.html$'
-    })
-  }
-  else {
-    throw "Specify -Id or -All"
-  }
+  # Always wrap: a single-object pipeline result is not an array under Set-StrictMode.
+  $targets = @(
+    if ($Id) {
+      $articles | Where-Object { $_.id -eq $Id }
+    }
+    elseif ($All) {
+      $articles | Where-Object {
+        $_.published -and $_.href -match '^artikel/.+\.html$'
+      }
+    }
+    else {
+      throw "Specify -Id or -All"
+    }
+  )
 
   if ($targets.Count -eq 0) { throw "No matching articles found" }
 
