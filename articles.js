@@ -189,8 +189,9 @@ window.FREIRAUM_ARTICLES = [
     date: "2026-07-22",
     dateModified: null,
     href: "artikel/hausaufgaben-notwendigkeit.html",
-    imageAlt: "Platzhalterbild",
-    imageCaption: "Platzhalter – Bild folgt",
+    image: "assets/images/hausaufgaben.jpg",
+    imageAlt: "Handgeschriebenes Wort „Hausaufgaben“ in blauer Tinte auf liniertem Papier eines Spiralblocks",
+    imageCaption: "",
     imageTone: "default",
     topics: ["Schule & Bildung"],
     tags: [
