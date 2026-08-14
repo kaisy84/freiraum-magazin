@@ -180,18 +180,28 @@ window.FREIRAUM_ARTICLES = [
   {
     id: "hausaufgaben-notwendigkeit",
     title: "Hausaufgaben: Was bleibt vom Argument der Notwendigkeit?",
+    seoTitle: "Hausaufgaben: Was bleibt vom Argument der Notwendigkeit? | FREIRAUM",
+    seoDescription:
+      "Über Nutzen, Belastung und soziale Ungleichheit – warum Üben nötig sein kann, Hausaufgaben aber nicht automatisch notwendig sind.",
     teaser: "Über Nutzen, Belastung und soziale Ungleichheit.",
     label: "Debatte",
-    author: "Mira Soltani",
+    author: "Redaktion FREIRAUM",
     date: "2026-07-22",
     dateModified: null,
-    readingMinutes: 10,
-    href: "#artikel",
+    href: "artikel/hausaufgaben-notwendigkeit.html",
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "default",
-    topics: ["Schule & Bildung", "Kindheit & Familie"],
-    tags: ["Hausaufgaben", "Leistungsdruck"],
+    topics: ["Schule & Bildung"],
+    tags: [
+      "Hausaufgaben",
+      "Üben",
+      "Eltern",
+      "Nachhilfe",
+      "soziale Ungleichheit",
+      "Lernschwierigkeiten",
+      "Leistungsdruck"
+    ],
     published: true
   },
   {
