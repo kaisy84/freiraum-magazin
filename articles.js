@@ -206,21 +206,29 @@ window.FREIRAUM_ARTICLES = [
     published: true
   },
   {
-    id: "noten-wahrheit",
-    title: "Noten als Wahrheit: Wie Bewertung Beziehungen formt",
+    id: "pruefungen-ohne-schulbesuch",
+    title: "Prüfungen ohne Schulbesuch: Der Weg zum Schulabschluss",
+    seoTitle: "Prüfungen ohne Schulbesuch: Der Weg zum Schulabschluss | FREIRAUM",
+    seoDescription:
+      "Ein staatlich anerkannter Schulabschluss kann auch erworben werden, ohne zuvor die entsprechende Schule besucht zu haben. Was Nichtschülerprüfungen ermöglichen und warum Schulbesuch und Schulabschluss zwei verschiedene Dinge sind.",
     teaser:
-      "Über Leistungsvergleiche, Selbstbilder und die stille Macht einer Zahl auf dem Zeugnis.",
-    label: "Debatte",
+      "Ein staatlich anerkannter Schulabschluss kann auch erworben werden, ohne zuvor die entsprechende Schule besucht zu haben. Was Nichtschülerprüfungen ermöglichen und warum Schulbesuch und Schulabschluss zwei verschiedene Dinge sind.",
+    label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-07-19",
     dateModified: null,
-    readingMinutes: 9,
-    href: "#artikel",
+    href: "artikel/pruefungen-ohne-schulbesuch.html",
     imageAlt: "Platzhalterbild",
     imageCaption: "Platzhalter – Bild folgt",
     imageTone: "alt",
-    topics: ["Schule & Bildung", "Lernen & Entwicklung"],
-    tags: ["Noten", "Leistungsdruck", "soziale Vergleiche"],
+    topics: ["Schule & Bildung", "Freilernen & Bildungswege"],
+    tags: [
+      "Nichtschülerprüfung",
+      "Schulabschluss",
+      "Homeschooling",
+      "Freilernen",
+      "Schulpflicht"
+    ],
     published: true
   },
   {
