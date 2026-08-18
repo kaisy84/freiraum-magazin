@@ -218,8 +218,9 @@ window.FREIRAUM_ARTICLES = [
     date: "2026-07-19",
     dateModified: null,
     href: "artikel/pruefungen-ohne-schulbesuch.html",
-    imageAlt: "Platzhalterbild",
-    imageCaption: "Platzhalter – Bild folgt",
+    image: "assets/images/pruefungen-ohne-schulbesuch.jpg",
+    imageAlt: "Silhouette eines Kindes, das unter einem Baum sitzt und in einem Buch liest, vor einem warmen Abendhimmel",
+    imageCaption: "",
     imageTone: "alt",
     topics: ["Schule & Bildung", "Freilernen & Bildungswege"],
     tags: [
