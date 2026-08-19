@@ -117,6 +117,66 @@ function Get-FreiraumArticles {
   return $articles
 }
 
+function Get-FreiraumOpinions {
+  param([string]$Root = (Get-FreiraumRoot))
+  $path = Join-Path $Root "opinions.js"
+  if (-not (Test-Path $path)) { return @() }
+  $raw = [IO.File]::ReadAllText($path, [Text.Encoding]::UTF8)
+  $marker = "window.FREIRAUM_OPINIONS = ["
+  $start = $raw.IndexOf($marker)
+  if ($start -lt 0) { throw "FREIRAUM_OPINIONS not found in opinions.js" }
+  $arrayStart = $start + $marker.Length - 1
+  $end = $raw.IndexOf("`n];", $arrayStart)
+  if ($end -lt 0) { throw "Could not find end of FREIRAUM_OPINIONS" }
+  $inner = $raw.Substring($arrayStart + 1, $end - $arrayStart - 1)
+
+  $blocks = [regex]::Split($inner, '(?=\r?\n  \{\r?\n    id:)') | Where-Object {
+    $_.Trim().Length -gt 0 -and $_ -match 'id:\s*"'
+  }
+
+  $opinions = @()
+  foreach ($block in $blocks) {
+    $id = Get-JsFieldString -Block $block -Name "id"
+    if (-not $id) { continue }
+    $format = Get-JsFieldString -Block $block -Name "format"
+    $label = Get-JsFieldString -Block $block -Name "label"
+    $opinions += [pscustomobject]@{
+      id             = $id
+      title          = Get-JsFieldString -Block $block -Name "title"
+      seoTitle       = Get-JsFieldString -Block $block -Name "seoTitle"
+      seoDescription = Get-JsFieldString -Block $block -Name "seoDescription"
+      teaser         = Get-JsFieldString -Block $block -Name "teaser"
+      label          = $(if ($format) { $format } elseif ($label) { $label } else { "Standpunkt" })
+      format         = $format
+      author         = Get-JsFieldString -Block $block -Name "author"
+      date           = Get-JsFieldString -Block $block -Name "date"
+      dateModified   = Get-JsFieldNullOrString -Block $block -Name "dateModified"
+      href           = Get-JsFieldString -Block $block -Name "href"
+      image          = Get-JsFieldString -Block $block -Name "image"
+      imageAlt       = Get-JsFieldString -Block $block -Name "imageAlt"
+      imageCaption   = Get-JsFieldString -Block $block -Name "imageCaption"
+      imageTone      = Get-JsFieldString -Block $block -Name "imageTone"
+      topics         = @(Get-JsFieldArray -Block $block -Name "topics")
+      tags           = @(Get-JsFieldArray -Block $block -Name "tags")
+      published      = Get-JsFieldBool -Block $block -Name "published" -Default $true
+      readingMinutes = $null
+      rawBlock       = $block
+    }
+  }
+  return $opinions
+}
+
+function Get-FreiraumPublishedFullPages {
+  param([string]$Root = (Get-FreiraumRoot))
+  $articles = @(Get-FreiraumArticles -Root $Root | Where-Object {
+    $_.published -and $_.href -match '^artikel/.+\.html$'
+  })
+  $opinions = @(Get-FreiraumOpinions -Root $Root | Where-Object {
+    $_.published -and $_.href -match '^artikel/.+\.html$'
+  })
+  return @($articles + $opinions)
+}
+
 function Get-ArticleSeoTitle {
   param($Article)
   if ($Article.seoTitle -and $Article.seoTitle.Trim()) { return $Article.seoTitle.Trim() }
@@ -577,16 +637,14 @@ function Sync-PublishedArticleSeo {
     [switch]$All
   )
 
-  $articles = @(Get-FreiraumArticles -Root $Root)
+  $articles = @(Get-FreiraumPublishedFullPages -Root $Root)
   # Always wrap: a single-object pipeline result is not an array under Set-StrictMode.
   $targets = @(
     if ($Id) {
       $articles | Where-Object { $_.id -eq $Id }
     }
     elseif ($All) {
-      $articles | Where-Object {
-        $_.published -and $_.href -match '^artikel/.+\.html$'
-      }
+      $articles
     }
     else {
       throw "Specify -Id or -All"
@@ -639,10 +697,8 @@ function Update-FreiraumSitemap {
     Type    = "home"
   })
 
-  # Published full articles only
-  $articles = @(Get-FreiraumArticles -Root $Root | Where-Object {
-    $_.published -and $_.href -match '^artikel/.+\.html$'
-  })
+  # Published full article and Standpunkt pages only
+  $articles = @(Get-FreiraumPublishedFullPages -Root $Root)
   foreach ($article in ($articles | Sort-Object date -Descending)) {
     $htmlPath = Get-ArticleHtmlPath -Article $article -Root $Root
     if (-not $htmlPath -or -not (Test-Path $htmlPath)) { continue }
@@ -798,6 +854,8 @@ Export-ModuleMember -Function @(
   "Get-FreiraumRoot",
   "Get-AssetVersion",
   "Get-FreiraumArticles",
+  "Get-FreiraumOpinions",
+  "Get-FreiraumPublishedFullPages",
   "Get-ArticleSeoTitle",
   "Get-ArticleSeoDescription",
   "Get-AbsoluteUrl",

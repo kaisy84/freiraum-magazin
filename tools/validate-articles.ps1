@@ -15,9 +15,7 @@ $ErrorActionPreference = "Stop"
 Import-Module -Force (Join-Path $PSScriptRoot "FreiraumPublish.psm1")
 
 $root = Get-FreiraumRoot
-$articles = @(Get-FreiraumArticles -Root $root | Where-Object {
-  $_.published -and $_.href -match '^artikel/.+\.html$'
-})
+$articles = @(Get-FreiraumPublishedFullPages -Root $root)
 
 if ($Id) {
   $articles = @($articles | Where-Object { $_.id -eq $Id })

@@ -91,6 +91,23 @@
 
   const hasArticlePage = (item) => /^artikel\/.+\.html$/i.test(String(item.href || ""));
 
+  const opinionAsPage = (opinion) => ({
+    ...opinion,
+    label: opinion.format || opinion.label || "Standpunkt"
+  });
+
+  const getPublishedFullPages = () =>
+    getPublishedArticles()
+      .concat(
+        getPublishedOpinions()
+          .filter(hasArticlePage)
+          .map(opinionAsPage)
+      )
+      .sort((a, b) => {
+        if (a.date === b.date) return String(b.id || "").localeCompare(String(a.id || ""));
+        return a.date < b.date ? 1 : -1;
+      });
+
   const loadReadingMinutes = async (item) => {
     if (!item) return 1;
     if (item.readingMinutesComputed) return item.readingMinutesComputed;
@@ -471,15 +488,15 @@
   const findArticleForCurrentPage = () => {
     const byId =
       document.body?.dataset?.articleId || document.documentElement?.dataset?.articleId || "";
-    const articles = getPublishedArticles();
+    const pages = getPublishedFullPages();
     if (byId) {
-      const match = articles.find((article) => article.id === byId);
+      const match = pages.find((article) => article.id === byId);
       if (match) return match;
     }
 
     const path = window.location.pathname.replace(/\\/g, "/");
     return (
-      articles.find((article) => {
+      pages.find((article) => {
         const href = String(article.href || "");
         return href && path.endsWith(href.replace(/^\.\//, ""));
       }) || null
@@ -778,7 +795,7 @@
     const current = findArticleForCurrentPage();
     if (!current) return;
 
-    const related = getRelatedArticles(current, getPublishedArticles(), 3);
+    const related = getRelatedArticles(current, getPublishedFullPages(), 3);
     if (related.length < 2) return;
 
     const existing = document.querySelector(".related-articles");
@@ -805,7 +822,7 @@
   };
 
   const getArticlesForTopic = (topicName) =>
-    getPublishedArticles().filter(
+    getPublishedFullPages().filter(
       (article) =>
         Array.isArray(article.topics) &&
         article.topics.includes(topicName) &&
@@ -974,16 +991,23 @@
     }
 
     root.innerHTML = opinions
-      .map(
-        (opinion) => `
+      .map((opinion) => {
+        const href = hasArticlePage(opinion)
+          ? resolveUrl(opinion.href)
+          : opinion.href || "#standpunkte";
+        const cover = getArticleCover(opinion)
+          ? renderArticleCover(opinion, { variant: "story", href })
+          : "";
+        return `
       <article class="debate-item">
+        ${cover}
         <p class="${labelClassName(opinion.format)}">${escapeHtml(opinion.format)}</p>
-        <h3 class="debate-title"><a href="${escapeHtml(opinion.href || "#standpunkte")}">${escapeHtml(opinion.title)}</a></h3>
+        <h3 class="debate-title"><a href="${escapeHtml(href)}">${escapeHtml(opinion.title)}</a></h3>
         <p class="debate-teaser">${escapeHtml(opinion.teaser || "")}</p>
         ${renderCreditLine(opinion, { className: "meta" })}
       </article>
-    `
-      )
+    `;
+      })
       .join("");
   };
 
@@ -1043,6 +1067,7 @@
       image: opinion.image,
       imageAlt: opinion.imageAlt,
       imageTone: opinion.imageTone,
+      showCover: hasArticlePage(opinion),
       haystack: normalizeSearchText(
         [
           opinion.title,
@@ -1095,7 +1120,7 @@
       results.innerHTML = matches
         .map((item) => {
           const media =
-            item.kind === "article"
+            item.kind === "article" || item.showCover
               ? `<span class="search-result-media">${renderArticleCover(item, { variant: "search" })}</span>`
               : "";
 

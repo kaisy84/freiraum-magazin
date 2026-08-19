@@ -42,13 +42,20 @@ window.FREIRAUM_OPINIONS = [
   {
     id: "schule-arbeitsmarkt",
     title: "Muss Schule Kinder auf den Arbeitsmarkt vorbereiten?",
+    seoTitle: "Muss Schule Kinder auf den Arbeitsmarkt vorbereiten? | FREIRAUM",
+    seoDescription:
+      "Pünktlichkeit, Leistung, Anpassung: Vieles in der Schule wird mit dem späteren Berufsleben begründet. Doch auf welche Arbeitswelt bereiten wir Kinder eigentlich vor?",
     teaser:
-      "Ein klarer Standpunkt zum Kernkonflikt: Bildung als Zurichtung – oder als Raum für Entwicklung jenseits von Verwertbarkeit.",
+      "Pünktlichkeit, Leistung, Anpassung: Vieles in der Schule wird mit dem späteren Berufsleben begründet. Doch auf welche Arbeitswelt bereiten wir Kinder eigentlich vor?",
     format: "Position",
     author: "Redaktion FREIRAUM",
     date: "2026-07-18",
-    readingMinutes: 14,
-    href: "#standpunkte",
+    dateModified: null,
+    href: "artikel/schule-arbeitsmarkt.html",
+    image: "assets/images/arbeitsmarkt-schule.jpg",
+    imageAlt: "Blick von hinten in ein helles Klassenzimmer: Kinder sitzen an Holztischen, vorne steht eine Lehrkraft",
+    imageCaption: "",
+    imageTone: "alt",
     topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
     tags: ["Bildungspolitik"],
     published: true
