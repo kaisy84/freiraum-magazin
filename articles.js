@@ -73,6 +73,26 @@ window.FREIRAUM_TOPICS = [
 
 window.FREIRAUM_ARTICLES = [
   {
+    id: "bildung-am-fliessband",
+    title: "Bildung am Fließband – warum Schule noch immer auf Gleichschritt setzt",
+    seoTitle: "Bildung am Fließband – warum Schule noch immer auf Gleichschritt setzt | FREIRAUM",
+    seoDescription:
+      "Kinder lernen unterschiedlich – jeden Tag sichtbar im Klassenzimmer. Weshalb hält Schule trotzdem am Gleichschritt von Jahrgang, Stunde und Lehrplan fest?",
+    teaser:
+      "Kinder lernen unterschiedlich – jeden Tag sichtbar im Klassenzimmer. Weshalb hält Schule trotzdem am Gleichschritt von Jahrgang, Stunde und Lehrplan fest?",
+    label: "Analyse",
+    author: "Redaktion FREIRAUM",
+    date: "2026-08-24",
+    dateModified: null,
+    href: "artikel/bildung-am-fliessband.html",
+    imageAlt: "Platzhalterbild – Titelbild folgt unter assets/images/bildung-am-fliessband.jpg",
+    imageCaption: "Platzhalter – Bild folgt",
+    imageTone: "sage",
+    topics: ["Schule & Bildung"],
+    tags: ["Gleichschritt", "Jahrgangsklasse", "Differenzierung", "Lehrplan", "KI", "Bildungspolitik"],
+    published: true
+  },
+  {
     id: "eltern-schweigen",
     title: "Wenn Eltern in der Schule lieber schweigen",
     seoTitle: "Wenn Eltern in der Schule lieber schweigen | FREIRAUM",
