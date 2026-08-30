@@ -73,6 +73,26 @@ window.FREIRAUM_TOPICS = [
 
 window.FREIRAUM_ARTICLES = [
   {
+    id: "mit-zehn-jahren-getrennt-bildungswege-deutschland",
+    title: "Mit zehn Jahren getrennt – warum Deutschland so früh über Bildungswege entscheidet",
+    seoTitle: "Mit zehn Jahren getrennt – warum Deutschland so früh über Bildungswege entscheidet | FREIRAUM",
+    seoDescription:
+      "In Deutschland werden Kinder meist schon nach der vierten Klasse auf verschiedene Schulformen verteilt. Warum erfolgt diese Trennung so früh und welche Rolle spielt die soziale Herkunft?",
+    teaser:
+      "Nach der vierten Klasse werden Kinder in Deutschland auf unterschiedliche Schulformen verteilt. Kaum ein OECD-Land trennt so früh.",
+    label: "Analyse",
+    author: "Redaktion FREIRAUM",
+    date: "2026-08-30",
+    dateModified: null,
+    href: "artikel/mit-zehn-jahren-getrennt-bildungswege-deutschland.html",
+    imageAlt: "Beitragsbild",
+    imageCaption: "",
+    imageTone: "sage",
+    topics: ["Schule & Bildung"],
+    tags: ["Bildungspolitik", "Schulformen", "Selektion", "OECD", "Bildungsgerechtigkeit", "Übergang"],
+    published: true
+  },
+  {
     id: "bildung-am-fliessband",
     title: "Bildung am Fließband – warum Schule noch immer auf Gleichschritt setzt",
     seoTitle: "Bildung am Fließband – warum Schule noch immer auf Gleichschritt setzt | FREIRAUM",
