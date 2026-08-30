@@ -2,6 +2,17 @@
   const FEATURED_COUNT = 2;
   const LATEST_COUNT = 6;
   const OPINION_COUNT = 3;
+  /** Editorial Meistgelesen order; `id` is resolved from articles.js / opinions.js. */
+  const MOST_READ = [
+    { id: "sozialverhalten-schule" },
+    {
+      title:
+        "Wir wollten keine Schulverweigerung – wir wollten verstehen, warum unser Kind nicht mehr konnte."
+    },
+    { id: "eltern-schweigen" },
+    { id: "homeschooling-deutschland" },
+    { id: "hausaufgaben-notwendigkeit" }
+  ];
   const OPINION_FORMATS = new Set(["kommentar", "essay", "gastbeitrag", "position"]);
   const SITE_ORIGIN = "https://magazin-freiraum.de";
   const siteRoot = document.body?.dataset?.siteRoot || "";
@@ -1019,6 +1030,29 @@
       .join("");
   };
 
+  const renderMostRead = () => {
+    const root = document.querySelector("#most-read-list");
+    if (!root) return;
+
+    const pages = getPublishedFullPages();
+
+    root.innerHTML = MOST_READ.map((entry, index) => {
+      const article = entry.id ? pages.find((item) => item.id === entry.id) : null;
+      const title = (article && article.title) || entry.title || "";
+      const num = String(index + 1).padStart(2, "0");
+      const inner = `
+        <span class="most-read-num" aria-hidden="true">${escapeHtml(num)}</span>
+        <span class="most-read-text">${escapeHtml(title)}</span>`;
+
+      if (article && hasArticlePage(article)) {
+        return `<li><a href="${escapeHtml(resolveUrl(article.href))}">${inner}</a></li>`;
+      }
+
+      // No published article page: keep the row, but do not invent a URL or section anchor.
+      return `<li><a>${inner}</a></li>`;
+    }).join("");
+  };
+
   const normalizeSearchText = (value) => {
     const lower = String(value || "").toLowerCase();
     const german = lower
@@ -1421,6 +1455,7 @@
 
     renderHomepageArticles();
     renderStandpunkte();
+    renderMostRead();
     renderTopicsNavigation();
     renderTopicPage();
     initArticleReadingTime();
