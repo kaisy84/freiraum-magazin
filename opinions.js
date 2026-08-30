@@ -27,8 +27,8 @@ window.FREIRAUM_OPINIONS = [
   },
   {
     id: "illusion-neutralitaet",
-    title: "Die Illusion der Neutralität in der Schuldebatte",
-    seoTitle: "Die Illusion der Neutralität in der Schuldebatte | FREIRAUM",
+    title: "Die Illusion der Neutralität",
+    seoTitle: "Die Illusion der Neutralität | FREIRAUM",
     seoDescription:
       "Warum muss sich eigentlich immer die Alternative rechtfertigen? Über einen Schulalltag, in dem der Status quo als selbstverständlich gilt und selbst „das Beste fürs Kind“ keine neutrale Aussage ist.",
     teaser:
