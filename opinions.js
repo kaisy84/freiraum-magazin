@@ -38,6 +38,10 @@ window.FREIRAUM_OPINIONS = [
     date: "2026-08-30",
     dateModified: null,
     href: "artikel/illusion-neutralitaet.html",
+    image: "assets/images/illusion-neutralitaet.jpg",
+    imageAlt: "Liniertes Notizblatt auf einem abgenutzten Holztisch, handgeschrieben: „So ist das eben.“ und „Aber warum eigentlich?“",
+    imageCaption: "",
+    imageTone: "default",
     topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
     tags: ["Bildungspolitik", "Eltern und Schule"],
     published: true
