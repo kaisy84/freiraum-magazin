@@ -1,7 +1,7 @@
 /**
  * Zentrale Standpunkte-Daten für FREIRAUM.
  * Nur formats mit klarer Position: Kommentar, Essay, Gastbeitrag, Position.
- * Die Startseite zeigt die neuesten veröffentlichten Beiträge (max. 3).
+ * Die Startseite zeigt die ersten drei veröffentlichten Beiträge in dieser Liste.
  *
  * Lesezeit: bevorzugt aus `body` (Volltext) oder späterer Standpunkt-Seite.
  * `readingMinutes` ist nur Fallback, solange kein Volltext vorliegt.
@@ -28,13 +28,16 @@ window.FREIRAUM_OPINIONS = [
   {
     id: "illusion-neutralitaet",
     title: "Die Illusion der Neutralität in der Schuldebatte",
+    seoTitle: "Die Illusion der Neutralität in der Schuldebatte | FREIRAUM",
+    seoDescription:
+      "Warum muss sich eigentlich immer die Alternative rechtfertigen? Über einen Schulalltag, in dem der Status quo als selbstverständlich gilt und selbst „das Beste fürs Kind“ keine neutrale Aussage ist.",
     teaser:
-      "Wer „nur das Beste fürs Kind“ sagt, spricht selten wertfrei. Ein Kommentar über Sprache, Macht und blinde Flecken.",
+      "Warum muss sich eigentlich immer die Alternative rechtfertigen? Über einen Schulalltag, in dem der Status quo als selbstverständlich gilt und selbst „das Beste fürs Kind“ keine neutrale Aussage ist.",
     format: "Kommentar",
-    author: "Samir El-Kader",
-    date: "2026-07-20",
-    readingMinutes: 9,
-    href: "#standpunkte",
+    author: "Redaktion FREIRAUM",
+    date: "2026-08-30",
+    dateModified: null,
+    href: "artikel/illusion-neutralitaet.html",
     topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
     tags: ["Bildungspolitik", "Eltern und Schule"],
     published: true

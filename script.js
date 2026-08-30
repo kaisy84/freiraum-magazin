@@ -984,7 +984,15 @@
     const root = document.querySelector("#standpunkte-grid");
     if (!root) return;
 
-    const opinions = getPublishedOpinions().slice(0, OPINION_COUNT);
+    // Homepage slots follow editorial order in opinions.js (max. 3),
+    // so a date update does not reshuffle the three existing cards.
+    const source = Array.isArray(window.FREIRAUM_OPINIONS) ? window.FREIRAUM_OPINIONS : [];
+    const opinions = source
+      .filter((opinion) => {
+        if (!opinion || opinion.published === false || !opinion.date || !opinion.title) return false;
+        return OPINION_FORMATS.has(String(opinion.format || "").toLowerCase());
+      })
+      .slice(0, OPINION_COUNT);
     if (!opinions.length) {
       root.innerHTML = "";
       return;
