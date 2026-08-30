@@ -1216,8 +1216,6 @@
     const navToggle = document.querySelector(".nav-toggle");
     const siteNav = document.querySelector("#site-nav");
     const yearNode = document.querySelector("[data-year]");
-    const newsletterForm = document.querySelector(".newsletter-form");
-    const newsletterNote = document.querySelector(".newsletter-note");
 
     if (yearNode) {
       yearNode.textContent = String(new Date().getFullYear());
@@ -1237,23 +1235,6 @@
           navToggle.setAttribute("aria-label", "Menü öffnen");
           siteNav.classList.remove("is-open");
         });
-      });
-    }
-
-    if (newsletterForm && newsletterNote) {
-      newsletterForm.addEventListener("submit", (event) => {
-        event.preventDefault();
-        const data = new FormData(newsletterForm);
-        const email = String(data.get("email") || "").trim();
-
-        if (!email) {
-          newsletterNote.textContent = "Bitte eine E-Mail-Adresse eingeben.";
-          return;
-        }
-
-        newsletterNote.textContent =
-          "Vielen Dank – der Newsletter ist vorbereitet, die Anmeldung folgt später.";
-        newsletterForm.reset();
       });
     }
 
@@ -1278,7 +1259,7 @@
   const initReveal = () => {
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const revealNodes = document.querySelectorAll(
-      ".featured, .latest, .topics, .experiences, .debates, .split-band"
+      ".featured, .latest, .topics, .experiences, .debates, .most-read"
     );
 
     if (reduceMotion) {

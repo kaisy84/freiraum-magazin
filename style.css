@@ -1691,18 +1691,10 @@ main {
   font-size: 0.98rem;
 }
 
-/* ----- Split: most-read + newsletter ----- */
+/* ----- Meistgelesen ----- */
 
-.split-band {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: clamp(2rem, 4vw, 3.5rem);
-  padding: var(--section-space) 0;
+.most-read {
   border-top: 1px solid var(--line);
-}
-
-.split-band .section {
-  padding: 0;
 }
 
 .most-read-list {
@@ -1738,69 +1730,6 @@ main {
   font-family: var(--font-serif);
   font-size: 1.12rem;
   line-height: 1.35;
-}
-
-.newsletter {
-  padding: 1.6rem 1.5rem 1.7rem;
-  border: 1px solid var(--line-strong);
-  background: var(--bg-elevated);
-  align-self: start;
-}
-
-.newsletter .section-title {
-  margin-bottom: 0.85rem;
-}
-
-.newsletter-text {
-  color: var(--ink-soft);
-  margin-bottom: 1.25rem;
-  max-width: 28rem;
-}
-
-.newsletter-form {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 0.5rem;
-}
-
-.newsletter-form input {
-  width: 100%;
-  min-width: 0;
-  padding: 0.75rem 0.85rem;
-  border: 1px solid var(--line-strong);
-  background: var(--white);
-  color: var(--ink);
-}
-
-.newsletter-form input::placeholder {
-  color: var(--muted);
-}
-
-.newsletter-form button {
-  padding: 0.75rem 1.15rem;
-  border: 1px solid var(--green);
-  background: var(--green);
-  color: var(--white);
-  cursor: pointer;
-  font-weight: 600;
-  transition: background 0.2s ease;
-}
-
-.newsletter-form button:hover {
-  background: var(--green-deep);
-}
-
-.newsletter-note {
-  min-height: 1.25rem;
-  margin-top: 0.75rem;
-  font-size: 0.9rem;
-  color: var(--green);
-}
-
-.newsletter-disclaimer {
-  margin-top: 0.35rem;
-  font-size: 0.82rem;
-  color: var(--muted);
 }
 
 /* ----- Footer ----- */
@@ -1905,7 +1834,6 @@ main {
   }
 
   .experiences-layout,
-  .split-band,
   .footer-inner {
     grid-template-columns: 1fr;
   }
@@ -1985,10 +1913,6 @@ main {
     grid-template-columns: 1fr;
   }
 
-  .newsletter-form {
-    grid-template-columns: 1fr;
-  }
-
   .footer-nav ul {
     grid-template-columns: 1fr;
   }
@@ -2018,8 +1942,7 @@ main {
   .nav-list .nav-search::after,
   .nav-list .nav-dropdown-toggle::after,
   .nav-toggle-bar,
-  .text-button,
-  .newsletter-form button {
+  .text-button {
     transition: none;
   }
 }
