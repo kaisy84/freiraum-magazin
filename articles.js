@@ -290,7 +290,7 @@ window.FREIRAUM_ARTICLES = [
     imageTone: "sage",
     topics: ["Schule & Bildung", "Lernen & Entwicklung"],
     tags: ["LRS", "ADHS", "Neurodivergenz"],
-    published: true
+    published: false
   },
   {
     id: "bildungsgerechtigkeit-nachhilfe",
@@ -308,7 +308,7 @@ window.FREIRAUM_ARTICLES = [
     imageTone: "sand",
     topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
     tags: ["Bildungspolitik"],
-    published: true
+    published: false
   },
   {
     id: "soziale-vergleiche-jahrgang",
@@ -326,7 +326,7 @@ window.FREIRAUM_ARTICLES = [
     imageTone: "default",
     topics: ["Gesellschaft & Sozialpsychologie", "Lernen & Entwicklung"],
     tags: ["soziale Vergleiche", "Jahrgangsklassen"],
-    published: true
+    published: false
   },
   {
     id: "altersmischung-jahrgang",
@@ -344,7 +344,7 @@ window.FREIRAUM_ARTICLES = [
     imageTone: "alt",
     topics: ["Lernen & Entwicklung", "Schule & Bildung"],
     tags: ["Jahrgangsklassen"],
-    published: true
+    published: false
   },
   {
     id: "digitalisierung-schule",
@@ -362,6 +362,6 @@ window.FREIRAUM_ARTICLES = [
     imageTone: "sage",
     topics: ["Schule & Bildung"],
     tags: ["Bildungspolitik"],
-    published: true
+    published: false
   }
 ];
