@@ -1,6 +1,6 @@
 (() => {
   const FEATURED_COUNT = 2;
-  const LATEST_COUNT = 9;
+  const LATEST_COUNT = 6;
   const OPINION_COUNT = 3;
   const OPINION_FORMATS = new Set(["kommentar", "essay", "gastbeitrag", "position"]);
   const SITE_ORIGIN = "https://magazin-freiraum.de";
@@ -325,7 +325,7 @@
    * Kaskade der Startseite:
    * [0] großer Aufmacher
    * [1–2] Bereich direkt darunter
-   * [3+] „Neu erschienen“ (weiterhin chronologisch, neueste zuerst)
+   * [3+] „Neu erschienen“ (LATEST_COUNT Karten, chronologisch, neueste zuerst)
    */
   const splitHomepageArticles = (articles) => ({
     lead: articles[0] || null,
