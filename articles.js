@@ -104,7 +104,7 @@ window.FREIRAUM_ARTICLES = [
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-08-24",
-    dateModified: null,
+    dateModified: "2026-09-05",
     href: "artikel/bildung-am-fliessband.html",
     image: "assets/images/bildung-am-fliessband.jpg",
     imageAlt: "Kinder sitzen in Reihen an ihren Tischen in einem Klassenzimmer",
