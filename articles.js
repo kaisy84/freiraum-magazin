@@ -95,8 +95,8 @@ window.FREIRAUM_ARTICLES = [
   },
   {
     id: "bildung-am-fliessband",
-    title: "Bildung am Fließband – warum Schule noch immer auf Gleichschritt setzt",
-    seoTitle: "Bildung am Fließband – warum Schule noch immer auf Gleichschritt setzt | FREIRAUM",
+    title: "Der Gleichschritt-Mythos: Warum Schule so tut, als würden alle Kinder gleich schnell lernen",
+    seoTitle: "Der Gleichschritt-Mythos: Warum Schule so tut, als würden alle Kinder gleich schnell lernen | FREIRAUM",
     seoDescription:
       "Wenn diese Unterschiede jeden Tag vor unseren Augen passieren – warum halten wir dann an einer Schulorganisation fest, die so tut, als ließen sie sich einfach synchronisieren wie eine Bahnhofsuhr?",
     teaser:
