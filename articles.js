@@ -83,7 +83,7 @@ window.FREIRAUM_ARTICLES = [
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-08-30",
-    dateModified: null,
+    dateModified: "2026-09-05",
     href: "artikel/mit-zehn-jahren-getrennt-bildungswege-deutschland.html",
     image: "assets/images/mit-zehn-jahren-getrennt-bildungswege-deutschland.jpg",
     imageAlt: "Schultafel mit der Frage ‚Wie geht es weiter?‘ und den Schulformen Hauptschule, Gesamtschule und Gymnasium",
