@@ -98,9 +98,9 @@ window.FREIRAUM_ARTICLES = [
     title: "Bildung am Fließband – warum Schule noch immer auf Gleichschritt setzt",
     seoTitle: "Bildung am Fließband – warum Schule noch immer auf Gleichschritt setzt | FREIRAUM",
     seoDescription:
-      "Kinder lernen unterschiedlich – jeden Tag sichtbar im Klassenzimmer. Weshalb hält Schule trotzdem am Gleichschritt von Jahrgang, Stunde und Lehrplan fest?",
+      "Wenn diese Unterschiede jeden Tag vor unseren Augen passieren – warum halten wir dann an einer Schulorganisation fest, die so tut, als ließen sie sich einfach synchronisieren wie eine Bahnhofsuhr?",
     teaser:
-      "Kinder lernen unterschiedlich – jeden Tag sichtbar im Klassenzimmer. Weshalb hält Schule trotzdem am Gleichschritt von Jahrgang, Stunde und Lehrplan fest?",
+      "Wenn diese Unterschiede jeden Tag vor unseren Augen passieren – warum halten wir dann an einer Schulorganisation fest, die so tut, als ließen sie sich einfach synchronisieren wie eine Bahnhofsuhr?",
     label: "Analyse",
     author: "Redaktion FREIRAUM",
     date: "2026-08-24",
