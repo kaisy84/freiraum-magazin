@@ -86,7 +86,7 @@ window.FREIRAUM_ARTICLES = [
     dateModified: null,
     href: "artikel/pisa-2025.html",
     image: "assets/images/pisa-2025.jpg",
-    imageAlt: "Blick von hinten auf Schülerinnen und Schüler in einem Klassenzimmer, vorne steht eine Lehrkraft an der Tafel",
+    imageAlt: "Grafik mit dem Text „PISA 2025 – Der nächste Schock?“ auf einer beigen Wand mit Fenster- und Pflanzenschatten",
     imageCaption: "",
     imageTone: "default",
     topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
