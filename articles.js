@@ -73,6 +73,27 @@ window.FREIRAUM_TOPICS = [
 
 window.FREIRAUM_ARTICLES = [
   {
+    id: "pisa-2025",
+    title: "PISA 2025: Vielleicht sitzt das Problem tiefer, als wir zugeben wollen",
+    seoTitle: "PISA 2025: Vielleicht sitzt das Problem tiefer, als wir zugeben wollen | FREIRAUM",
+    seoDescription:
+      "Deutschland rutscht bei PISA 2025 auf historische Tiefstwerte. Was, wenn nicht nur Stellschrauben klemmen – sondern die Art, wie wir Schule organisieren?",
+    teaser:
+      "Deutschland rutscht bei PISA auf historische Tiefstwerte. Nach über zwei Jahrzehnten drängt sich eine unbequemere Frage auf: Was, wenn nicht nur Stellschrauben klemmen – sondern die Art, wie wir Schule organisieren?",
+    label: "Analyse",
+    author: "Redaktion FREIRAUM",
+    date: "2026-09-18",
+    dateModified: null,
+    href: "artikel/pisa-2025.html",
+    image: "assets/images/pisa-2025.jpg",
+    imageAlt: "Blick von hinten auf Schülerinnen und Schüler in einem Klassenzimmer, vorne steht eine Lehrkraft an der Tafel",
+    imageCaption: "",
+    imageTone: "default",
+    topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
+    tags: ["PISA", "OECD", "Bildungspolitik", "soziale Ungleichheit", "Schulpflicht", "Diagnostik", "Schulabsentismus"],
+    published: true
+  },
+  {
     id: "mit-zehn-jahren-getrennt-bildungswege-deutschland",
     title: "Mit zehn Jahren getrennt – warum Deutschland so früh über Bildungswege entscheidet",
     seoTitle: "Mit zehn Jahren getrennt – warum Deutschland so früh über Bildungswege entscheidet | FREIRAUM",
