@@ -1077,8 +1077,8 @@ main {
   margin-bottom: 0;
 }
 
-/* Classic drop cap – first body paragraph only (article pages) */
-.article-body > p:first-of-type::first-letter {
+/* Classic drop cap – first body paragraph of article pages only */
+.article-page .article-body > p:first-of-type::first-letter {
   float: left;
   font-family: var(--font-serif);
   /* ~3 body lines: line-height 1.65 × 3, adjusted for letter metrics */
@@ -1095,7 +1095,7 @@ main {
 }
 
 /* Keep following blocks from wrapping under a short opening paragraph */
-.article-body > p:first-of-type::after {
+.article-page .article-body > p:first-of-type::after {
   content: "";
   display: table;
   clear: both;
@@ -1207,7 +1207,7 @@ main {
     line-height: 1.65;
   }
 
-  .article-body > p:first-of-type::first-letter {
+  .article-page .article-body > p:first-of-type::first-letter {
     /* ~2.3 body lines on small screens */
     font-size: 4.55em;
     line-height: 0.82;
