@@ -22,7 +22,7 @@ window.FREIRAUM_OPINIONS = [
     format: "Standpunkt",
     author: "Redaktion FREIRAUM",
     date: "2026-09-20",
-    dateModified: null,
+    dateModified: "2026-09-22",
     href: "artikel/der-unsichtbare-ismus.html",
     image: "assets/images/der-unsichtbare-ismus.jpg",
     imageAlt: "Zeichnung: Drei große erwachsene Figuren stehen auf einem erhöhten Podest, eine zeigt mit dem Arm nach rechts; darunter stehen drei kleine Kinderfiguren mit Rucksäcken.",
