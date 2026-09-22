@@ -13,7 +13,7 @@
     { id: "homeschooling-deutschland" },
     { id: "hausaufgaben-notwendigkeit" }
   ];
-  const OPINION_FORMATS = new Set(["kommentar", "essay", "gastbeitrag", "position"]);
+  const OPINION_FORMATS = new Set(["kommentar", "essay", "gastbeitrag", "position", "standpunkt"]);
   const SITE_ORIGIN = "https://magazin-freiraum.de";
   const siteRoot = document.body?.dataset?.siteRoot || "";
 

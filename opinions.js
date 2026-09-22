@@ -12,17 +12,24 @@
  */
 window.FREIRAUM_OPINIONS = [
   {
-    id: "bildungsversprechen-zeit",
-    title: "Was bleibt vom Bildungsversprechen, wenn Zeit zum Erwachsenwerden fehlt?",
+    id: "der-unsichtbare-ismus",
+    title: "Der unsichtbare -ismus: Wie Schule Kinder klein hält",
+    seoTitle: "Der unsichtbare -ismus: Wie Schule Kinder klein hält | FREIRAUM",
+    seoDescription:
+      "Rassismus, Sexismus – über diese Begriffe wird gesellschaftlich viel gestritten. Adultismus kennt dagegen kaum jemand. Dabei betrifft er eine der selbstverständlichsten Machtordnungen unseres Alltags: Erwachsene entscheiden, Kinder folgen.",
     teaser:
-      "Schule organisiert Kindheit in Takten. Eine längere Betrachtung über Tempo, Reife und den Preis von Beschleunigung.",
-    format: "Essay",
-    author: "Lea Hoffmann",
-    date: "2026-07-25",
-    readingMinutes: 24,
-    href: "#standpunkte",
+      "Rassismus, Sexismus – über diese Begriffe wird gesellschaftlich viel gestritten. Adultismus kennt dagegen kaum jemand. Dabei betrifft er eine der selbstverständlichsten Machtordnungen unseres Alltags: Erwachsene entscheiden, Kinder folgen.",
+    format: "Standpunkt",
+    author: "Redaktion FREIRAUM",
+    date: "2026-09-20",
+    dateModified: null,
+    href: "artikel/der-unsichtbare-ismus.html",
+    image: "assets/images/der-unsichtbare-ismus.jpg",
+    imageAlt: "Zeichnung: Drei große erwachsene Figuren stehen auf einem erhöhten Podest, eine zeigt mit dem Arm nach rechts; darunter stehen drei kleine Kinderfiguren mit Rucksäcken.",
+    imageCaption: "",
+    imageTone: "default",
     topics: ["Schule & Bildung", "Kindheit & Familie"],
-    tags: ["Leistungsdruck", "Bildungspolitik"],
+    tags: ["Bildungspolitik"],
     published: true
   },
   {
