@@ -73,6 +73,27 @@ window.FREIRAUM_TOPICS = [
 
 window.FREIRAUM_ARTICLES = [
   {
+    id: "wir-mussten-da-auch-durch",
+    title: "„Wir mussten da auch durch.“ – Wenn die eigene Vergangenheit zum Argument gegen Veränderung wird",
+    seoTitle: "„Wir mussten da auch durch.“ – Wenn die eigene Vergangenheit zum Argument gegen Veränderung wird | FREIRAUM",
+    seoDescription:
+      "Nur sagt die Tatsache, dass jemand bestimmte Bedingungen ausgehalten hat, wenig darüber aus, ob diese Bedingungen notwendig, sinnvoll oder gerecht waren.",
+    teaser:
+      "Nur sagt die Tatsache, dass jemand bestimmte Bedingungen ausgehalten hat, wenig darüber aus, ob diese Bedingungen notwendig, sinnvoll oder gerecht waren. Warum werden persönliche Erfahrungen dann so häufig zum Argument gegen Veränderungen?",
+    label: "Essay",
+    author: "Redaktion FREIRAUM",
+    date: "2026-11-07",
+    dateModified: null,
+    href: "artikel/wir-mussten-da-auch-durch.html",
+    image: "assets/images/wir-mussten-da-auch-durch.jpg",
+    imageAlt: "Illustration: Smartphones, Laptops und blaue Kreise mit den Zeichen von Facebook, Instagram, Twitter und LinkedIn, durch Linien miteinander verbunden",
+    imageCaption: "",
+    imageTone: "default",
+    topics: ["Schule & Bildung", "Gesellschaft & Sozialpsychologie"],
+    tags: ["Bildungspolitik"],
+    published: true
+  },
+  {
     id: "pisa-2025",
     title: "PISA 2025: Vielleicht sitzt das Problem tiefer, als wir zugeben wollen",
     seoTitle: "PISA 2025: Vielleicht sitzt das Problem tiefer, als wir zugeben wollen | FREIRAUM",
